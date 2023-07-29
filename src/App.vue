@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import HelloWorld from "./components/HelloWorld.vue";
-import Welcome from "./components/Welcome.vue";
 </script>
 
 <template>
@@ -12,14 +11,12 @@ import Welcome from "./components/Welcome.vue";
       width="125"
       height="125"
     />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
   </header>
 
   <main>
-    <Welcome />
+    <div class="wrapper">
+      <HelloWorld msg="You did it!" />
+    </div>
   </main>
 </template>
 
