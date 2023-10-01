@@ -41,13 +41,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile && pnpm run build
 
-      - uses: cschleiden/replace-tokens@v1
-        with:
-          files: '[".env.test"]'
-          tokenPrefix: '{'
-          tokenSuffix: '}'
+      - uses: falnyr/replace-env-vars-action@master
+        name: Replace token
         env:
-          APIKEY:  ${{ secrets.VITE_APIKEY }}
+          APIKEY: ${{secrets.VITE_APIKEY}}
+        with:
+          filename: .env.test
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
