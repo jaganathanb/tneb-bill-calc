@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import { useAuthStore, useAlertStore } from '@/stores';
+import { useAlertStore, useAuthStore } from '@/stores';
 import { Home } from '@/views';
 import accountRoutes from './account.routes';
 import usersRoutes from './users.routes';
@@ -28,7 +28,7 @@ router.beforeEach(async (to) => {
     const authStore = useAuthStore();
 
     if (authRequired && !authStore.user) {
-        authStore.returnUrl = to.fullPath;
+      //  authStore.returnUrl = to.fullPath;
         return '/account/login';
     }
 });

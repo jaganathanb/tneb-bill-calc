@@ -1,7 +1,14 @@
 <script setup>
+import { router } from '@/router';
 import { useAuthStore } from '@/stores';
 
 const authStore = useAuthStore();
+
+const signOut = async () => {
+    await authStore.signOut();
+    await router.push('/account/login');
+}
+
 </script>
 
 <template>
@@ -9,7 +16,7 @@ const authStore = useAuthStore();
         <div class="navbar-nav">
             <RouterLink to="/" class="nav-item nav-link">Home</RouterLink>
             <RouterLink to="/users" class="nav-item nav-link">Users</RouterLink>
-            <button @click="authStore.logout()" class="btn btn-link nav-item nav-link">Logout</button>
+            <button @click="signOut()" class="btn btn-link nav-item nav-link">Logout</button>
         </div>
     </nav>
 </template>
