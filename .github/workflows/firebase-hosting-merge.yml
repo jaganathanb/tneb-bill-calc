@@ -41,11 +41,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile && pnpm run build
 
-      - uses: cschleiden/replace-tokens@v1
+      - name: Setting up env vars
+        uses: BlobDevelopment/copy-and-replace-tokens@v1
         with:
-          tokenPrefix: '${Deploy:'
-          tokenSuffix: '}'
-          files: '[".env.production"]'
+          source: '.env.production'
+          target: '.env'
+        env:
+          VITE_APIKEY:  ${{ secrets.MYSQL_USER }}
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
