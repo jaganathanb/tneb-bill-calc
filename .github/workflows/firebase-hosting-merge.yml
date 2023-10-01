@@ -38,15 +38,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile && pnpm run build
-
       - uses: falnyr/replace-env-vars-action@master
         name: Replace token
         env:
-          APIKEY: ${{secrets.VITE_APIKEY}}
+          APIKEY: ${{ secrets.VITE_APIKEY }}
         with:
           filename: .env
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile && pnpm run build
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
