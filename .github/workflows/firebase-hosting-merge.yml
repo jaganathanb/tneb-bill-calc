@@ -40,6 +40,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile && pnpm run build
 
+      - uses: cschleiden/replace-tokens@v1
+        with:
+          tokenPrefix: '${Deploy:'
+          tokenSuffix: '}'
+          files: '[".env.production"]'
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
