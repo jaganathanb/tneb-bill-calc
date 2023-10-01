@@ -47,7 +47,7 @@ jobs:
           source: '.env.test'
           target: '.env'
         env:
-          VITE_APIKEY:  ${{ secrets.VITE_APIKEY }}
+          APIKEY:  ${{ secrets.VITE_APIKEY }}
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
