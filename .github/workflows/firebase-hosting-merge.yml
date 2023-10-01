@@ -44,6 +44,8 @@ jobs:
       - uses: cschleiden/replace-tokens@v1
         with:
           files: '[".env.test"]'
+          tokenPrefix: '{'
+          tokenSuffix: '}'
         env:
           APIKEY:  ${{ secrets.VITE_APIKEY }}
 
