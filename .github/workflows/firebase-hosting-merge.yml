@@ -44,10 +44,10 @@ jobs:
       - name: Setting up env vars
         uses: BlobDevelopment/copy-and-replace-tokens@v1
         with:
-          source: '.env.production'
+          source: '.env.test'
           target: '.env'
         env:
-          VITE_APIKEY:  ${{ secrets.MYSQL_USER }}
+          VITE_APIKEY:  ${{ secrets.VITE_APIKEY }}
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
