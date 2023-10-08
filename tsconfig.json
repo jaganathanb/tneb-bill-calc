@@ -4,18 +4,23 @@
     "env.d.ts",
     "src/**/*",
     "src/**/*.vue",
-    ".eslintrc.cjs",
+    ".eslintrc.js",
     "vite.config.ts"
   ],
+  "vueCompilerOptions": {
+    "strictTemplates": true
+  },
   "compilerOptions": {
     "noEmit": true,
     "allowJs": true,
     "baseUrl": ".",
+    "strict": true,
     "paths": {
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "types": ["./node_modules/element-plus/global.d.ts"]
   },
   "references": [
     {
