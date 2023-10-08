@@ -1,9 +1,12 @@
-.app-container {
-    min-height: 350px;
+html, body {
+    height: 100%;
+    width: 100%;
 }
 
-.btn-delete-user {
-    width: 40px;
-    text-align: center;
-    box-sizing: content-box;
+#app {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    height: 100%;
 }

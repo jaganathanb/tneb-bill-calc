@@ -1,46 +1,100 @@
-<script setup>
-import { router } from '@/router';
-import { useAuthStore } from '@/stores';
-import { Field, Form } from 'vee-validate';
-import * as Yup from 'yup';
+<script lang="ts" setup>
+import { router } from '@/router'
+import { useAuthStore, useAlertStore } from '@/stores'
+import { ref } from 'vue'
+import type { FormInstance, FormRules } from 'element-plus'
 
-const schema = Yup.object().shape({
-    email: Yup.string().required('Email is required'),
-    password: Yup.string().required('Password is required')
-});
+const loginForm = ref({
+  email: '',
+  password: ''
+})
 
-async function onSubmit(values) {
-    const authStore = useAuthStore();
-    await authStore.signIn(values);
+const loginFormRef = ref<FormInstance>()
 
-    await router.push('/');
+const loginRules: FormRules = {
+  email: [
+    {
+      required: true,
+      message: 'Please enter your username',
+      pattern: /.+@.+\..+/,
+      trigger: 'blur'
+    }
+  ],
+  password: [
+    { required: true, message: 'Please enter your password', trigger: 'blur' }
+  ]
+}
+
+const loginError = ref(false)
+
+const submitForm = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  const res = await formEl.validate()
+
+  const authStore = useAuthStore()
+  const alertStore = useAlertStore()
+
+  if (res) {
+    try {
+      await authStore.signIn(loginForm.value)
+
+      await router.push('/')
+    } catch (error) {
+      alertStore.error('Please check your credentials and try again.')
+    }
+  }
+}
+
+const resetForm = (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  formEl.resetFields()
 }
 </script>
 
 <template>
-    <div class="card m-3">
-        <h4 class="card-header">Login</h4>
-        <div class="card-body">
-            <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors, isSubmitting }">
-                <div class="form-group">
-                    <label>Email</label>
-                    <Field name="email" type="text" class="form-control" :class="{ 'is-invalid': errors.email }" />
-                    <div class="invalid-feedback">{{ errors.email }}</div>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <Field name="password" type="password" class="form-control"
-                        :class="{ 'is-invalid': errors.password }" />
-                    <div class="invalid-feedback">{{ errors.password }}</div>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-primary" :disabled="isSubmitting">
-                        <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
-                        Login
-                    </button>
-                    <router-link to="register" class="btn btn-link">Register</router-link>
-                </div>
-            </Form>
-        </div>
-    </div>
+  <ElSpace alignment="center" direction="vertical" fill>
+    <ElCard header="Sign in">
+      <el-form
+        ref="loginFormRef"
+        :model="loginForm"
+        :rules="loginRules"
+        label-position="top"
+        label-width="auto"
+        hide-required-asterisk
+      >
+        <el-form-item label="Email" prop="email">
+          <el-input v-model="loginForm.email" type="text" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="Password" prop="password">
+          <el-input
+            v-model="loginForm.password"
+            type="password"
+            autocomplete="off"
+          />
+        </el-form-item>
+        <ElSpace class="actions">
+          <el-button type="primary" @click="submitForm(loginFormRef)"
+            >Submit</el-button
+          >
+          <el-button @click="resetForm(loginFormRef)">Reset</el-button>
+        </ElSpace>
+        <ElSpace class="links">
+          <ElLink href="/auth/register">Sign up</ElLink>
+        </ElSpace>
+      </el-form>
+    </ElCard>
+  </ElSpace>
 </template>
+
+<style lang="scss">
+.actions,
+.links {
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 18px;
+}
+
+.links {
+  justify-content: center;
+}
+</style>

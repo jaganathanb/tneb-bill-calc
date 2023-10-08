@@ -1,34 +1,61 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router'
 
-import { useAlertStore, useAuthStore } from '@/stores';
-import { Home } from '@/views';
-import accountRoutes from './account.routes';
-import usersRoutes from './users.routes';
+import { useAlertStore, useAuthStore } from '@/stores'
 
 export const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
-    linkActiveClass: 'active',
-    routes: [
-        { path: '/', component: Home },
-        { ...accountRoutes },
-        { ...usersRoutes },
-        // catch all redirect to home page
-        { path: '/:pathMatch(.*)*', redirect: '/' }
-    ]
-});
-
-router.beforeEach(async (to) => {
-    // clear alert on route change
-    const alertStore = useAlertStore();
-    alertStore.clear();
-
-    // redirect to login page if not logged in and trying to access a restricted page
-    const publicPages = ['/account/login', '/account/register'];
-    const authRequired = !publicPages.includes(to.path);
-    const authStore = useAuthStore();
-
-    if (authRequired && !authStore.user) {
-      //  authStore.returnUrl = to.fullPath;
-        return '/account/login';
+  history: createWebHistory(import.meta.env.BASE_URL),
+  linkActiveClass: 'active',
+  routes: [
+    {
+      path: '/',
+      component: () => import('../views/Layout.vue'),
+      children: [
+        {
+          path: '',
+          alias: 'users',
+          component: () => import('../views/users/List.vue')
+        }
+      ],
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/auth',
+      component: () => import('../views/account/Layout.vue'),
+      children: [
+        {
+          path: '',
+          redirect: 'auth/login'
+        },
+        {
+          path: 'login',
+          component: () => import('../views/account/Login.vue')
+        },
+        {
+          path: 'register',
+          component: () => import('../views/account/Register.vue')
+        }
+      ]
     }
-});
+  ]
+})
+
+router.beforeEach(async (to, _from, next) => {
+  // clear alert on route change
+  const alertStore = useAlertStore()
+  alertStore.clear()
+
+  const authStore = useAuthStore()
+
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!authStore.isAuthenticated) {
+      next({
+        path: '/auth/login',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})

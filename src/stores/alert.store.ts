@@ -1,26 +1,25 @@
-import { defineStore } from 'pinia';
-
-export type AppAlert = {
-    message: string | null;
-    type: AppAlertType
-}
-
-export type AppAlertType = 'alert-success' | 'alert-danger';
+import type { AlertProps } from 'element-plus'
+import { defineStore } from 'pinia'
 
 export const useAlertStore = defineStore({
-    id: 'alert',
-    state: () => ({
-        alert: null
-    } as { alert: AppAlert | null}),
-    actions: {
-        success(message: string) {
-            this.alert = { message, type: 'alert-success' };
-        },
-        error(message: string) {
-            this.alert = { message, type: 'alert-danger' };
-        },
-        clear() {
-            this.alert = null;
-        }
+  id: 'alert',
+  state: () =>
+    ({
+      alert: null
+    }) as { alert: AlertProps | null },
+  actions: {
+    success(description: string) {
+      this.alert = {
+        description,
+        type: 'success',
+        title: 'Success'
+      } as AlertProps
+    },
+    error(description: string) {
+      this.alert = { description, type: 'error', title: 'Error' } as AlertProps
+    },
+    clear() {
+      this.alert = null
     }
-});
+  }
+})

@@ -1,9 +1,9 @@
+<script lang="ts" setup>
+import { Alert } from '@/components'
+</script>
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-8 offset-sm-2 mt-5">
-                <router-view></router-view>
-            </div>
-        </div>
-    </div>
+  <ElSpace direction="vertical">
+    <Alert style="align-self: flex-start" />
+    <router-view />
+  </ElSpace>
 </template>
