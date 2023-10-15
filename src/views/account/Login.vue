@@ -25,8 +25,6 @@ const loginRules: FormRules = {
   ]
 }
 
-const loginError = ref(false)
-
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   const res = await formEl.validate()

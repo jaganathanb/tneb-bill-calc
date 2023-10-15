@@ -2,8 +2,14 @@
 import { Alert } from '@/components'
 </script>
 <template>
-  <ElSpace direction="vertical">
-    <Alert style="align-self: flex-start" />
-    <router-view />
-  </ElSpace>
+  <ElRow align="top" justify="center" style="height: 100%">
+    <ElCol>
+      <Alert />
+    </ElCol>
+    <ElRow align="middle">
+      <ElCol>
+        <router-view />
+      </ElCol>
+    </ElRow>
+  </ElRow>
 </template>

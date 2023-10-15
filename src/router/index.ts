@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import { useAlertStore, useAuthStore } from '@/stores'
+import { getCurrentUser } from 'vuefire'
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,7 +13,14 @@ export const router = createRouter({
       children: [
         {
           path: '',
-          alias: 'users',
+          redirect: '/home'
+        },
+        {
+          path: 'home',
+          component: () => import('../views/Home.vue')
+        },
+        {
+          path: 'users',
           component: () => import('../views/users/List.vue')
         }
       ],
@@ -42,12 +50,14 @@ export const router = createRouter({
 router.beforeEach(async (to, _from, next) => {
   // clear alert on route change
   const alertStore = useAlertStore()
+
   alertStore.clear()
 
   const authStore = useAuthStore()
+  const currentUser = await getCurrentUser()
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!authStore.isAuthenticated) {
+    if (!currentUser) {
       next({
         path: '/auth/login',
         query: { redirect: to.fullPath }

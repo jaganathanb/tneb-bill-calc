@@ -1,11 +1,16 @@
+import { router } from '@/router'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  type UserCredential
+  indexedDBLocalPersistence,
+  setPersistence,
+  type UserCredential,
+  type Unsubscribe,
+  type User
 } from 'firebase/auth'
 import { defineStore } from 'pinia'
 import { ref, type Ref } from 'vue'
-import { useFirebaseAuth } from 'vuefire'
+import { useCurrentUser, useFirebaseAuth } from 'vuefire'
 
 export type RegistrationForm = {
   firstName: string
@@ -28,12 +33,10 @@ interface AuthStore {
 export const useAuthStore = defineStore('auth-store', () => {
   const auth = useFirebaseAuth()! // only exists on client side
 
-  const user: Ref<UserCredential | null> = ref(null)
-  const isAuthenticated = ref(false)
-
   async function signIn({ email, password }: LoginForm) {
-    user.value = await signInWithEmailAndPassword(auth, email, password)
-    isAuthenticated.value = !!user.value
+    await setPersistence(auth, indexedDBLocalPersistence)
+
+    await signInWithEmailAndPassword(auth, email, password)
   }
 
   async function createUser({ email, password }: RegistrationForm) {
@@ -45,8 +48,6 @@ export const useAuthStore = defineStore('auth-store', () => {
   }
 
   return {
-    user,
-    isAuthenticated,
     signIn,
     createUser,
     signOut

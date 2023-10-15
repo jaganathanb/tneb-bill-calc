@@ -6,9 +6,7 @@ import { ElButton } from 'element-plus'
 const usersStore = useAuthStore()
 
 async function signOut() {
-  usersStore.$patch({
-    isAuthenticated: false
-  })
+  await usersStore.signOut()
 
   await router.push('/auth')
 }
