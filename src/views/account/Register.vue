@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { router } from '@/router'
-import { useAlertStore, useAuthStore, type RegistrationForm } from '@/stores'
+import { useFeedbackStore, useAuthStore, type RegistrationForm } from '@/stores'
 import { computed, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 
@@ -79,7 +79,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   const res = await formEl.validate()
   if (res) {
     const authStore = useAuthStore()
-    const alertStore = useAlertStore()
+    const alertStore = useFeedbackStore()
     try {
       await authStore.createUser({
         email: registerForm.value.email,

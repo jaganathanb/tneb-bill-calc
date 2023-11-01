@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import { useAlertStore, useAuthStore } from '@/stores'
+import { useFeedbackStore, useAuthStore } from '@/stores'
 import { getCurrentUser } from 'vuefire'
 
 export const router = createRouter({
@@ -49,9 +49,9 @@ export const router = createRouter({
 
 router.beforeEach(async (to, _from, next) => {
   // clear alert on route change
-  const alertStore = useAlertStore()
+  const alertStore = useFeedbackStore()
 
-  alertStore.clear()
+  alertStore.clearAlert()
 
   const authStore = useAuthStore()
   const currentUser = await getCurrentUser()

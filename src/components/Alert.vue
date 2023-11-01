@@ -1,10 +1,10 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 
-import { useAlertStore } from '@/stores'
+import { useFeedbackStore } from '@/stores'
 import { ElAlert } from 'element-plus'
 
-const alertStore = useAlertStore()
+const alertStore = useFeedbackStore()
 const { alert } = storeToRefs(alertStore)
 </script>
 

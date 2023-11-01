@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { router } from '@/router'
-import { useAuthStore, useAlertStore } from '@/stores'
+import { useAuthStore, useFeedbackStore } from '@/stores'
 import { ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 
@@ -30,7 +30,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   const res = await formEl.validate()
 
   const authStore = useAuthStore()
-  const alertStore = useAlertStore()
+  const alertStore = useFeedbackStore()
 
   if (res) {
     try {
