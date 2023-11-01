@@ -30,7 +30,7 @@ interface AuthStore {
   isAuthenticated: boolean
 }
 
-export const useAuthStore = defineStore('auth-store', () => {
+export const useAuthStore = defineStore('authStore', () => {
   const auth = useFirebaseAuth()! // only exists on client side
 
   async function signIn({ email, password }: LoginForm) {

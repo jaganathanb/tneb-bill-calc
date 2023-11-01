@@ -5,6 +5,9 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
+import Unocss from 'unocss/vite'
+import { presetAttributify, presetUno } from 'unocss'
+
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import ElementPlus from 'unplugin-element-plus/vite'
@@ -18,9 +21,12 @@ export default defineConfig({
     checker({
       vueTsc: true
     }),
+    Unocss({
+      presets: [presetAttributify(), presetUno()]
+    }),
     ElementPlus({}),
     AutoImport({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [ElementPlusResolver({ importStyle: 'css' })],
       dts: true
     }),
     Components({

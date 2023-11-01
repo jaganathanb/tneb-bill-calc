@@ -60,7 +60,7 @@ export const useBillsStore = defineStore('bills', () => {
 
   function deleteItemConfirm() {
     bills.value.splice(editedIndex.value, 1)
-    closeDelete()
+    void closeDelete()
   }
 
   async function close() {
@@ -83,7 +83,7 @@ export const useBillsStore = defineStore('bills', () => {
     } else {
       bills.value.push(editedItem.value)
     }
-    close()
+    void close()
   }
 
   return {

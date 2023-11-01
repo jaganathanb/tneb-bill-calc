@@ -53,7 +53,6 @@ router.beforeEach(async (to, _from, next) => {
 
   alertStore.clearAlert()
 
-  const authStore = useAuthStore()
   const currentUser = await getCurrentUser()
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
