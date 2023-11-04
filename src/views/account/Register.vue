@@ -104,59 +104,61 @@ const resetForm = (formEl: FormInstance | undefined) => {
 </script>
 
 <template>
-  <ElSpace alignment="center" direction="vertical" fill>
-    <ElCard header="Sign up">
-      <ElForm
-        ref="regForm"
-        :rules="registrationRules"
-        :model="registerForm"
-        label-position="top"
-        label-width="auto"
-        status-icon
-      >
-        <ElSpace class="username">
-          <ElFormItem label="First name" prop="firstName">
-            <ElInput v-model="registerForm.firstName" />
-          </ElFormItem>
-          <ElFormItem label="Last name" prop="lastName">
-            <ElInput v-model="registerForm.lastName" />
-          </ElFormItem>
-        </ElSpace>
-        <ElFormItem label="Email" prop="email">
-          <ElInput v-model="registerForm.email" />
-        </ElFormItem>
-        <ElSpace class="passwords">
-          <ElFormItem label="Password" prop="password" style="width: 100%">
-            <ElInput
-              v-model="registerForm.password"
-              type="password"
-              autocomplete="off"
-            />
-          </ElFormItem>
-          <ElFormItem
-            label="Confirm password"
-            prop="confirmPassword"
-            style="width: 100%"
-          >
-            <ElInput
-              v-model="registerForm.confirmPassword"
-              type="password"
-              autocomplete="off"
-            />
-          </ElFormItem>
-        </ElSpace>
-        <ElSpace class="actions">
-          <ElSpace class="link">
-            <ElLink href="/auth/login">Sign in</ElLink>
-          </ElSpace>
-          <ElButton @click="resetForm(regForm)">Reset</ElButton>
-          <ElButton type="primary" @click="submitForm(regForm)"
-            >Submit</ElButton
-          >
-        </ElSpace>
-      </ElForm>
-    </ElCard>
-  </ElSpace>
+  <el-container class="h-full w-full">
+    <el-row align="middle" class="w-full justify-center">
+      <el-card header="Sign up">
+        <el-form
+          ref="regForm"
+          :rules="registrationRules"
+          :model="registerForm"
+          label-position="top"
+          label-width="auto"
+          status-icon
+        >
+          <el-space class="username">
+            <el-form-item label="First name" prop="firstName">
+              <ElInput v-model="registerForm.firstName" />
+            </el-form-item>
+            <el-form-item label="Last name" prop="lastName">
+              <ElInput v-model="registerForm.lastName" />
+            </el-form-item>
+          </el-space>
+          <el-form-item label="Email" prop="email">
+            <ElInput v-model="registerForm.email" />
+          </el-form-item>
+          <el-space class="passwords">
+            <el-form-item label="Password" prop="password" style="width: 100%">
+              <ElInput
+                v-model="registerForm.password"
+                type="password"
+                autocomplete="off"
+              />
+            </el-form-item>
+            <el-form-item
+              label="Confirm password"
+              prop="confirmPassword"
+              style="width: 100%"
+            >
+              <ElInput
+                v-model="registerForm.confirmPassword"
+                type="password"
+                autocomplete="off"
+              />
+            </el-form-item>
+          </el-space>
+          <el-space class="actions">
+            <el-space class="link">
+              <el-link href="/auth/login">Sign in</el-link>
+            </el-space>
+            <el-button type="primary" @click="submitForm(regForm)"
+              >Submit</el-button
+            >
+            <el-button @click="resetForm(regForm)">Reset</el-button>
+          </el-space>
+        </el-form>
+      </el-card>
+    </el-row>
+  </el-container>
 </template>
 
 <style lang="scss">

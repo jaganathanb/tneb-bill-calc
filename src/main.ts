@@ -1,7 +1,7 @@
 import { connectAuthEmulator } from 'firebase/auth'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
-import { VueFire, VueFireAuth, useFirebaseAuth } from 'vuefire'
+import { VueFire, VueFireAuth, useFirebaseAuth, useFirestore } from 'vuefire'
 import App from './App.vue'
 import { firebaseInit } from './firebase.app'
 import { router } from './router'
@@ -10,6 +10,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
 import 'uno.css'
+import { connectFirestoreEmulator } from 'firebase/firestore'
 
 const app = createApp(App)
 
@@ -23,6 +24,7 @@ app.use(VueFire, {
 
 if (location.hostname === 'localhost') {
   connectAuthEmulator(useFirebaseAuth()!, 'http://localhost:9099')
+  connectFirestoreEmulator(useFirestore(), 'localhost', 8080)
 }
 
 app.mount('#app')

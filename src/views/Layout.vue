@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import SideBar from '@/components/SideBar.vue'
 import TopBar from '@/components/TopBar.vue'
+import { DArrowRight } from '@element-plus/icons-vue'
 </script>
 
 <template>
@@ -8,9 +9,11 @@ import TopBar from '@/components/TopBar.vue'
     <el-header style="padding: 0">
       <TopBar />
     </el-header>
-    <el-container>
+    <el-container class="h-full">
       <el-aside class="side-bar">
-        <SideBar class="w-full h-full" />
+        <el-container class="h-full">
+          <SideBar class="h-full" />
+        </el-container>
       </el-aside>
       <el-main><router-view /></el-main>
     </el-container>

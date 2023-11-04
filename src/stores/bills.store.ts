@@ -1,105 +1,57 @@
-import { defineStore } from 'pinia'
+import { addDoc, collection, type DocumentData } from 'firebase/firestore'
+import { acceptHMRUpdate, defineStore } from 'pinia'
+import { ref } from 'vue'
+import type { Ref } from 'vue'
+import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 
-import {} from 'firebase/auth'
-import { computed, nextTick, ref } from 'vue'
-
-export type Bill = {
-  name: string
-  calories: number
-  fat: number
-  carbs: number
-  protein: number
+interface Bill {
+  id: string
+  amount: number
+  units: number
+  startDate: string
+  endDate: string
+  dateRange: string
 }
 
 export const useBillsStore = defineStore('bills', () => {
-  const headers = [
-    { text: 'Id', value: 'id' },
-    { text: 'Name', value: 'Name' },
-    { text: 'Details', value: 'details', sortable: false, width: '100' },
-    { text: 'URL', value: 'url', name: 'url', width: '180' },
-    { text: 'Action', value: 'actions', sortable: false }
-  ]
+  const bills: Ref<Bill[]> = ref<Bill[]>([])
 
-  const editedItem = ref({
-    name: '',
-    calories: 0,
-    fat: 0,
-    carbs: 0,
-    protein: 0
-  } as Bill)
+  const db = useFirestore()
+  const user = useCurrentUser()
 
-  const defaultItem = ref({
-    name: '',
-    calories: 0,
-    fat: 0,
-    carbs: 0,
-    protein: 0
-  } as Bill)
-
-  const editedIndex = ref(-1)
-
-  const dialog = ref(false)
-  const dialogDelete = ref(false)
-  const bills = ref([] as Bill[])
-
-  const formTitle = computed(() =>
-    editedIndex.value === -1 ? 'New Item' : 'Edit Item'
-  )
-
-  function editItem(item: Bill) {
-    editedIndex.value = bills.value.indexOf(item)
-    editedItem.value = { ...item }
-    dialog.value = true
-  }
-
-  function deleteItem(item: Bill) {
-    editedIndex.value = bills.value.indexOf(item)
-    editedItem.value = { ...item }
-    dialogDelete.value = true
-  }
-
-  function deleteItemConfirm() {
-    bills.value.splice(editedIndex.value, 1)
-    void closeDelete()
-  }
-
-  async function close() {
-    dialog.value = false
-    await nextTick()
-    editedItem.value = { ...defaultItem.value }
-    editedIndex.value = -1
-  }
-
-  async function closeDelete() {
-    dialogDelete.value = false
-    await nextTick()
-    editedItem.value = { ...defaultItem.value }
-    editedIndex.value = -1
-  }
-
-  function save() {
-    if (editedIndex.value > -1) {
-      Object.assign(bills.value[editedIndex.value], editedItem)
-    } else {
-      bills.value.push(editedItem.value)
+  const billsRef = collection(
+    db,
+    `tneb/${user.value?.uid}/bills`
+  ).withConverter<Bill, DocumentData>({
+    toFirestore(n) {
+      return n
+    },
+    fromFirestore(snapshot) {
+      const bill = snapshot.data() as Bill
+      return {
+        ...bill,
+        dateRange: `${bill.startDate}-${bill.endDate}`
+      }
     }
-    void close()
+  })
+
+  useCollection(billsRef, {
+    target: bills
+  })
+
+  const addBill = async () => {
+    await addDoc(billsRef, {
+      id: (Math.random() * 1000).toString(16),
+      amount: 100,
+      units: 10,
+      endDate: '2023-11-15T10:10:00',
+      startDate: '2023-09-15T10:10:00'
+    } as Bill)
   }
 
-  return {
-    headers,
-    bills,
-    close,
-    closeDelete,
-    defaultItem,
-    deleteItem,
-    deleteItemConfirm,
-    dialog,
-    dialogDelete,
-    editItem,
-    editedIndex,
-    editedItem,
-    formTitle,
-    save
-  }
+  return { bills, addBill }
 })
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useBillsStore, import.meta.hot))
+}

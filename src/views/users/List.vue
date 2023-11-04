@@ -1,19 +1,26 @@
 <script lang="ts" setup>
-import { useAuthStore } from '@/stores'
-import { router } from '@/router'
+import { useBillsStore } from '@/stores'
 import { ElButton } from 'element-plus'
+import { storeToRefs } from 'pinia'
 
-const usersStore = useAuthStore()
+const billStore = useBillsStore()
 
-async function signOut() {
-  await usersStore.signOut()
-
-  await router.push('/auth')
-}
+const { bills } = storeToRefs(billStore)
 </script>
 
 <template>
-  <h1>Want to log out?</h1>
+  <el-table :data="bills" style="width: 100%" border>
+    <el-table-column fixed prop="dateRange" label="Date range" width="150" />
+    <el-table-column prop="id" label="Bill id" width="120" />
+    <el-table-column prop="amount" label="Amount" width="120" />
+    <el-table-column prop="units" label="Units" width="120" />
+    <el-table-column fixed="right" label="" width="120">
+      <template #default>
+        <el-button link type="primary" size="small">Detail</el-button>
+        <el-button link type="primary" size="small">Edit</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
 
-  <ElButton @click="signOut">Sign out</ElButton>
+  <ElButton @click="billStore.addBill()">Add</ElButton>
 </template>

@@ -50,38 +50,44 @@ const resetForm = (formEl: FormInstance | undefined) => {
 </script>
 
 <template>
-  <ElSpace alignment="center" direction="vertical" fill>
-    <ElCard header="Sign in">
-      <el-form
-        ref="loginFormRef"
-        :model="loginForm"
-        :rules="loginRules"
-        label-position="top"
-        label-width="auto"
-        hide-required-asterisk
-      >
-        <el-form-item label="Email" prop="email">
-          <el-input v-model="loginForm.email" type="text" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="Password" prop="password">
-          <el-input
-            v-model="loginForm.password"
-            type="password"
-            autocomplete="off"
-          />
-        </el-form-item>
-        <ElSpace class="actions">
-          <el-button type="primary" @click="submitForm(loginFormRef)"
-            >Submit</el-button
-          >
-          <el-button @click="resetForm(loginFormRef)">Reset</el-button>
-        </ElSpace>
-        <ElSpace class="links">
-          <ElLink href="/auth/register">Sign up</ElLink>
-        </ElSpace>
-      </el-form>
-    </ElCard>
-  </ElSpace>
+  <el-container class="h-full w-full">
+    <el-row align="middle" class="w-full justify-center">
+      <el-card header="Sign in">
+        <el-form
+          ref="loginFormRef"
+          :model="loginForm"
+          :rules="loginRules"
+          label-position="top"
+          label-width="auto"
+          hide-required-asterisk
+        >
+          <el-form-item label="Email" prop="email">
+            <el-input
+              v-model="loginForm.email"
+              type="text"
+              autocomplete="off"
+            />
+          </el-form-item>
+          <el-form-item label="Password" prop="password">
+            <el-input
+              v-model="loginForm.password"
+              type="password"
+              autocomplete="off"
+            />
+          </el-form-item>
+          <ElSpace class="actions">
+            <el-button type="primary" @click="submitForm(loginFormRef)"
+              >Submit</el-button
+            >
+            <el-button @click="resetForm(loginFormRef)">Reset</el-button>
+          </ElSpace>
+          <ElSpace class="links">
+            <ElLink href="/auth/register">Sign up</ElLink>
+          </ElSpace>
+        </el-form>
+      </el-card>
+    </el-row>
+  </el-container>
 </template>
 
 <style lang="scss">

@@ -13,20 +13,17 @@
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
-    "*.{js,ts,vue}": [
-      "eslint --fix"
+    "*.{ts,vue}": [
+      "eslint --ext .ts --ext .vue src"
     ]
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
     "@element-plus/icons-vue": "^2.1.0",
-    "@typescript-eslint/eslint-plugin": "^6.9.1",
-    "@typescript-eslint/parser": "^6.9.1",
     "@vueuse/core": "^10.5.0",
     "axios": "^1.6.0",
     "dayjs": "^1.11.10",
     "element-plus": "^2.4.1",
-    "eslint-define-config": "^1.24.1",
     "firebase": "^10.5.2",
     "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
@@ -45,6 +42,9 @@
     "@types/mockjs": "^1.0.9",
     "@types/node": "^20.8.10",
     "@types/nprogress": "^0.2.2",
+    "eslint-define-config": "^1.24.1",
+    "@typescript-eslint/eslint-plugin": "^6.9.1",
+    "@typescript-eslint/parser": "^6.9.1",
     "@unocss/preset-attributify": "^0.57.1",
     "@unocss/preset-uno": "^0.57.1",
     "@vitejs/plugin-vue": "^4.4.0",
@@ -65,6 +65,7 @@
     "unocss": "^0.57.1",
     "unplugin-auto-import": "^0.16.7",
     "unplugin-element-plus": "^0.8.0",
+    "unplugin-icons": "^0.17.3",
     "unplugin-vue-components": "^0.25.2",
     "vite": "^4.5.0",
     "vitest": "^0.34.6",
