@@ -1,8 +1,26 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.json",
-  "include": ["vite.config.*", "vitest.config.*", "cypress.config.*"],
+  "extends": ["@vue/tsconfig/tsconfig.dom.json"],
+  "vueCompilerOptions": {
+    "strictTemplates": true
+  },
   "compilerOptions": {
-    "composite": true,
-    "types": ["node"]
+    "target": "ES2022",
+    "module": "ES2022",
+    "strict": true,
+    "allowJs": false,
+    "checkJs": false,
+    "jsx": "preserve",
+    "declaration": true,
+    "removeComments": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "preserveConstEnums": true,
+    "outDir": "./out",
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "lib": ["ES2018", "DOM"]
   }
 }

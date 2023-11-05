@@ -8,7 +8,7 @@ import {
   useFirestore,
   VueFireAppCheck
 } from 'vuefire'
-import App from './App.vue'
+import App from './app.vue'
 import { firebaseInit } from './firebase.app'
 import { router } from './router'
 
@@ -24,13 +24,14 @@ const app = createApp(App)
 app.use(ElementPlus)
 app.use(createPinia())
 app.use(router)
+
 app.use(VueFire, {
   firebaseApp: firebaseInit(),
   modules: [
     VueFireAuth(),
     VueFireAppCheck({
-      debug: process.env.NODE_ENV !== 'production',
       isTokenAutoRefreshEnabled: true,
+      debug: import.meta.env.VITE_FIREBASE_APPCHECK_DEBUG_TOKEN,
       provider: new ReCaptchaV3Provider(import.meta.env.VITE_RECAPTCHAKEY)
     })
   ]

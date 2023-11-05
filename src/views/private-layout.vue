@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import SideBar from '@/components/SideBar.vue'
-import TopBar from '@/components/TopBar.vue'
-import { DArrowRight } from '@element-plus/icons-vue'
+import SideBar from '@/components/side-bar.vue'
+import TopBar from '@/components/top-bar.vue'
 </script>
 
 <template>

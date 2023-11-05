@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
-import { useFeedbackStore, useAuthStore } from '@/stores'
 import { getCurrentUser } from 'vuefire'
+
+import { useFeedbackStore } from '@/stores'
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,7 +9,7 @@ export const router = createRouter({
   routes: [
     {
       path: '/',
-      component: () => import('../views/Layout.vue'),
+      component: () => import('../views/private-layout.vue'),
       children: [
         {
           path: '',
@@ -17,18 +17,18 @@ export const router = createRouter({
         },
         {
           path: 'home',
-          component: () => import('../views/Home.vue')
+          component: () => import('../views/home.vue')
         },
         {
           path: 'users',
-          component: () => import('../views/users/List.vue')
+          component: () => import('../views/users/users.vue')
         }
       ],
       meta: { requiresAuth: true }
     },
     {
       path: '/auth',
-      component: () => import('../views/account/Layout.vue'),
+      component: () => import('../views/account/public-layout.vue'),
       children: [
         {
           path: '',
@@ -36,11 +36,11 @@ export const router = createRouter({
         },
         {
           path: 'login',
-          component: () => import('../views/account/Login.vue')
+          component: () => import('../views/account/login.vue')
         },
         {
           path: 'register',
-          component: () => import('../views/account/Register.vue')
+          component: () => import('../views/account/register.vue')
         }
       ]
     }
@@ -56,13 +56,13 @@ router.beforeEach(async (to, _from, next) => {
   const currentUser = await getCurrentUser()
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!currentUser) {
+    if (currentUser) {
+      next()
+    } else {
       next({
         path: '/auth/login',
         query: { redirect: to.fullPath }
       })
-    } else {
-      next()
     }
   } else {
     next()

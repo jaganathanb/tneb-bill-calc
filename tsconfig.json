@@ -1,31 +1,11 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": [
-    "env.d.ts",
-    "src/**/*",
-    "src/**/*.vue",
-    ".eslintrc.js",
-    "vite.config.ts"
-  ],
-  "vueCompilerOptions": {
-    "strictTemplates": true
-  },
+  "extends": "./tsconfig.config.json",
+  "include": ["env.d.ts", "src/**/*", "vite.config.ts"],
   "compilerOptions": {
-    "noEmit": true,
-    "allowJs": true,
-    "baseUrl": ".",
-    "isolatedModules": true,
-    "strict": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["src/*"]
     },
-    "types": ["./node_modules/element-plus/global.d.ts"]
+    "isolatedModules": true
   },
-  "references": [
-    {
-      "path": "./tsconfig.config.json"
-    }
-  ]
+  "exclude": ["node_modules", "**/dist", "out"]
 }

@@ -1,8 +1,21 @@
 <script lang="ts" setup>
 import { useDark, useToggle } from '@vueuse/core'
+import { useCurrentUser } from 'vuefire'
+
+import { router } from '@/router'
+import { useAuthStore } from '@/stores'
 
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
+
+const user = useCurrentUser()
+const authStore = useAuthStore()
+
+const signOut = async () => {
+  await authStore.signOut()
+
+  await router.push('/auth')
+}
 </script>
 
 <template>
@@ -15,7 +28,7 @@ const toggleDark = useToggle(isDark)
         TNEB
       </button>
     </el-menu-item>
-    <div class="flex-grow-1"></div>
+    <div class="flex-grow-1" />
     <el-menu-item @click="toggleDark()">
       <button
         class="border-none w-full bg-transparent cursor-pointer"
@@ -27,14 +40,37 @@ const toggleDark = useToggle(isDark)
     <el-menu-item>
       <el-popover placement="bottom" :width="300" trigger="click">
         <template #reference>
-          <el-avatar size="default" alt="JaganB" />
+          <el-avatar size="default" alt="JaganB" :icon="'account'" />
         </template>
-        <el-table>
-          <el-table-column width="150" property="date" label="date" />
-          <el-table-column width="100" property="name" label="name" />
-          <el-table-column width="300" property="address" label="address" />
-        </el-table>
+        <div class="box-card">
+          <div class="card-header">
+            <span>{{ user?.displayName }}</span>
+            <el-button class="button" text @click="signOut()"
+              >Sign out</el-button
+            >
+          </div>
+        </div>
       </el-popover>
     </el-menu-item>
   </el-menu>
 </template>
+
+<style>
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text {
+  font-size: 14px;
+}
+
+.item {
+  margin-bottom: 18px;
+}
+
+.box-card {
+  width: 100%;
+}
+</style>

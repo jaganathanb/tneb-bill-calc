@@ -1,7 +1,8 @@
 <script lang="ts" setup>
+import { getCurrentUser } from 'vuefire'
+
 import { router } from '@/router'
 import { useAuthStore } from '@/stores'
-import { getCurrentUser } from 'vuefire'
 
 const authStore = useAuthStore()
 
@@ -18,7 +19,7 @@ const signOut = async () => {
     <div class="navbar-nav">
       <RouterLink to="/" class="nav-item nav-link">Home</RouterLink>
       <RouterLink to="/users" class="nav-item nav-link">Users</RouterLink>
-      <button @click="signOut()" class="btn btn-link nav-item nav-link">
+      <button class="btn btn-link nav-item nav-link" @click="signOut()">
         Logout
       </button>
     </div>
