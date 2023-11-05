@@ -1,7 +1,13 @@
 import { connectAuthEmulator } from 'firebase/auth'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
-import { VueFire, VueFireAuth, useFirebaseAuth, useFirestore } from 'vuefire'
+import {
+  VueFire,
+  VueFireAuth,
+  useFirebaseAuth,
+  useFirestore,
+  VueFireAppCheck
+} from 'vuefire'
 import App from './App.vue'
 import { firebaseInit } from './firebase.app'
 import { router } from './router'
@@ -11,6 +17,7 @@ import 'element-plus/dist/index.css'
 
 import 'uno.css'
 import { connectFirestoreEmulator } from 'firebase/firestore'
+import { ReCaptchaV3Provider } from 'firebase/app-check'
 
 const app = createApp(App)
 
@@ -19,7 +26,14 @@ app.use(createPinia())
 app.use(router)
 app.use(VueFire, {
   firebaseApp: firebaseInit(),
-  modules: [VueFireAuth()]
+  modules: [
+    VueFireAuth(),
+    VueFireAppCheck({
+      debug: process.env.NODE_ENV !== 'production',
+      isTokenAutoRefreshEnabled: true,
+      provider: new ReCaptchaV3Provider(import.meta.env.VITE_RECAPTCHAKEY)
+    })
+  ]
 })
 
 if (location.hostname === 'localhost') {

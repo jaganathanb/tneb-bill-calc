@@ -42,6 +42,7 @@ jobs:
         name: Replace token
         env:
           APIKEY: ${{ secrets.VITE_APIKEY }}
+          RECAPTCHAKEY: ${{ secrets.VITE_RECAPTCHAKEY }}
         with:
           filename: .env
 
