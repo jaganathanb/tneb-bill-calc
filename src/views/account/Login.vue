@@ -4,6 +4,10 @@ import { useAuthStore, useFeedbackStore } from '@/stores'
 import { ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 
+import { StarFilled } from '@element-plus/icons-vue'
+
+import logoUrl from '../../assets/img/logo-520_x_520.png'
+
 const loginForm = ref({
   email: '',
   password: ''
@@ -51,42 +55,56 @@ const resetForm = (formEl: FormInstance | undefined) => {
 
 <template>
   <el-container class="h-full w-full">
-    <el-row align="middle" class="w-full justify-center">
-      <el-card header="Sign in">
-        <el-form
-          ref="loginFormRef"
-          :model="loginForm"
-          :rules="loginRules"
-          label-position="top"
-          label-width="auto"
-          hide-required-asterisk
-        >
-          <el-form-item label="Email" prop="email">
-            <el-input
-              v-model="loginForm.email"
-              type="text"
-              autocomplete="off"
-            />
-          </el-form-item>
-          <el-form-item label="Password" prop="password">
-            <el-input
-              v-model="loginForm.password"
-              type="password"
-              autocomplete="off"
-            />
-          </el-form-item>
-          <ElSpace class="actions">
-            <el-button type="primary" @click="submitForm(loginFormRef)"
-              >Submit</el-button
-            >
-            <el-button @click="resetForm(loginFormRef)">Reset</el-button>
-          </ElSpace>
-          <ElSpace class="links">
-            <ElLink href="/auth/register">Sign up</ElLink>
-          </ElSpace>
-        </el-form>
-      </el-card>
-    </el-row>
+    <el-col :span="11">
+      <el-row align="middle" class="justify-center h-full">
+        <el-image :src="logoUrl"></el-image>
+      </el-row>
+    </el-col>
+    <el-col :span="2" :push="2">
+      <el-divider direction="vertical" style="height: 100%">
+        <el-icon><StarFilled /></el-icon>
+      </el-divider>
+    </el-col>
+    <el-col :span="11">
+      <el-row align="middle" class="justify-center h-full">
+        <el-card header="Sign in">
+          <el-form
+            ref="loginFormRef"
+            :model="loginForm"
+            :rules="loginRules"
+            label-position="top"
+            label-width="auto"
+            hide-required-asterisk
+          >
+            <el-form-item label="Email" prop="email">
+              <el-input
+                v-model="loginForm.email"
+                type="text"
+                autocomplete="off"
+                @keyup.enter="submitForm(loginFormRef)"
+              />
+            </el-form-item>
+            <el-form-item label="Password" prop="password">
+              <el-input
+                v-model="loginForm.password"
+                type="password"
+                autocomplete="off"
+                @keyup.enter="submitForm(loginFormRef)"
+              />
+            </el-form-item>
+            <ElSpace class="actions">
+              <el-button type="primary" @click="submitForm(loginFormRef)"
+                >Submit</el-button
+              >
+              <el-button @click="resetForm(loginFormRef)">Reset</el-button>
+            </ElSpace>
+            <ElSpace class="links">
+              <ElLink href="/auth/register">Sign up</ElLink>
+            </ElSpace>
+          </el-form>
+        </el-card>
+      </el-row>
+    </el-col>
   </el-container>
 </template>
 
