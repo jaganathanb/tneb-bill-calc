@@ -16,6 +16,8 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
 import 'uno.css'
+import 'element-plus/theme-chalk/dark/css-vars.css'
+
 import { connectFirestoreEmulator } from 'firebase/firestore'
 import { ReCaptchaV3Provider } from 'firebase/app-check'
 

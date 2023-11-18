@@ -2,6 +2,9 @@
 import { useDark, useToggle } from '@vueuse/core'
 import { useCurrentUser } from 'vuefire'
 
+import logoImage from '../assets/img/logo-48_x_48.png'
+import { Sunny, Moon } from '@element-plus/icons-vue'
+
 import { router } from '@/router'
 import { useAuthStore } from '@/stores'
 
@@ -11,6 +14,8 @@ const toggleDark = useToggle(isDark)
 const user = useCurrentUser()
 const authStore = useAuthStore()
 
+const value1 = ref(true)
+
 const signOut = async () => {
   await authStore.signOut()
 
@@ -19,23 +24,27 @@ const signOut = async () => {
 </script>
 
 <template>
-  <el-menu mode="horizontal" :ellipsis="false">
+  <el-menu
+    mode="horizontal"
+    :ellipsis="false"
+    style="background-color: var(--app-bg-color)"
+  >
     <el-menu-item>
       <button
         class="border-none w-full bg-transparent cursor-pointer"
         style="height: var(--ep-menu-item-height)"
       >
-        TNEB
+        <el-image :src="logoImage" fit="fill"></el-image>
       </button>
     </el-menu-item>
     <div class="flex-grow-1" />
-    <el-menu-item @click="toggleDark()">
-      <button
-        class="border-none w-full bg-transparent cursor-pointer"
-        style="height: var(--ep-menu-item-height)"
-      >
-        test
-      </button>
+    <el-menu-item>
+      <el-switch
+        v-model="value1"
+        @change="toggleDark()"
+        :active-action-icon="Sunny"
+        :inactive-action-icon="Moon"
+      />
     </el-menu-item>
     <el-menu-item>
       <el-popover placement="bottom" :width="300" trigger="click">
@@ -72,5 +81,10 @@ const signOut = async () => {
 
 .box-card {
   width: 100%;
+}
+
+.el-menu--horizontal .el-menu-item:not(.is-disabled):focus,
+.el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
+  background-color: var(--app-bg-color);
 }
 </style>

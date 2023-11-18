@@ -1,20 +1,33 @@
-import { addDoc, collection, type DocumentData } from 'firebase/firestore'
+import { PAGE_LIMIT } from '@/constants'
+import { useOffsetPagination } from '@vueuse/core'
+import dayjs from 'dayjs'
+import { buildTimeList } from 'element-plus'
+import {
+  addDoc,
+  collection,
+  setDoc,
+  type DocumentData,
+  doc,
+  updateDoc,
+  limit,
+  orderBy,
+  query,
+  getCountFromServer,
+  startAfter,
+  startAt,
+  getDocs,
+  getDoc
+} from 'firebase/firestore'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Ref } from 'vue'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 
-interface Bill {
-  id: string
-  amount: number
-  units: number
-  startDate: string
-  endDate: string
-  dateRange: string
-}
-
 export const useBillsStore = defineStore('bills', () => {
-  const bills: Ref<Bill[]> = ref<Bill[]>([])
+  const bills: Ref<{ [key: number]: Bill[] }> = ref({})
+  const totalBills: Ref<number> = ref(0)
+  const currPage = ref(1)
+  const pageSize = ref(PAGE_LIMIT)
 
   const db = useFirestore()
   const user = useCurrentUser()
@@ -28,28 +41,62 @@ export const useBillsStore = defineStore('bills', () => {
     },
     fromFirestore(snapshot) {
       const bill = snapshot.data() as Bill
-      return {
-        ...bill,
-        dateRange: `${bill.startDate}-${bill.endDate}`
-      }
+      return bill
     }
   })
 
-  useCollection(billsRef, {
-    target: bills
-  })
+  let first = query(
+    billsRef,
+    orderBy('startDate', 'desc'),
+    limit(pageSize.value)
+  )
 
-  const addBill = async () => {
-    await addDoc(billsRef, {
-      id: (Math.random() * 1000).toString(16),
-      amount: 100,
-      units: 10,
-      endDate: '2023-11-15T10:10:00',
-      startDate: '2023-09-15T10:10:00'
-    } as Bill)
+  watch(
+    currPage,
+    async (p) => {
+      const docs = (await getDocs(first)).docs
+
+      if (docs.length > 0) {
+        bills.value[p] = docs.map((d) => d.data())
+
+        // Get the last visible document
+        const lastVisible = docs[docs.length - 1]
+
+        // Construct a new query starting at this document,
+        // get the next 25 cities.
+        first = query(
+          billsRef,
+          orderBy('startDate', 'desc'),
+          startAfter(lastVisible),
+          limit(pageSize.value)
+        )
+
+        getTotalBillCount()
+      }
+    },
+    { immediate: true }
+  )
+
+  const getTotalBillCount = async () => {
+    totalBills.value = (await getCountFromServer(first)).data().count
   }
 
-  return { bills, addBill }
+  getTotalBillCount()
+
+  const addBill = async (data: Bill) => {
+    await addDoc(billsRef, data)
+  }
+
+  const setBill = async (data: Bill) => {
+    await updateDoc(doc(billsRef, data.id), { ...data })
+  }
+
+  const nextPage = (params: Params) => {
+    currPage.value = params._page
+    pageSize.value = params._limit
+  }
+
+  return { bills, addBill, setBill, nextPage, totalBills }
 })
 
 if (import.meta.hot) {

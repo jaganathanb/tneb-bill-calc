@@ -33,7 +33,7 @@ const handleClose = (key: string, keyPath: string[]) => {
         <el-row>
           <el-menu
             default-active="2"
-            class="el-menu-vertical-demo h-full"
+            class="da-app-menu h-full"
             :collapse="isCollapse"
             @open="handleOpen"
             @close="handleClose"
@@ -76,9 +76,10 @@ const handleClose = (key: string, keyPath: string[]) => {
 </template>
 
 <style>
-.el-menu-vertical-demo:not(.el-menu--collapse) {
+.da-app-menu:not(.el-menu--collapse) {
   width: 300px;
   min-height: 400px;
+  background-color: var(--app-bg-color);
 }
 
 .hamberger-container {
