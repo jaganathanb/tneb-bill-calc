@@ -90,8 +90,7 @@ const doEdit = async (data: Bill) => {
 const loadNextPage = (p: number) => {
   billStore.nextPage({
     ...params,
-    _page: p,
-    _limit: p
+    _page: p
   })
 }
 </script>

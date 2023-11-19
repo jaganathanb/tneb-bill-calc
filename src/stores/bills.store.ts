@@ -16,7 +16,8 @@ import {
   startAfter,
   startAt,
   getDocs,
-  getDoc
+  getDoc,
+  Query
 } from 'firebase/firestore'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { ref } from 'vue'
@@ -24,7 +25,7 @@ import type { Ref } from 'vue'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 
 export const useBillsStore = defineStore('bills', () => {
-  const bills: Ref<{ [key: number]: Bill[] }> = ref({})
+  const bills: Ref<{ [key: number]: Bill[] | undefined }> = ref({})
   const totalBills: Ref<number> = ref(0)
   const currPage = ref(1)
   const pageSize = ref(PAGE_LIMIT)
@@ -45,46 +46,36 @@ export const useBillsStore = defineStore('bills', () => {
     }
   })
 
-  let first = query(
+  let collRef = query(
     billsRef,
     orderBy('startDate', 'desc'),
     limit(pageSize.value)
   )
 
+  const getTotalBillCount = async () => {
+    totalBills.value = (await getCountFromServer(billsRef)).data().count
+  }
+
+  const refresh = async (page: number) => {
+    const docs = (await getDocs(collRef)).docs
+
+    bills.value[page] = docs.map((d) => d.data())
+
+    getTotalBillCount()
+  }
+
   watch(
     currPage,
     async (p) => {
-      const docs = (await getDocs(first)).docs
-
-      if (docs.length > 0) {
-        bills.value[p] = docs.map((d) => d.data())
-
-        // Get the last visible document
-        const lastVisible = docs[docs.length - 1]
-
-        // Construct a new query starting at this document,
-        // get the next 25 cities.
-        first = query(
-          billsRef,
-          orderBy('startDate', 'desc'),
-          startAfter(lastVisible),
-          limit(pageSize.value)
-        )
-
-        getTotalBillCount()
-      }
+      await refresh(p)
     },
     { immediate: true }
   )
 
-  const getTotalBillCount = async () => {
-    totalBills.value = (await getCountFromServer(first)).data().count
-  }
-
-  getTotalBillCount()
-
   const addBill = async (data: Bill) => {
     await addDoc(billsRef, data)
+
+    await refresh(currPage.value)
   }
 
   const setBill = async (data: Bill) => {
@@ -92,6 +83,23 @@ export const useBillsStore = defineStore('bills', () => {
   }
 
   const nextPage = (params: Params) => {
+    // Get the last visible document
+    const lastVisible =
+      params._page > currPage.value
+        ? bills.value[currPage.value]?.[pageSize.value - 1]
+        : bills.value[params._page]?.[0]
+
+    if (lastVisible) {
+      collRef = query(
+        billsRef,
+        orderBy('startDate', 'desc'),
+        params._page > currPage.value
+          ? startAfter(lastVisible.startDate)
+          : startAt(lastVisible.startDate),
+        limit(pageSize.value)
+      )
+    }
+
     currPage.value = params._page
     pageSize.value = params._limit
   }
