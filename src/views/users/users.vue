@@ -23,7 +23,7 @@ const layout = ref()
 const params = reactive<Params>({
   page: 1,
   limit: PAGE_LIMIT,
-  sort: 'id',
+  sort: 'startDate',
   order: 'desc'
 })
 
@@ -64,7 +64,7 @@ const doAdd = async (data: Bill) => {
   saveLoading.value = true
 
   try {
-    await billStore.addBill(data)
+    await billStore.addBill(data, { ...params, page: 1 })
   } catch (error) {
     saveLoading.value = false
   }
@@ -87,10 +87,18 @@ const doEdit = async (data: Bill) => {
   }
 }
 
-const loadNextPage = (p: number) => {
-  billStore.nextPage({
+const loadPage = (p: number) => {
+  billStore.loadPage({
     ...params,
     page: p
+  })
+}
+
+const resetPagination = (size: number) => {
+  billStore.loadPage({
+    ...params,
+    page: 1,
+    limit: size
   })
 }
 </script>
@@ -132,6 +140,7 @@ const loadNextPage = (p: number) => {
     v-model:limit="params.limit"
     :total="totalBills"
     :layout="layout"
-    @pagination="loadNextPage"
+    @update:limit="resetPagination"
+    @update:page="loadPage"
   />
 </template>

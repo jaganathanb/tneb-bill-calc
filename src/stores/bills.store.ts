@@ -1,28 +1,22 @@
 import { PAGE_LIMIT } from '@/constants'
-import { useOffsetPagination } from '@vueuse/core'
-import dayjs from 'dayjs'
-import { buildTimeList } from 'element-plus'
 import {
   addDoc,
   collection,
-  setDoc,
-  type DocumentData,
   doc,
-  updateDoc,
+  getCountFromServer,
+  getDocs,
   limit,
   orderBy,
   query,
-  getCountFromServer,
   startAfter,
   startAt,
-  getDocs,
-  getDoc,
-  Query
+  updateDoc,
+  type DocumentData
 } from 'firebase/firestore'
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { ref } from 'vue'
 import type { Ref } from 'vue'
-import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
+import { ref } from 'vue'
+import { useCurrentUser, useFirestore } from 'vuefire'
 
 export const useBillsStore = defineStore('bills', () => {
   const bills: Ref<{ [key: number]: Bill[] | undefined }> = ref({})
@@ -46,11 +40,20 @@ export const useBillsStore = defineStore('bills', () => {
     }
   })
 
-  let collRef = query(
-    billsRef,
-    orderBy('startDate', 'desc'),
-    limit(pageSize.value)
-  )
+  const getInitialPage = (params: Params) => {
+    return query(
+      billsRef,
+      orderBy(params.sort, params.order),
+      limit(params.limit)
+    )
+  }
+
+  let collRef = getInitialPage({
+    page: 1,
+    limit: PAGE_LIMIT,
+    sort: 'startDate',
+    order: 'desc'
+  })
 
   const getTotalBillCount = async () => {
     totalBills.value = (await getCountFromServer(billsRef)).data().count
@@ -65,17 +68,19 @@ export const useBillsStore = defineStore('bills', () => {
   }
 
   watch(
-    currPage,
-    async (p) => {
+    [currPage, pageSize],
+    async ([p]) => {
       await refresh(p)
     },
     { immediate: true }
   )
 
-  const addBill = async (data: Bill) => {
+  const addBill = async (data: Bill, params: Params) => {
     await addDoc(billsRef, data)
 
-    await refresh(currPage.value)
+    collRef = getInitialPage(params)
+
+    await refresh(params.page)
   }
 
   const setBill = async (data: Bill) => {
@@ -92,11 +97,11 @@ export const useBillsStore = defineStore('bills', () => {
     if (lastVisible) {
       collRef = query(
         billsRef,
-        orderBy('startDate', 'desc'),
+        orderBy(params.sort, params.order),
         params.page > currPage.value
           ? startAfter(lastVisible.startDate)
           : startAt(lastVisible.startDate),
-        limit(pageSize.value)
+        limit(params.limit)
       )
     }
 
@@ -104,7 +109,7 @@ export const useBillsStore = defineStore('bills', () => {
     pageSize.value = params.limit
   }
 
-  return { bills, addBill, setBill, nextPage: loadPage, totalBills }
+  return { bills, addBill, setBill, loadPage, totalBills }
 })
 
 if (import.meta.hot) {

@@ -15,7 +15,7 @@ const props = withDefaults(
     total: 0,
     page: 1,
     limit: PAGE_LIMIT,
-    layout: 'total,sizes, prev, pager, next',
+    layout: 'total,sizes, prev, next',
     autoScroll: true
   }
 )
@@ -54,7 +54,7 @@ function handleCurrentChange(val: number) {
       v-model:current-page="currentPage"
       v-model:page-size="pageSize"
       :layout="layout"
-      :page-sizes="[3, 30, 50, 100]"
+      :page-sizes="[10, 20, 50, 100]"
       :total="total"
       :background="background"
       @size-change="handleSizeChange"

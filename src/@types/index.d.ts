@@ -7,7 +7,7 @@ interface Params {
   page: number
   limit: number
   sort: string
-  order: string
+  order: OrderByDirection
 }
 
 interface Bill {
