@@ -21,10 +21,10 @@ const form = reactive<Bill>({
 
 const layout = ref()
 const params = reactive<Params>({
-  _page: 1,
-  _limit: PAGE_LIMIT,
-  _sort: 'id',
-  _order: 'desc'
+  page: 1,
+  limit: PAGE_LIMIT,
+  sort: 'id',
+  order: 'desc'
 })
 
 const title = computed<string>(() => {
@@ -77,7 +77,7 @@ const doEdit = async (data: Bill) => {
   try {
     await billStore.setBill(data)
     saveLoading.value = false
-    const list = bills.value?.[params._page]
+    const list = bills.value?.[params.page]
     const index = list?.findIndex((item) => item.id === data.id)
     if (index !== -1) {
       list?.splice(index as number, 1, data as Bill)
@@ -90,7 +90,7 @@ const doEdit = async (data: Bill) => {
 const loadNextPage = (p: number) => {
   billStore.nextPage({
     ...params,
-    _page: p
+    page: p
   })
 }
 </script>
@@ -98,7 +98,7 @@ const loadNextPage = (p: number) => {
 <template>
   <el-button type="primary" :icon="Plus" @click="toAdd"> Add </el-button>
   <el-table
-    :data="bills?.[params._page]"
+    :data="bills?.[params.page]"
     :border="true"
     v-loading="loading"
     style="width: 100%"
@@ -128,8 +128,8 @@ const loadNextPage = (p: number) => {
     />
   </el-dialog>
   <BasePagination
-    v-model:page="params._page"
-    v-model:limit="params._limit"
+    v-model:page="params.page"
+    v-model:limit="params.limit"
     :total="totalBills"
     :layout="layout"
     @pagination="loadNextPage"

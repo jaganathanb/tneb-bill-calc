@@ -82,29 +82,29 @@ export const useBillsStore = defineStore('bills', () => {
     await updateDoc(doc(billsRef, data.id), { ...data })
   }
 
-  const nextPage = (params: Params) => {
+  const loadPage = (params: Params) => {
     // Get the last visible document
     const lastVisible =
-      params._page > currPage.value
+      params.page > currPage.value
         ? bills.value[currPage.value]?.[pageSize.value - 1]
-        : bills.value[params._page]?.[0]
+        : bills.value[params.page]?.[0]
 
     if (lastVisible) {
       collRef = query(
         billsRef,
         orderBy('startDate', 'desc'),
-        params._page > currPage.value
+        params.page > currPage.value
           ? startAfter(lastVisible.startDate)
           : startAt(lastVisible.startDate),
         limit(pageSize.value)
       )
     }
 
-    currPage.value = params._page
-    pageSize.value = params._limit
+    currPage.value = params.page
+    pageSize.value = params.limit
   }
 
-  return { bills, addBill, setBill, nextPage, totalBills }
+  return { bills, addBill, setBill, nextPage: loadPage, totalBills }
 })
 
 if (import.meta.hot) {

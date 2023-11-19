@@ -4,10 +4,10 @@ interface PageTable<T> {
 }
 
 interface Params {
-  _page: number
-  _limit: number
-  _sort: string
-  _order: string
+  page: number
+  limit: number
+  sort: string
+  order: string
 }
 
 interface Bill {
