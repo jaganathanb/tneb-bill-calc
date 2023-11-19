@@ -104,7 +104,14 @@ const resetPagination = (size: number) => {
 </script>
 
 <template>
-  <el-button type="primary" :icon="Plus" @click="toAdd"> Add </el-button>
+  <el-button
+    type="primary"
+    :icon="Plus"
+    @click="toAdd"
+    style="margin-bottom: 8px"
+  >
+    Add
+  </el-button>
   <el-table
     :data="bills?.[params.page]"
     :border="true"

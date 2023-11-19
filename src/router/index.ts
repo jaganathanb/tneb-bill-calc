@@ -20,8 +20,8 @@ export const router = createRouter({
           component: () => import('../views/home.vue')
         },
         {
-          path: 'users',
-          component: () => import('../views/users/users.vue')
+          path: 'bills',
+          component: () => import('../views/bill/bills.vue')
         }
       ],
       meta: { requiresAuth: true }

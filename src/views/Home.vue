@@ -14,7 +14,7 @@ const showAlert = () => {
   <div>
     <h1>Hi!</h1>
     <p>You're logged in with Vue 3 + Pinia & JWT!!</p>
-    <p><router-link to="/users">Manage Users</router-link></p>
+    <p><router-link to="/bills">Manage bills</router-link></p>
     <el-button @click="showAlert()">Show notification</el-button>
   </div>
 </template>
