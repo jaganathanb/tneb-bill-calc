@@ -2,7 +2,7 @@
 import type { FormInstance, FormRules } from 'element-plus'
 import { nextTick, onMounted, reactive, ref, watchEffect } from 'vue'
 
-import BaseDatePicker from './BaseDatePicker.vue'
+import BaseDatePicker from './base-datepicker.vue'
 
 const props = defineProps<{
   value: Bill

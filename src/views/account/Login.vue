@@ -6,7 +6,7 @@ import type { FormInstance, FormRules } from 'element-plus'
 
 import { StarFilled } from '@element-plus/icons-vue'
 
-import logoUrl from '../../assets/img/logo-520_x_520.png'
+import logoUrl from '@/assets/img/logo-520_x_520.png'
 
 const loginForm = ref({
   email: '',
