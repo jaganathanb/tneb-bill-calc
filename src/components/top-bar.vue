@@ -2,7 +2,6 @@
 import { useDark, useToggle } from '@vueuse/core'
 import { useCurrentUser } from 'vuefire'
 
-import logoImage from '../assets/img/logo-48_x_48.png'
 import { Sunny, Moon } from '@element-plus/icons-vue'
 
 import { router } from '@/router'
@@ -24,17 +23,13 @@ const signOut = async () => {
 </script>
 
 <template>
-  <el-menu
-    mode="horizontal"
-    :ellipsis="false"
-    style="background-color: var(--app-bg-color)"
-  >
-    <el-menu-item>
+  <el-menu mode="horizontal" :ellipsis="false">
+    <el-menu-item style="padding: 0">
       <button
         class="border-none w-full bg-transparent cursor-pointer"
         style="height: var(--ep-menu-item-height)"
       >
-        <el-image :src="logoImage" fit="fill"></el-image>
+        <SvgImg :name="'DhuruvahApps'" :width="64" :height="56"></SvgImg>
       </button>
     </el-menu-item>
     <div class="flex-grow-1" />
@@ -71,20 +66,12 @@ const signOut = async () => {
   align-items: center;
 }
 
-.text {
-  font-size: 14px;
-}
-
-.item {
-  margin-bottom: 18px;
-}
-
 .box-card {
   width: 100%;
 }
 
 .el-menu--horizontal .el-menu-item:not(.is-disabled):focus,
 .el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
-  background-color: var(--app-bg-color);
+  background-color: var(--el-menu-bg-color);
 }
 </style>

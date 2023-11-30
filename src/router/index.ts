@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { getCurrentUser } from 'vuefire'
+import { Grid, Tickets } from '@element-plus/icons-vue'
 
 import { useFeedbackStore } from '@/stores'
 
@@ -10,18 +11,30 @@ export const router = createRouter({
     {
       path: '/',
       component: () => import('../views/private-layout.vue'),
+      name: 'private',
       children: [
         {
           path: '',
+          name: 'dashboard-rd',
           redirect: '/dashboard'
         },
         {
           path: 'dashboard',
-          component: () => import('../views/home.vue')
+          component: () => import('../views/home.vue'),
+          name: 'dashboard',
+          meta: {
+            label: 'Dashboard',
+            icon: Grid
+          }
         },
         {
           path: 'bills',
-          component: () => import('../views/bill/bills.vue')
+          name: 'bills',
+          component: () => import('../views/bill/bills.vue'),
+          meta: {
+            label: 'Bills',
+            icon: Tickets
+          }
         }
       ],
       meta: { requiresAuth: true }
@@ -29,9 +42,11 @@ export const router = createRouter({
     {
       path: '/auth',
       component: () => import('../views/account/public-layout.vue'),
+      name: 'public',
       children: [
         {
           path: '',
+          name: 'auth-rd',
           redirect: 'auth/login'
         },
         {

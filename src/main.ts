@@ -15,6 +15,9 @@ import { router } from './router'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
+//import theme
+import './theme/index.scss'
+
 import 'uno.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 

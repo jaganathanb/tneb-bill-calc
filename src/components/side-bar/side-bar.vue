@@ -9,8 +9,15 @@ import {
   ArrowLeftBold
 } from '@element-plus/icons-vue'
 import { storeToRefs } from 'pinia'
+import { useRouter, useRoute } from 'vue-router'
+
+const router = useRouter()
+const filteredRoutes = router.options.routes
+  .find((r) => r.name === 'private')
+  ?.children?.filter((r) => r.meta?.label)
 
 const appStore = useAppStore()
+const activeRoute = useRoute()
 
 const { isCollapse } = storeToRefs(appStore)
 
@@ -34,19 +41,17 @@ const toggleSideBar = (index: string) => {
       <el-container direction="vertical">
         <el-row class="flex-grow-1">
           <el-menu
-            default-active="1"
-            router
+            :default-active="activeRoute.name?.toString()"
+            :router="true"
             class="da-app-menu h-full"
             :collapse="isCollapse"
           >
-            <el-menu-item index="1" route="/dashboard">
-              <el-icon><IconMenu /></el-icon>
-              <template #title>Dashboard</template>
-            </el-menu-item>
-            <el-menu-item index="2" route="/bills">
-              <el-icon><Document /></el-icon>
-              <template #title>Bills</template>
-            </el-menu-item>
+            <side-bar-item
+              v-for="(routeConfig, index) in filteredRoutes"
+              :key="index"
+              :index="routeConfig.path"
+              :route-config="routeConfig"
+            ></side-bar-item>
           </el-menu>
         </el-row>
 
@@ -80,12 +85,11 @@ const toggleSideBar = (index: string) => {
 .da-app-menu:not(.el-menu--collapse) {
   width: 300px;
   min-height: 400px;
-  background-color: var(--app-bg-color);
 }
 
 .da-app-menu.bottom-part.el-menu--vertical .el-menu-item.side-toggle:hover,
 .da-app-menu.bottom-part.el-menu--vertical .el-menu-item.side-toggle:focus {
-  background-color: var(--app-bg-color);
+  background-color: var(--el-menu-bg-color);
   color: var(--el-menu-text-color);
 }
 

@@ -67,10 +67,11 @@ function handleCurrentChange(val: number) {
 .pagination-container {
   display: flex;
   clear: both;
-  background: #fff;
+
   .el-pagination {
     margin: 20px auto;
   }
+
   .hidden {
     display: none;
   }

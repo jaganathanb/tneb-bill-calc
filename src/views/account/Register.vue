@@ -108,7 +108,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
 <template>
   <el-container class="h-full w-full justify-center" direction="vertical">
     <el-row align="middle" class="w-full justify-center">
-      <el-image :src="logoUrl"></el-image>
+      <SvgImg :name="'DhuruvahApps'" :width="250" :height="250"></SvgImg>
     </el-row>
     <el-row style="height: 50px"></el-row>
     <el-row align="middle" class="w-full justify-center">

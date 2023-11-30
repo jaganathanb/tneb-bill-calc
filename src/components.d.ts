@@ -39,10 +39,13 @@ declare module 'vue' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElText: (typeof import('element-plus/es'))['ElText']
+    ReturnStatus: typeof import('./components/cards/return-status.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SaveForm: typeof import('./components/bill-table/save-form.vue')['default']
-    SideBar: typeof import('./components/side-bar.vue')['default']
+    SideBar: typeof import('./components/side-bar/side-bar.vue')['default']
+    SideBarItem: typeof import('./components/side-bar/side-bar-item.vue')['default']
+    SvgImg: typeof import('./components/svg-img.vue')['default']
     TopBar: typeof import('./components/top-bar.vue')['default']
   }
   export interface ComponentCustomProperties {

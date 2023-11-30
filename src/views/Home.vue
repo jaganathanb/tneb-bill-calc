@@ -11,10 +11,13 @@ const showAlert = () => {
 </script>
 
 <template>
+  <el-row :align="'top'" :justify="'start'" :gutter="10">
+    <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1"
+      ><return-status></return-status>
+    </el-col>
+  </el-row>
   <div>
-    <h1>Hi!</h1>
-    <p>You're logged in with Vue 3 + Pinia & JWT!!</p>
-    <p><router-link to="/bills">Manage bills</router-link></p>
+    <p><router-link to="bills">Manage bills</router-link></p>
     <el-button @click="showAlert()">Show notification</el-button>
   </div>
 </template>

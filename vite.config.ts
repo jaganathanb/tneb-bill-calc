@@ -7,6 +7,7 @@ import vue from '@vitejs/plugin-vue'
 
 import Unocss from 'unocss/vite'
 import { presetAttributify, presetUno } from 'unocss'
+import svgLoader from 'vite-svg-loader'
 
 import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
@@ -22,6 +23,7 @@ const pathSrc = path.resolve(__dirname, 'src')
 export default defineConfig({
   plugins: [
     vue(),
+    svgLoader({ defaultImport: 'url' }),
     checker({
       vueTsc: true
     }),
