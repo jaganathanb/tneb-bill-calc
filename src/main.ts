@@ -8,7 +8,6 @@ import {
   useFirestore,
   VueFireAppCheck
 } from 'vuefire'
-import App from './app.vue'
 import { firebaseInit } from './firebase.app'
 import { router } from './router'
 
@@ -23,6 +22,7 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 
 import { connectFirestoreEmulator } from 'firebase/firestore'
 import { ReCaptchaV3Provider } from 'firebase/app-check'
+import App from './app.vue'
 
 const app = createApp(App)
 

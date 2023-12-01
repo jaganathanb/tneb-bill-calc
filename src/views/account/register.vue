@@ -1,10 +1,8 @@
 <script lang="ts" setup>
-import { router } from '@/router'
-import { useFeedbackStore, useAuthStore, type RegistrationForm } from '@/stores'
-import { computed, ref } from 'vue'
-import type { FormInstance, FormRules } from 'element-plus'
-
-import logoUrl from '../../assets/img/logo-256_x_256.png'
+import { router } from '@/router';
+import { useAuthStore, useFeedbackStore, type RegistrationForm } from '@/stores';
+import type { FormInstance, FormRules } from 'element-plus';
+import { ref } from 'vue';
 
 const registerForm = ref<RegistrationForm>({} as RegistrationForm)
 const regForm = ref<FormInstance>()
