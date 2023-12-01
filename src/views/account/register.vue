@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { router } from '@/router';
-import { useAuthStore, useFeedbackStore, type RegistrationForm } from '@/stores';
-import type { FormInstance, FormRules } from 'element-plus';
-import { ref } from 'vue';
+import { router } from '@/router'
+import { useAuthStore, useFeedbackStore, type RegistrationForm } from '@/stores'
+import type { FormInstance, FormRules } from 'element-plus'
+import { ref } from 'vue'
 
 const registerForm = ref<RegistrationForm>({} as RegistrationForm)
 const regForm = ref<FormInstance>()
@@ -90,9 +90,15 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
       await router.push('/auth/login')
 
-      alertStore.success('Registration successful.')
+      alertStore.setMessage({
+        message: 'Registration successful.',
+        type: 'success'
+      })
     } catch (error: unknown) {
-      alertStore.error(error as string)
+      alertStore.setMessage({
+        message: error as string,
+        type: 'error'
+      })
     }
   }
 }

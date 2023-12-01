@@ -11,6 +11,7 @@ import {
   startAfter,
   startAt,
   updateDoc,
+  deleteDoc,
   type DocumentData
 } from 'firebase/firestore'
 import { acceptHMRUpdate, defineStore } from 'pinia'
@@ -36,6 +37,8 @@ export const useBillsStore = defineStore('bills', () => {
     },
     fromFirestore(snapshot) {
       const bill = snapshot.data() as Bill
+      bill.id = snapshot.id
+
       return bill
     }
   })
@@ -87,6 +90,10 @@ export const useBillsStore = defineStore('bills', () => {
     await updateDoc(doc(billsRef, data.id), { ...data })
   }
 
+  const removeBill = async (id: string) => {
+    await deleteDoc(doc(billsRef, id))
+  }
+
   const loadPage = (params: Params) => {
     // Get the last visible document
     const lastVisible =
@@ -109,7 +116,7 @@ export const useBillsStore = defineStore('bills', () => {
     pageSize.value = params.limit
   }
 
-  return { bills, addBill, setBill, loadPage, totalBills }
+  return { bills, addBill, setBill, removeBill, loadPage, totalBills }
 })
 
 if (import.meta.hot) {

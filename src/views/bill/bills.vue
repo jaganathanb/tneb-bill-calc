@@ -1,12 +1,13 @@
 <script lang="ts" setup>
-import { useBillsStore } from '@/stores'
+import { useBillsStore, useFeedbackStore } from '@/stores'
 import { ElButton } from 'element-plus'
-import { Plus } from '@element-plus/icons-vue'
+import { Plus, Edit, Delete } from '@element-plus/icons-vue'
 import { storeToRefs } from 'pinia'
 import { PAGE_LIMIT } from '@/constants'
-import type { BasePagination, BillSaveForm } from '@/components/bill-table'
+import type { BasePagination } from '@/components/bill-table'
 
 const billStore = useBillsStore()
+const feedback = useFeedbackStore()
 
 const { bills, totalBills } = storeToRefs(billStore)
 
@@ -110,6 +111,30 @@ const resetPagination = (size: number) => {
     limit: size
   })
 }
+
+const deleteBill = async (data: Bill) => {
+  try {
+    const result = (await feedback.getConfirmation({
+      message: 'Are you sure want to delete the Bill?',
+      boxType: 'confirm',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      showCancelButton: true,
+      title: 'Confirm'
+    })) as string
+
+    if (result === 'confirm') {
+      await billStore.removeBill(data.id)
+    }
+
+    const list = bills.value?.[params.page]
+    const index = list?.findIndex((item) => item.id === data.id)
+    if (index !== -1) {
+      list?.splice(index as number, 1)
+    }
+    feedback.setMessage({ message: 'Delete successfully!', type: 'success' })
+  } catch (error) {}
+}
 </script>
 
 <template>
@@ -133,9 +158,19 @@ const resetPagination = (size: number) => {
     <el-table-column prop="amount" label="Amount" width="120" />
     <el-table-column prop="units" label="Units" width="120" />
     <el-table-column fixed="right" label="" width="120">
-      <template #default>
-        <el-button link type="primary" size="small">Detail</el-button>
-        <el-button link type="primary" size="small">Edit</el-button>
+      <template #default="scope">
+        <el-button
+          type="default"
+          :icon="Edit"
+          size="small"
+          @click="toEdit(scope.row)"
+        ></el-button>
+        <el-button
+          type="danger"
+          :icon="Delete"
+          size="small"
+          @click="deleteBill(scope.row)"
+        ></el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -149,7 +184,8 @@ const resetPagination = (size: number) => {
       :loading="saveLoading"
       @submit="handleSubmit"
       @cancel="dialogVisible = false"
-    />
+    >
+    </BillSaveForm>
   </el-dialog>
   <BasePagination
     v-model:page="params.page"

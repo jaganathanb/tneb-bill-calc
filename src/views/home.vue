@@ -1,23 +1,15 @@
-<script lang="ts" setup>
-import { useAppStore } from '@/stores/app.store'
-import { storeToRefs } from 'pinia'
-
-const appStore = useAppStore()
-const { isCollapse } = storeToRefs(appStore)
-
-const showAlert = () => {
-  appStore.setIsCollapse(!isCollapse.value)
-}
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <el-row :align="'top'" :justify="'start'" :gutter="10">
-    <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1"
-      ><return-status></return-status>
+    <el-col :xs="12" :sm="8" :md="8" :lg="6" :xl="4"
+      ><return-status-card :count="32"></return-status-card>
     </el-col>
   </el-row>
-  <div>
-    <p><router-link to="bills">Manage bills</router-link></p>
-    <el-button @click="showAlert()">Show notification</el-button>
-  </div>
 </template>
+
+<style scoped>
+.el-col {
+  margin-bottom: 8px;
+}
+</style>

@@ -2,7 +2,12 @@
 import { router } from '@/router'
 import { useAuthStore, useFeedbackStore } from '@/stores'
 import { ref } from 'vue'
-import type { FormInstance, FormRules } from 'element-plus'
+import type {
+  AlertEmits,
+  AlertProps,
+  FormInstance,
+  FormRules
+} from 'element-plus'
 
 import { StarFilled } from '@element-plus/icons-vue'
 
@@ -40,7 +45,10 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
       await router.push('/')
     } catch (error) {
-      alertStore.error('Please check your credentials and try again.')
+      alertStore.setMessage({
+        message: 'Please check your credentials and try again.',
+        type: 'error'
+      })
     }
   }
 }

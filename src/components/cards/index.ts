@@ -1,1 +1,1 @@
-export { default as ReturnStatus } from './return-status.vue'
+export { default as ReturnStatusCard } from './return-status-card.vue'

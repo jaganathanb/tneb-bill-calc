@@ -63,11 +63,6 @@ export const router = createRouter({
 })
 
 router.beforeEach(async (to, _from, next) => {
-  // clear alert on route change
-  const alertStore = useFeedbackStore()
-
-  alertStore.clearAlert()
-
   const currentUser = await getCurrentUser()
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
