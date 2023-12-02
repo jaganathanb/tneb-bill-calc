@@ -4,7 +4,8 @@ import { ElButton } from 'element-plus'
 import { Plus, Edit, Delete } from '@element-plus/icons-vue'
 import { storeToRefs } from 'pinia'
 import { PAGE_LIMIT } from '@/constants'
-import type { BasePagination } from '@/components/bill-table'
+import type BasePagination from '@/components/table/base-pagination.vue'
+import BillSaveForm from './bill-save-form.vue'
 
 const billStore = useBillsStore()
 const feedback = useFeedbackStore()
@@ -33,14 +34,6 @@ const title = computed<string>(() => {
   if (form.id) return 'Edit'
   return 'Add'
 })
-
-// const columns: ElTableColumn[] = [
-//   {
-//     key: 'billId',
-//     dataKey: 'billId',
-//     title: 'Bill Id'
-//   }
-// ]
 
 const handleSubmit = (payload: Bill) => {
   if (payload.id) {

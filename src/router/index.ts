@@ -35,6 +35,15 @@ export const router = createRouter({
             label: 'Bills',
             icon: Tickets
           }
+        },
+        {
+          path: 'gsts',
+          name: 'gsts',
+          component: () => import('../views/gst/gsts.vue'),
+          meta: {
+            label: 'GSTs',
+            icon: Tickets
+          }
         }
       ],
       meta: { requiresAuth: true }

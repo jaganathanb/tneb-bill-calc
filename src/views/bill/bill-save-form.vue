@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
 import { nextTick, onMounted, reactive, ref, watchEffect } from 'vue'
-
-import BaseDatePicker from './base-datepicker.vue'
+import BaseDatePicker from '@/components/table/base-datepicker.vue'
 
 const props = defineProps<{
   value: Bill

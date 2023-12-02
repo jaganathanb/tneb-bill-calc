@@ -20,6 +20,27 @@ interface Bill {
   dateRange: string
 }
 
+interface IRIS_GST {
+  pradr: IRIS_PRADR
+}
+
+interface IRIS_PRADR {
+  bno: string
+  st: string
+  loc: string
+  stcd: string
+  pncd: string
+}
+
+interface GST extends IRIS_GST {
+  id: string
+  gstin: string
+  name: string
+  tradename: string
+  registrationDate: string
+  address: string
+}
+
 interface ReceiptQuery {
   userName_like?: string
   mobile_like?: string
