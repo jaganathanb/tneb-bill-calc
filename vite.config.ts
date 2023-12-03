@@ -39,7 +39,7 @@ export default defineConfig({
           prefix: 'Icon'
         })
       ],
-      dts: path.resolve(pathSrc, 'auto-imports.d.ts')
+      dts: path.resolve(pathSrc, '@types/auto-imports.d.ts')
     }),
     Components({
       resolvers: [
@@ -49,7 +49,7 @@ export default defineConfig({
         ElementPlusResolver()
       ],
 
-      dts: path.resolve(pathSrc, 'components.d.ts')
+      dts: path.resolve(pathSrc, '@types/components.d.ts')
     }),
     Icons({
       autoInstall: true

@@ -41,6 +41,21 @@ interface GST extends IRIS_GST {
   address: string
 }
 
+type ModeOfFiling = 'ONLINE' | 'OFFLINE'
+type GSTReturnType = 'GSTR1' | 'GSTR3B'
+type GSTReturnStatus = 'Filled' | 'Pending'
+
+interface GSTReturn {
+  id: string
+  valid: string
+  mof: ModeOfFiling
+  dof: string
+  rtntype: GSTReturnType
+  ret_prd: string
+  arn: string
+  status: GSTReturnStatus
+}
+
 interface ReceiptQuery {
   userName_like?: string
   mobile_like?: string

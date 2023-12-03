@@ -47,7 +47,7 @@ export const useBillsStore = defineStore('bills', () => {
     return query(
       billsRef,
       orderBy(params.sort, params.order),
-      limit(params.limit)
+      limit(params.limit as number)
     )
   }
 
@@ -83,7 +83,7 @@ export const useBillsStore = defineStore('bills', () => {
 
     collRef = getInitialPage(params)
 
-    await refresh(params.page)
+    await refresh(params.page as number)
   }
 
   const setBill = async (data: Bill) => {
@@ -94,7 +94,7 @@ export const useBillsStore = defineStore('bills', () => {
     await deleteDoc(doc(billsRef, id))
   }
 
-  const loadPage = (params: Params) => {
+  const loadPage = (params: Required<Params>) => {
     // Get the last visible document
     const lastVisible =
       params.page > currPage.value

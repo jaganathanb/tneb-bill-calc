@@ -6,7 +6,7 @@ import { storeToRefs } from 'pinia'
 import { PAGE_LIMIT } from '@/constants'
 import BasePagination from '@/components/table/base-pagination.vue'
 import { useHttpClient } from '@/hooks'
-import { load } from '@amap/amap-jsapi-loader'
+import GSTReturns from './gst-returns.vue'
 
 const gstStore = useGSTsStore()
 const feedback = useFeedbackStore()
@@ -15,7 +15,6 @@ const httpClient = useHttpClient()
 const { gsts, totalGSTs } = storeToRefs(gstStore)
 
 const loading = ref(false)
-const saveLoading = ref(false)
 
 const params = reactive<Params>({
   page: 1,
@@ -63,7 +62,7 @@ const doAdd = async (data: GST) => {
 
 const loadPage = (p: number) => {
   gstStore.loadPage({
-    ...params,
+    ...(params as Required<Params>),
     page: p
   })
 }
@@ -91,7 +90,7 @@ const deleteGST = async (data: GST) => {
       await gstStore.removeGST(data.id)
     }
 
-    const list = gsts.value?.[params.page]
+    const list = gsts.value?.[params.page as number]
     const index = list?.findIndex((item) => item.id === data.id)
     if (index !== -1) {
       list?.splice(index as number, 1)
@@ -111,13 +110,19 @@ const deleteGST = async (data: GST) => {
     Add
   </el-button>
   <el-table
-    :data="gsts?.[params.page]"
+    :data="gsts?.[params.page as number]"
     :border="true"
     v-loading="loading"
     style="width: 100%"
   >
-    <el-table-column fixed prop="gstin" width="150" label="GSTIN" />
-    <el-table-column fixed prop="owner" width="200" label="Owner" />
+    <el-table-column type="expand">
+      <template #default="scope">
+        <GSTReturns :gst="scope.row"></GSTReturns>
+      </template>
+    </el-table-column>
+
+    <el-table-column prop="gstin" width="150" label="GSTIN" />
+    <el-table-column prop="owner" width="200" label="Owner" />
     <el-table-column prop="tradeName" width="200" label="Trade name" />
     <el-table-column
       prop="registrationDate"

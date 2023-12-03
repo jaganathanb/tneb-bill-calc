@@ -80,7 +80,7 @@ const doEdit = async (data: Bill) => {
   try {
     await billStore.setBill(data)
     saveLoading.value = false
-    const list = bills.value?.[params.page]
+    const list = bills.value?.[params.page as number]
     const index = list?.findIndex((item) => item.id === data.id)
     if (index !== -1) {
       list?.splice(index as number, 1, data as Bill)
@@ -92,7 +92,7 @@ const doEdit = async (data: Bill) => {
 
 const loadPage = (p: number) => {
   billStore.loadPage({
-    ...params,
+    ...(params as Required<Params>),
     page: p
   })
 }
@@ -120,7 +120,7 @@ const deleteBill = async (data: Bill) => {
       await billStore.removeBill(data.id)
     }
 
-    const list = bills.value?.[params.page]
+    const list = bills.value?.[params.page as number]
     const index = list?.findIndex((item) => item.id === data.id)
     if (index !== -1) {
       list?.splice(index as number, 1)
@@ -140,7 +140,7 @@ const deleteBill = async (data: Bill) => {
     Add
   </el-button>
   <el-table
-    :data="bills?.[params.page]"
+    :data="bills?.[params.page as number]"
     :border="true"
     v-loading="loading"
     style="width: 100%"

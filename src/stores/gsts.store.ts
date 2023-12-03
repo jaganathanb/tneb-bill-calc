@@ -17,10 +17,13 @@ import {
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { Ref } from 'vue'
 import { ref } from 'vue'
+import { useHttpClient } from '@/hooks'
 import { useCurrentUser, useFirestore } from 'vuefire'
 
 export const useGSTsStore = defineStore('gsts', () => {
+  const httpClient = useHttpClient()
   const gsts: Ref<{ [key: number]: GST[] | undefined }> = ref({})
+  const gstsReturns: Ref<GSTReturn[]> = ref([])
   const totalGSTs: Ref<number> = ref(0)
   const currPage = ref(1)
   const pageSize = ref(PAGE_LIMIT)
@@ -54,7 +57,7 @@ export const useGSTsStore = defineStore('gsts', () => {
     return query(
       gstsRef,
       orderBy(params.sort, params.order),
-      limit(params.limit)
+      limit(params.limit as number)
     )
   }
 
@@ -67,6 +70,22 @@ export const useGSTsStore = defineStore('gsts', () => {
 
   const getTotalGSTCount = async () => {
     totalGSTs.value = (await getCountFromServer(gstsRef)).data().count
+  }
+
+  const getGSTReturns = async (gstin: string) => {
+    const result = await httpClient.get(`/returnstatus?gstin=${gstin}`)
+
+    if (result.status === 200) {
+      const {
+        data: {
+          data: { EFiledlist }
+        }
+      } = result
+
+      gstsReturns.value = (EFiledlist as GSTReturn[]).filter(
+        (r) => r.rtntype === 'GSTR1'
+      )
+    }
   }
 
   const refresh = async (page: number) => {
@@ -90,7 +109,7 @@ export const useGSTsStore = defineStore('gsts', () => {
 
     collRef = getInitialPage(params)
 
-    await refresh(params.page)
+    await refresh(params.page as number)
   }
 
   const setGST = async (data: GST) => {
@@ -101,7 +120,7 @@ export const useGSTsStore = defineStore('gsts', () => {
     await deleteDoc(doc(gstsRef, id))
   }
 
-  const loadPage = (params: Params) => {
+  const loadPage = (params: Required<Params>) => {
     // Get the last visible document
     const lastVisible =
       params.page > currPage.value
@@ -123,7 +142,21 @@ export const useGSTsStore = defineStore('gsts', () => {
     pageSize.value = params.limit
   }
 
-  return { gsts, addGST, setGST, removeGST, loadPage, totalGSTs }
+  const updateGSTReturns = (returns: GSTReturn[]) => {
+    gstsReturns.value = returns
+  }
+
+  return {
+    gsts,
+    gstsReturns,
+    addGST,
+    setGST,
+    removeGST,
+    loadPage,
+    getGSTReturns,
+    updateGSTReturns,
+    totalGSTs
+  }
 })
 
 if (import.meta.hot) {
