@@ -7,7 +7,7 @@ interface Params {
   page: number
   limit: number
   sort: string
-  order: OrderByDirection
+  order: 'desc' | 'asc'
 }
 
 interface Bill {
@@ -41,19 +41,30 @@ interface GST extends IRIS_GST {
   address: string
 }
 
+interface DCard {
+  id: string
+  order: number
+  gstin: string
+  tradename: string
+}
+
 type ModeOfFiling = 'ONLINE' | 'OFFLINE'
-type GSTReturnType = 'GSTR1' | 'GSTR3B'
-type GSTReturnStatus = 'Filled' | 'Pending'
+type GSTReturnType = 'GSTR1' | 'GSTR3B' | 'GSTR9'
+type GSTReturnStatus = 'Filed' | 'Pending'
 
 interface GSTReturn {
-  id: string
-  valid: string
+  id?: string
+  valid?: string
   mof: ModeOfFiling
   dof: string
   rtntype: GSTReturnType
   ret_prd: string
   arn: string
   status: GSTReturnStatus
+}
+
+interface GSTReturnGroupedByType {
+  [key: GSTReturnType]: GSTReturn[]
 }
 
 interface ReceiptQuery {

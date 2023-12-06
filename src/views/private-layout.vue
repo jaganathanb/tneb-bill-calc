@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import SideBar from '@/components/side-bar/side-bar.vue'
 import TopBar from '@/components/top-bar.vue'
+import { ElScrollbar } from 'element-plus'
 </script>
 
 <template>
@@ -14,7 +15,11 @@ import TopBar from '@/components/top-bar.vue'
           <SideBar class="h-full" />
         </el-container>
       </el-aside>
-      <el-main><router-view /></el-main>
+      <el-main
+        ><el-scrollbar>
+          <router-view />
+        </el-scrollbar>
+      </el-main>
     </el-container>
   </el-container>
 </template>

@@ -36,14 +36,14 @@ const props = defineProps({
 })
 
 const pagedGstsReturns = computed(() => {
-  const start = params.limit * params.page - 1
+  const start = params.limit * (params.page - 1)
   const end = start + params.limit
 
-  return gstsReturns.value.slice(start, end)
+  return gstsReturns.value[props.gst.gstin]?.slice(start, end)
 })
 
 onMounted(async () => {
-  if (gstsReturns.value.length === 0) {
+  if (!gstsReturns.value[props.gst.gstin]) {
     loading.value = true
     await gstStore.getGSTReturns(props.gst.gstin)
     loading.value = false
@@ -89,6 +89,6 @@ onMounted(async () => {
   <BasePagination
     v-model:page="params.page"
     v-model:limit="params.limit"
-    :total="gstsReturns.length"
+    :total="gstsReturns[gst.gstin]?.length"
   />
 </template>
