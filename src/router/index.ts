@@ -27,15 +27,15 @@ export const router = createRouter({
             icon: Grid
           }
         },
-        {
-          path: 'bills',
-          name: 'bills',
-          component: () => import('../views/bill/bills.vue'),
-          meta: {
-            label: 'Bills',
-            icon: Tickets
-          }
-        },
+        // {
+        //   path: 'bills',
+        //   name: 'bills',
+        //   component: () => import('../views/bill/bills.vue'),
+        //   meta: {
+        //     label: 'Bills',
+        //     icon: Tickets
+        //   }
+        // },
         {
           path: 'gsts',
           name: 'gsts',

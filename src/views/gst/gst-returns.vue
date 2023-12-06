@@ -58,21 +58,22 @@ onMounted(async () => {
     v-loading="loading"
     style="width: 100%"
   >
-    <el-table-column prop="ret_prd" label="GST Month">
+    <el-table-column prop="ret_prd" :sortable="true" label="GST Month">
       <template #default="scope">
         <el-text>
           {{ dayjs(scope.row.ret_prd, 'MMYYYY').format('MMM YYYY') }}
         </el-text>
       </template>
     </el-table-column>
-    <el-table-column prop="dof" type="date" label="Filed date">
+    <el-table-column prop="dof" type="date" :sortable="true" label="Filed date">
       <template #default="scope">
         <el-text>
           {{ dayjs(scope.row.dof, 'DD-MM-YYYY').format('DD MMM YYYY') }}
         </el-text>
       </template>
     </el-table-column>
-    <el-table-column prop="rtntype" label="Return type"> </el-table-column>
+    <el-table-column prop="rtntype" :sortable="true" label="Return type">
+    </el-table-column>
     <el-table-column prop="status" label="Status">
       <template #default="scope">
         <el-space v-if="scope.row.status === 'Filed'">
