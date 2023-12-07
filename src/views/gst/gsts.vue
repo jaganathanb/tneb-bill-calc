@@ -123,7 +123,7 @@ const deleteGST = async (data: GST) => {
 
     <el-table-column prop="gstin" width="150" label="GSTIN" />
     <el-table-column prop="owner" width="200" label="Owner" />
-    <el-table-column prop="tradeName" width="200" label="Trade name" />
+    <el-table-column prop="tradename" width="200" label="Trade name" />
     <el-table-column
       prop="registrationDate"
       label="Registration date"

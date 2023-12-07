@@ -1,6 +1,7 @@
 import { router } from '@/router'
 import {
   createUserWithEmailAndPassword,
+  updateProfile,
   signInWithEmailAndPassword,
   indexedDBLocalPersistence,
   setPersistence,
@@ -39,8 +40,14 @@ export const useAuthStore = defineStore('authStore', () => {
     await signInWithEmailAndPassword(auth, email, password)
   }
 
-  async function createUser({ email, password }: RegistrationForm) {
-    await createUserWithEmailAndPassword(auth, email, password)
+  async function createUser({
+    email,
+    password,
+    firstName,
+    lastName
+  }: RegistrationForm) {
+    const user = await createUserWithEmailAndPassword(auth, email, password)
+    await updateProfile(user.user, { displayName: `${firstName} ${lastName}` })
   }
 
   async function signOut() {

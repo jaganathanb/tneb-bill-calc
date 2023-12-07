@@ -76,21 +76,19 @@ export const useGSTsStore = defineStore('gsts', () => {
   }
 
   const getGSTReturns = async (gstin: string) => {
-    // const result = await httpClient.get(`/returnstatus?gstin=${gstin}`)
+    const result = await httpClient.get(`/returnstatus?gstin=${gstin}`)
 
-    // if (result.status === 200) {
-    //   const {
-    //     data: {
-    //       data: { EFiledlist }
-    //     }
-    //   } = result
+    if (result.status === 200) {
+      const {
+        data: {
+          data: { EFiledlist }
+        }
+      } = result
 
-    //   gstsReturns.value[gstin] = (EFiledlist as GSTReturn[]).filter(
-    //     (r) => r.rtntype === 'GSTR1'
-    //   )
-    // }
+      gstsReturns.value[gstin] = EFiledlist as GSTReturn[]
+    }
 
-    gstsReturns.value[gstin] = data[gstin]
+    // gstsReturns.value[gstin] = data[gstin]
   }
 
   const refresh = async (page: number) => {

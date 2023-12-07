@@ -62,6 +62,13 @@ onMounted(async () => {
           :options="options"
           placeholder="Please select a GSTIN"
         >
+          <template #empty>
+            <p>
+              <el-text style="margin: 0 8px" :type="'info'"
+                >No GST added into system.</el-text
+              >
+            </p>
+          </template>
         </el-select-v2>
       </el-form-item>
     </el-form>
@@ -78,7 +85,9 @@ onMounted(async () => {
     class="m-b"
     style="justify-content: space-between"
     ><el-col class="flex-grow" :span="4">
-      <el-button :icon="Plus" @click="dialogVisible = true">Add card</el-button>
+      <el-button :icon="Plus" type="primary" @click="dialogVisible = true"
+        >Add card</el-button
+      >
     </el-col>
     <el-col :span="8" class="justify-end">
       <el-input

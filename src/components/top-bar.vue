@@ -18,7 +18,7 @@ const value1 = ref(true)
 const signOut = async () => {
   await authStore.signOut()
 
-  await router.push('/auth')
+  location.reload()
 }
 </script>
 

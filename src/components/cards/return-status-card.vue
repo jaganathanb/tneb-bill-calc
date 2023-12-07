@@ -2,7 +2,12 @@
 import { useGSTsStore, useCardsStore } from '@/stores'
 import { Edit, More, Refresh, Remove } from '@element-plus/icons-vue'
 import dayjs from 'dayjs'
-import { ElDropdownItem, type ElDropdown, ElDropdownMenu } from 'element-plus'
+import {
+  ElDropdownItem,
+  type ElDropdown,
+  ElDropdownMenu,
+  ElTooltip
+} from 'element-plus'
 import { storeToRefs } from 'pinia'
 import type { PropType } from 'vue'
 import { useRouter } from 'vue-router'
@@ -154,7 +159,7 @@ onMounted(async () => {
         <span>{{ props.card.tradename }}</span>
 
         <el-dropdown trigger="click">
-          <el-button :icon="More" link />
+          ><el-button :icon="More" link />
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item :icon="Edit" @click="dialogVisible = true"
