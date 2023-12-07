@@ -159,7 +159,7 @@ onMounted(async () => {
         <span>{{ props.card.tradename }}</span>
 
         <el-dropdown trigger="click">
-          ><el-button :icon="More" link />
+          <el-button :icon="More" link />
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item :icon="Edit" @click="dialogVisible = true"
