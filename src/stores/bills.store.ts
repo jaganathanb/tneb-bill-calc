@@ -55,7 +55,8 @@ export const useBillsStore = defineStore('bills', () => {
     page: 1,
     limit: PAGE_LIMIT,
     sort: 'startDate',
-    order: 'desc'
+    order: 'desc',
+    move: 'next'
   })
 
   const getTotalBillCount = async () => {

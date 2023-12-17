@@ -111,6 +111,7 @@ export const useGSTsStore = defineStore('gsts', () => {
   }
 
   let collRef = getInitialPage({
+    move: 'next',
     page: 1,
     limit: PAGE_LIMIT,
     sort: 'registrationDate',

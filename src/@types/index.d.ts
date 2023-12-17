@@ -4,6 +4,7 @@ interface PageTable<T> {
 }
 
 interface Params {
+  move: 'prev' | 'next'
   page: number
   limit: number
   sort: string

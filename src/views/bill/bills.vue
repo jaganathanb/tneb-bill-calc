@@ -27,7 +27,8 @@ const params = reactive<Params>({
   page: 1,
   limit: PAGE_LIMIT,
   sort: 'startDate',
-  order: 'desc'
+  order: 'desc',
+  move: 'next'
 })
 
 const title = computed<string>(() => {

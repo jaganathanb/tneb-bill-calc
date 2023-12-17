@@ -30,7 +30,7 @@ type StatusDropdownItem = OptionType & {
 const gstStore = useGSTsStore()
 const feedback = useFeedbackStore()
 
-const { paging, totalGSTs, gsts } = storeToRefs(gstStore)
+const { paging, totalGSTs, gsts, progress } = storeToRefs(gstStore)
 
 const r1StatusOptions = [
   {
@@ -59,6 +59,8 @@ const r1StatusOptions = [
   }
 ] as StatusDropdownItem[]
 
+const search = ref('')
+const currPage = ref(1)
 const dialogVisible = ref(false)
 const selectedGST = ref({} as GST)
 
@@ -74,7 +76,7 @@ const add = async () => {
     })
 
     if (result.action === 'confirm') {
-      await gstStore.getGSTDetail(result.value.trim())
+      await gstStore.getGSTDetail(result.value.trim().split(','))
 
       await gstStore.getTotalGSTCount()
     }
@@ -100,7 +102,7 @@ const deleteGST = async (data: GST) => {
       await gstStore.removeGST(data.id)
     }
 
-    const list = gsts.value
+    const list = gsts.value[paging.value.page]
     const index = list?.findIndex((item: GST) => item.id === data.id)
     if (index !== -1) {
       list?.splice(index as number, 1)
@@ -158,7 +160,7 @@ const updateStatus = async (data: {
 }
 
 const movePage = (page: number) => {
-  paging.value.page = page
+  gstStore.move(page)
 }
 
 const changePageSize = (size: number) => {
@@ -176,6 +178,12 @@ const lockRow = ({ row }: { row: GST }) => {
 const unlockRow = async (data: GST) => {
   data.locked = false
   await gstStore.setGST(data)
+}
+
+const onSearch = (evt: KeyboardEvent | Event) => {
+  if (evt instanceof KeyboardEvent && evt.key === 'Enter') {
+    gstStore.searchGST(search.value.trim())
+  }
 }
 
 onMounted(async () => {
@@ -209,17 +217,22 @@ onMounted(async () => {
     </el-row>
   </el-container>
   <el-table
-    :data="gsts"
+    :data="gsts[paging.page]"
+    v-loading="progress"
     :border="true"
     style="width: 100%"
     :row-class-name="lockRow"
   >
-    <el-table-column
-      prop="gstin"
-      width="150"
-      label="GSTIN"
-      fixed
-    ></el-table-column>
+    <el-table-column prop="gstin" width="150" label="GSTIN" fixed>
+      <template #header>
+        <el-input
+          v-model="search"
+          size="small"
+          placeholder="Enter GSTIN to search"
+          @keydown="onSearch"
+        />
+      </template>
+    </el-table-column>
     <el-table-column align="center" label="GSTR-1">
       <el-table-column
         label="Tax period"
@@ -378,7 +391,7 @@ onMounted(async () => {
     </el-table-column>
   </el-table>
   <BasePagination
-    v-model:page="paging.page"
+    v-model:page="currPage"
     v-model:limit="paging.limit"
     :total="totalGSTs"
     @update:limit="changePageSize"

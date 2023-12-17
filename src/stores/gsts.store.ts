@@ -12,7 +12,14 @@ import {
   startAt,
   updateDoc,
   deleteDoc,
-  type DocumentData
+  type DocumentData,
+  where,
+  QueryOrderByConstraint,
+  QueryConstraint,
+  type QueryConstraintType,
+  FieldValue,
+  increment,
+  setDoc
 } from 'firebase/firestore'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { Ref } from 'vue'
@@ -20,8 +27,8 @@ import { ref } from 'vue'
 import { useHttpClient } from '@/hooks'
 import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
 import { data, gstDetails } from './data'
-import { delay, groupBy } from 'lodash'
-import dayjs from 'dayjs'
+import { delay, groupBy, remove } from 'lodash'
+import dayjs, { Dayjs } from 'dayjs'
 import type { PaginationProps, SortBy } from 'element-plus'
 import type { OptionType } from 'element-plus/es/components/select-v2/src/select.types'
 import { Phone, DocumentChecked, Memo, Select } from '@element-plus/icons-vue'
@@ -30,20 +37,27 @@ import type { Component, VNode } from 'vue'
 export const useGSTsStore = defineStore('gsts', () => {
   const httpClient = useHttpClient()
 
-  let gsts: Ref<GST[] | undefined> = ref(undefined)
+  const gsts: Ref<{ [key: number]: GST[] }> = ref({})
   let lastRecord: GST | null = null
   const totalGSTs: Ref<number> = ref(0)
   const lastUpdateDate = ref(dayjs().format())
+  const progress = ref(true)
 
   const db = useFirestore()
   const user = useCurrentUser()
 
   const paging = ref({
+    move: 'next',
     page: 1,
     limit: 2,
-    sort: 'registrationDate',
-    order: 'desc'
+    sort: 'sno',
+    order: 'asc'
   } as Params)
+
+  const constraints = ref([
+    orderBy(paging.value.sort as string, paging.value.order),
+    limit(paging.value.limit)
+  ] as QueryConstraint[])
 
   const gstsRef = collection(db, `gst/${user.value?.uid}/gsts`).withConverter<
     GST,
@@ -57,7 +71,7 @@ export const useGSTsStore = defineStore('gsts', () => {
         tradename: gst.tradename || '',
         registrationDate: gst.registrationDate || '',
         gstin: gst.gstin || '',
-        sno: gst.sno || '',
+        sno: gst.sno || 1,
         gstr1LastFiledDate: gst.gstr1LastFiledDate || '',
         gstr1LastFiledTaxPeriod: gst.gstr1LastFiledTaxPeriod || '',
         gstr1PendingReturns: gst.gstr1PendingReturns || '',
@@ -77,41 +91,55 @@ export const useGSTsStore = defineStore('gsts', () => {
       const gst = snapshot.data() as GST
       gst.id = snapshot.id
 
-      lastRecord = gst
-
       return gst
     }
   })
 
-  const gstsQuery = computed(() => {
+  let gstsQuery = computed(() => {
     const pageSize = paging.value.limit || PAGE_LIMIT
-    const currPage = paging.value.page || 1
+
+    remove(constraints.value, (c) =>
+      ['limit', 'orderBy', 'startAt', 'startAfter'].includes(c.type)
+    )
+
+    constraints.value.push(
+      orderBy(paging.value.sort as string, paging.value.order),
+      limit(pageSize)
+    )
 
     if (lastRecord) {
-      return query(
-        gstsRef,
-        orderBy(paging.value.sort as string, paging.value.order),
-        pageSize > currPage
-          ? startAfter(lastRecord.registrationDate)
-          : startAt(lastRecord.registrationDate),
-        limit(pageSize)
+      constraints.value.push(
+        paging.value.move === 'next'
+          ? startAfter(lastRecord.sno)
+          : startAt(lastRecord.sno)
       )
+
+      return query(gstsRef, ...constraints.value)
     }
 
-    return query(
-      gstsRef,
-      orderBy(paging.value.sort as string, paging.value.order),
-      limit(pageSize || PAGE_LIMIT)
-    )
+    return query(gstsRef, ...constraints.value)
   })
-
-  gsts = useCollection(gstsQuery, { ssrKey: 'gsts' })
 
   const getTotalGSTCount = async () => {
     totalGSTs.value = (await getCountFromServer(gstsRef)).data().count
   }
 
-  const getGSTDetail = async (gstin: string) => {
+  watch(
+    [gstsQuery, lastUpdateDate],
+    async () => {
+      await getTotalGSTCount()
+
+      const docs = (await getDocs(gstsQuery.value)).docs
+
+      gsts.value[paging.value.page] = docs.map((d) => d.data())
+
+      progress.value = false
+    },
+    { immediate: true }
+  )
+
+  const getGSTDetail = async (gstins: string[]) => {
+    progress.value = true
     // const res = await httpClient.get(`/search?gstin=${gstin}`)
     // if (res.status === 200) {
     //   const returns = await getGSTReturns(gstin)
@@ -123,16 +151,16 @@ export const useGSTsStore = defineStore('gsts', () => {
 
     //   addGST(gst)
     // }
-    const data = gstDetails[`${gstin}_Details`]
+    for (const gstin of gstins) {
+      const data = gstDetails[`${gstin}_Details`]
 
-    const returns = await getGSTReturns(gstin)
-    const gst = { ...data } as GST
+      const returns = await getGSTReturns(gstin)
+      const gst = { ...data } as GST
 
-    getGSTUpdatedWithReturns(gst, returns)
+      getGSTUpdatedWithReturns(gst, returns)
 
-    gst.sno = totalGSTs.value ? totalGSTs.value + 1 : 1
-
-    addGST(gst)
+      addGST(gst)
+    }
   }
 
   const getGSTUpdatedWithReturns = (data: GST, returns: GSTReturn[]) => {
@@ -216,19 +244,30 @@ export const useGSTsStore = defineStore('gsts', () => {
   }
 
   const addGST = async (data: GST) => {
+    data.sno = totalGSTs.value + 1
     await addDoc(gstsRef, data)
+
+    lastUpdateDate.value = dayjs().format()
   }
 
   const setGST = async (data: GST) => {
+    progress.value = true
     await updateDoc(doc(gstsRef, data.id), { ...data })
+
+    lastUpdateDate.value = dayjs().format()
   }
 
   const removeGST = async (id: string) => {
+    progress.value = true
     await deleteDoc(doc(gstsRef, id))
+
+    lastUpdateDate.value = dayjs().format()
   }
 
   const refresh = async () => {
-    const notFiled = gsts.value?.filter((g) => g.gstr1LastStatus === 3) || []
+    const notFiled =
+      gsts.value[paging.value.page]?.filter((g) => g.gstr1LastStatus === 3) ||
+      []
     for (const gst of notFiled) {
       delay(
         async (g: GST) => {
@@ -242,6 +281,8 @@ export const useGSTsStore = defineStore('gsts', () => {
           )
 
           if (filed) {
+            progress.value = true
+
             if (
               dayjs(filed?.dof, 'DD-MM-YYYY').isAfter(
                 dayjs().startOf('month').add(11, 'day')
@@ -267,13 +308,43 @@ export const useGSTsStore = defineStore('gsts', () => {
     }
   }
 
+  const searchGST = (search: string) => {
+    progress.value = true
+    remove(constraints.value, (c) => ['where'].includes(c.type))
+
+    if (search) {
+      constraints.value.push(where('gstin', '==', search))
+    }
+
+    lastRecord = null
+  }
+
+  const move = (page: number) => {
+    progress.value = true
+
+    paging.value = {
+      ...paging.value,
+      move: page > paging.value.page ? 'next' : 'prev'
+    } as Params
+
+    lastRecord =
+      page > paging.value.page
+        ? gsts.value[paging.value.page]?.[paging.value.limit - 1]
+        : gsts.value[page]?.[0]
+
+    paging.value.page = page
+  }
+
   return {
     gsts,
-    paging,
     totalGSTs,
+    paging,
+    progress,
+    move,
     addGST,
     setGST,
     removeGST,
+    searchGST,
     getGSTDetail,
     getTotalGSTCount,
     refresh

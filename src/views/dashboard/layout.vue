@@ -31,7 +31,7 @@ const getReturns = async () => {
       tradename: options.find((o) => o.value === cardForm.gstin)?.label,
       order: totalDCards.value + 1
     } as DCard,
-    { limit: PAGE_LIMIT, order: 'asc', page: 1, sort: 'order' }
+    { limit: PAGE_LIMIT, order: 'asc', page: 1, sort: 'order', move: 'next' }
   )
 
   progress.value = false

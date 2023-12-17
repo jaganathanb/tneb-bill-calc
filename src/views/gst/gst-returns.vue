@@ -17,6 +17,7 @@ const feedback = useFeedbackStore()
 const loading = ref(false)
 
 const params = reactive<Params>({
+  move: 'next',
   sort: 'dof',
   order: 'desc',
   limit: PAGE_LIMIT,

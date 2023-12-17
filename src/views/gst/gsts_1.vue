@@ -44,6 +44,7 @@ const { gsts, gstsReturns, totalGSTs } = storeToRefs(gstStore)
 const loading = ref(false)
 
 const params = reactive<Params>({
+  move: 'next',
   page: 1,
   limit: PAGE_LIMIT,
   sort: 'registrationDate',

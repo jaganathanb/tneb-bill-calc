@@ -58,7 +58,8 @@ export const useCardsStore = defineStore('cards', () => {
     page: 1,
     limit: PAGE_LIMIT,
     sort: 'order',
-    order: 'asc'
+    order: 'asc',
+    move: 'next'
   })
 
   const getTotalDCardCount = async () => {
