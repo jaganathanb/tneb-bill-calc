@@ -1,19 +1,18 @@
 <script lang="ts" setup>
-import { useGSTsStore, useFeedbackStore } from '@/stores'
 import { ElButton, dayjs } from 'element-plus'
 import { Select, Timer } from '@element-plus/icons-vue'
 import { storeToRefs } from 'pinia'
 import { PAGE_LIMIT } from '@/constants'
 import BasePagination from '@/components/table/base-pagination.vue'
 
-import { load } from '@amap/amap-jsapi-loader'
-import { GSTs } from '.'
 import type { PropType } from 'vue'
+import { useGSTsStore } from '@/stores/gsts.store'
+import { useFeedbackStore } from '@/stores/feedback.store'
 
 const gstStore = useGSTsStore()
 const feedback = useFeedbackStore()
 
-const { gstsReturns } = storeToRefs(gstStore)
+//const { gstsReturns } = storeToRefs(gstStore)
 
 const loading = ref(false)
 
@@ -39,13 +38,13 @@ const pagedGstsReturns = computed(() => {
   const start = params.limit * (params.page - 1)
   const end = start + params.limit
 
-  return gstsReturns.value[props.gst.gstin]?.slice(start, end)
+  return []
 })
 
 onMounted(async () => {
-  if (!gstsReturns.value[props.gst.gstin]) {
+  if (![]) {
     loading.value = true
-    await gstStore.getGSTReturns(props.gst.gstin)
+    //  await gstStore.getGSTReturns(props.gst.gstin)
     loading.value = false
   }
 })
@@ -90,6 +89,6 @@ onMounted(async () => {
   <BasePagination
     v-model:page="params.page"
     v-model:limit="params.limit"
-    :total="gstsReturns[gst.gstin]?.length"
+    :total="1"
   />
 </template>

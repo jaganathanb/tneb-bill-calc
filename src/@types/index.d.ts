@@ -33,12 +33,27 @@ interface IRIS_PRADR {
 }
 
 interface GST extends IRIS_GST {
+  locked: boolean
+  sno: number
   id: string
   gstin: string
   name: string
   tradename: string
   registrationDate: string
   address: string
+  gstr1LastFiledDate: string
+  gstr1LastStatus: number
+  gstr1LastFiledTaxPeriod: string
+  gstr3bLastFiledDate: string
+  gstr3bLastStatus: number
+  gstr3bLastFiledTaxPeriod: string
+  gstr9LastFiledDate: string
+  gstr9LastStatus: number
+  gstr9LastFiledTaxPeriod: string
+  gstr1PendingReturns: string[]
+  gstr3bPendingReturns: string[]
+  gstr9PendingReturns: string[]
+  [key: string]: string | string[] | number
 }
 
 interface DCard {
@@ -49,8 +64,8 @@ interface DCard {
 }
 
 type ModeOfFiling = 'ONLINE' | 'OFFLINE'
-type GSTReturnType = 'GSTR1' | 'GSTR3B' | 'GSTR9'
-type GSTReturnStatus = 'Filed' | 'Pending'
+type GSTReturnType = 'GSTR1' | 'GSTR3B' | 'GSTR9' | 'GSTR2'
+type GSTReturnStatus = 'Filed' | 'Not Filed'
 
 interface GSTReturn {
   id?: string

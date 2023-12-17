@@ -43,6 +43,7 @@ const pageSize = computed({
 function handleSizeChange(val: number) {
   emit('pagination', val)
 }
+
 function handleCurrentChange(val: number) {
   emit('pagination', val)
 }

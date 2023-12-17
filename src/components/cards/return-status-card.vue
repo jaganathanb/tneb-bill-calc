@@ -26,7 +26,7 @@ const props = defineProps({
   }
 })
 
-const { gstsReturns } = storeToRefs(gstStore)
+//const { gstsReturns } = storeToRefs(gstStore)
 
 const loading = ref(true)
 const dialogVisible = ref(false)
@@ -45,21 +45,9 @@ const duration = ref(1)
 
 const data = computed(() => {
   const filedStatus = {
-    gstr1Count: gstsReturns.value[props.card.gstin]?.filter(
-      (r) =>
-        r.rtntype === 'GSTR1' &&
-        dayjs().diff(dayjs(r.dof, 'DD-MM-YYYY'), 'day') <= duration.value
-    ).length,
-    gstr3bCount: gstsReturns.value[props.card.gstin]?.filter(
-      (r) =>
-        r.rtntype === 'GSTR3B' &&
-        dayjs().diff(dayjs(r.dof, 'DD-MM-YYYY'), 'day') <= duration.value
-    ).length,
-    gstr9Count: gstsReturns.value[props.card.gstin]?.filter(
-      (r) =>
-        r.rtntype === 'GSTR9' &&
-        dayjs().diff(dayjs(r.dof, 'DD-MM-YYYY'), 'day') <= duration.value
-    ).length
+    gstr1Count: 1,
+    gstr3bCount: 2,
+    gstr9Count: 3
   }
 
   return {
@@ -117,7 +105,7 @@ const removeCard = async () => {
 const refreshCard = async () => {
   loading.value = true
 
-  await gstStore.getGSTReturns(props.card.gstin)
+  // await gstStore.getGSTReturns(props.card.gstin)
 
   loading.value = false
 }
@@ -128,7 +116,7 @@ const setDuration = () => {
 }
 
 onMounted(async () => {
-  await gstStore.getGSTReturns(props.card.gstin)
+  // await gstStore.getGSTReturns(props.card.gstin)
 
   loading.value = false
 })

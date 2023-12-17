@@ -3,6 +3,15 @@ export const data: { [key: string]: GSTReturn[] } = {
     {
       valid: 'Y',
       mof: 'ONLINE',
+      dof: '25-12-2023',
+      rtntype: 'GSTR1',
+      ret_prd: '112023',
+      arn: 'AB331023668802C',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
       dof: '20-11-2023',
       rtntype: 'GSTR3B',
       ret_prd: '102023',
@@ -4046,5 +4055,2863 @@ export const data: { [key: string]: GSTReturn[] } = {
       mof: 'ONLINE',
       arn: 'AA330717272639P'
     }
+  ],
+  '33DJPPS1423E1ZA': [
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '14-12-2023',
+      rtntype: 'GSTR1',
+      ret_prd: '112023',
+      arn: 'AB3310238582868',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '25-11-2023',
+      rtntype: 'GSTR1',
+      ret_prd: '102023',
+      arn: 'AB3310238582868',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '25-11-2023',
+      rtntype: 'GSTR3B',
+      ret_prd: '102023',
+      arn: 'AB3310238583577',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '01-11-2023',
+      rtntype: 'GSTR3B',
+      ret_prd: '092023',
+      arn: 'AC330923090917O',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '31-10-2023',
+      rtntype: 'GSTR1',
+      ret_prd: '092023',
+      arn: 'AC330923083825S',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '05-10-2023',
+      rtntype: 'GSTR1',
+      ret_prd: '082023',
+      arn: 'AB330823895963I',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '05-10-2023',
+      rtntype: 'GSTR3B',
+      ret_prd: '082023',
+      arn: 'AB330823897666G',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '25-08-2023',
+      rtntype: 'GSTR1',
+      ret_prd: '072023',
+      arn: 'AB3307238345734',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '25-08-2023',
+      rtntype: 'GSTR3B',
+      ret_prd: '072023',
+      arn: 'AB3307238352763',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '22-07-2023',
+      rtntype: 'GSTR1',
+      ret_prd: '062023',
+      arn: 'AB3306239752162',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '22-07-2023',
+      rtntype: 'GSTR3B',
+      ret_prd: '062023',
+      arn: 'AB330623983652Y',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '30-06-2023',
+      rtntype: 'GSTR9',
+      ret_prd: '032022',
+      arn: 'AC3303223984741',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '26-06-2023',
+      rtntype: 'GSTR9',
+      ret_prd: '032019',
+      arn: 'AC330319075695Q',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '24-06-2023',
+      rtntype: 'GSTR1',
+      ret_prd: '052023',
+      arn: 'AB3305238376551',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '24-06-2023',
+      rtntype: 'GSTR3B',
+      ret_prd: '052023',
+      arn: 'AB3305238376618',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '26-05-2023',
+      rtntype: 'GSTR3B',
+      ret_prd: '042023',
+      arn: 'AB330423812711M',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '26-05-2023',
+      rtntype: 'GSTR1',
+      ret_prd: '042023',
+      arn: 'AB3304238077383',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '27-04-2023',
+      rtntype: 'GSTR1',
+      ret_prd: '032023',
+      arn: 'AC330323040682J',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '27-04-2023',
+      rtntype: 'GSTR3B',
+      ret_prd: '032023',
+      arn: 'AC3303230410006',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '24-03-2023',
+      ret_prd: '022023',
+      rtntype: 'GSTR3B',
+      arn: 'AB330223815556D',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '24-03-2023',
+      ret_prd: '022023',
+      rtntype: 'GSTR1',
+      arn: 'AB330223814790I',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '22-02-2023',
+      ret_prd: '012023',
+      rtntype: 'GSTR3B',
+      arn: 'AB3301237943086',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '22-02-2023',
+      ret_prd: '012023',
+      rtntype: 'GSTR1',
+      arn: 'AB330123793847V',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '25-01-2023',
+      ret_prd: '122022',
+      rtntype: 'GSTR3B',
+      arn: 'AB3312229781681',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '25-01-2023',
+      ret_prd: '122022',
+      rtntype: 'GSTR1',
+      arn: 'AB331222977905Y',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-12-2022',
+      ret_prd: '112022',
+      rtntype: 'GSTR3B',
+      arn: 'AB331122582720J',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-12-2022',
+      ret_prd: '112022',
+      rtntype: 'GSTR1',
+      arn: 'AB331122554421R',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '02-12-2022',
+      ret_prd: '102022',
+      rtntype: 'GSTR1',
+      arn: 'AB331022780714E',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '02-12-2022',
+      ret_prd: '102022',
+      rtntype: 'GSTR3B',
+      arn: 'AB331022780743D',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '22-10-2022',
+      ret_prd: '092022',
+      rtntype: 'GSTR1',
+      arn: 'AB3309228368114',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '22-10-2022',
+      ret_prd: '092022',
+      rtntype: 'GSTR3B',
+      arn: 'AB330922837010L',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '22-09-2022',
+      ret_prd: '082022',
+      rtntype: 'GSTR3B',
+      arn: 'AB330822645934X',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-09-2022',
+      ret_prd: '082022',
+      rtntype: 'GSTR1',
+      arn: 'AB330822209101U',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '29-08-2022',
+      ret_prd: '072022',
+      rtntype: 'GSTR3B',
+      arn: 'AB3307227149551',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '26-08-2022',
+      ret_prd: '072022',
+      rtntype: 'GSTR1',
+      arn: 'AB3307226991424',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-07-2022',
+      ret_prd: '062022',
+      rtntype: 'GSTR3B',
+      arn: 'AB330622560264E',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-07-2022',
+      ret_prd: '062022',
+      rtntype: 'GSTR1',
+      arn: 'AB3306223600989',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '28-06-2022',
+      ret_prd: '052022',
+      rtntype: 'GSTR3B',
+      arn: 'AB3305226922481',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '24-06-2022',
+      ret_prd: '052022',
+      rtntype: 'GSTR1',
+      arn: 'AB330522664510I',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '26-05-2022',
+      ret_prd: '042022',
+      rtntype: 'GSTR3B',
+      arn: 'AB330422643223O',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '24-05-2022',
+      ret_prd: '042022',
+      rtntype: 'GSTR1',
+      arn: 'AB330422560440O',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '21-04-2022',
+      ret_prd: '032022',
+      rtntype: 'GSTR3B',
+      arn: 'AB330322729019G',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '21-04-2022',
+      ret_prd: '032022',
+      rtntype: 'GSTR1',
+      arn: 'AB330322727441N',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '02-04-2022',
+      ret_prd: '032021',
+      rtntype: 'GSTR9',
+      arn: 'AC330321215315T',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '22-03-2022',
+      rtntype: 'GSTR3B',
+      ret_prd: '022022',
+      arn: 'AB3302225923197',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '22-03-2022',
+      rtntype: 'GSTR1',
+      ret_prd: '022022',
+      arn: 'AB330222592020U',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '18-02-2022',
+      rtntype: 'GSTR1',
+      ret_prd: '012022',
+      arn: 'AB3301221994855',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '18-02-2022',
+      rtntype: 'GSTR3B',
+      ret_prd: '012022',
+      arn: 'AB330122199740D',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-01-2022',
+      rtntype: 'GSTR1',
+      ret_prd: '122021',
+      arn: 'AB331221462414N',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-01-2022',
+      rtntype: 'GSTR3B',
+      ret_prd: '122021',
+      arn: 'AB3312214637873',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-12-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '112021',
+      arn: 'AB331121375150V',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-12-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '112021',
+      arn: 'AB331121329805I',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '17-12-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '092021',
+      arn: 'AB330921947647R',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '23-11-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '102021',
+      arn: 'AB331021510524Z',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '23-11-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '102021',
+      arn: 'AB331021510487P',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '25-10-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '092021',
+      arn: 'AB330921768976H',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '16-09-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '082021',
+      arn: 'AA330821888990Q',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '11-09-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '082021',
+      arn: 'AA330821617732D',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '27-08-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '072021',
+      arn: 'AB330721528996T',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '27-08-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '072021',
+      arn: 'AB330721527680D',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '24-08-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '062021',
+      arn: 'AB3306217900395',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '24-08-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '062021',
+      arn: 'AB330621788549O',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-08-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '052021',
+      arn: 'AB330521546403K',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '18-08-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '052021',
+      arn: 'AB330521544512L',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '17-08-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '042021',
+      arn: 'AB330421597620B',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '17-08-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '042021',
+      arn: 'AB330421598460A',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '27-04-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '032021',
+      arn: 'AB330321677679T',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '27-04-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '032021',
+      arn: 'AB330321674896W',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-01-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '122020',
+      arn: 'AA3312209416797',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-01-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '122020',
+      arn: 'AB3312200203632',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-01-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '112020',
+      arn: 'AB331120482572J',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-01-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '102020',
+      arn: 'AB331020527966C',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-01-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '092020',
+      arn: 'AB3309201329472',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-12-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '112020',
+      arn: 'AA331120978661D',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '18-11-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '102020',
+      arn: 'AA3310207713101',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '23-10-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '092020',
+      arn: 'AA3309206880281',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '06-10-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '082020',
+      arn: 'AB3308202646364',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '06-10-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '072020',
+      arn: 'AB330720365204J',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '06-10-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '062020',
+      arn: 'AB3306205855148',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '06-10-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '072020',
+      arn: 'AB3307203651489',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '06-10-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '082020',
+      arn: 'AB330820264603D',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '23-09-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '062020',
+      arn: 'AB330620497026A',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '06-08-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '052020',
+      arn: 'AB330520094326D',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '06-08-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '052020',
+      arn: 'AB330520094333I',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '25-07-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '032020',
+      arn: 'AB330320437271T',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '25-07-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '042020',
+      arn: 'AB330420103230A',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '25-07-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '032020',
+      arn: 'AB330320437337J',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '25-07-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '042020',
+      arn: 'AB330420102769G',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '09-03-2020',
+      ret_prd: '022020',
+      rtntype: 'GSTR3B',
+      arn: 'AA330220277295H',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '09-03-2020',
+      ret_prd: '022020',
+      rtntype: 'GSTR1',
+      arn: 'AA3302202777759',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '15-02-2020',
+      ret_prd: '012020',
+      rtntype: 'GSTR1',
+      arn: 'AA330120745505P',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '15-02-2020',
+      ret_prd: '012020',
+      rtntype: 'GSTR3B',
+      arn: 'AA330120745415Q',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '14-01-2020',
+      ret_prd: '122019',
+      rtntype: 'GSTR1',
+      arn: 'AA3312198344629',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '13-01-2020',
+      ret_prd: '122019',
+      rtntype: 'GSTR3B',
+      arn: 'AA331219792696L',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '18-12-2019',
+      ret_prd: '112019',
+      rtntype: 'GSTR1',
+      arn: 'AA3311197394073',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '18-12-2019',
+      ret_prd: '112019',
+      rtntype: 'GSTR3B',
+      arn: 'AA331119755923Z',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '27-11-2019',
+      ret_prd: '102019',
+      rtntype: 'GSTR1',
+      arn: 'AB331019141996Y',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '27-11-2019',
+      ret_prd: '102019',
+      rtntype: 'GSTR3B',
+      arn: 'AB3310191397833',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '21-10-2019',
+      ret_prd: '092019',
+      rtntype: 'GSTR1',
+      arn: 'AB330919058644O',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '21-10-2019',
+      ret_prd: '092019',
+      rtntype: 'GSTR3B',
+      arn: 'AB330919003235A',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '21-09-2019',
+      ret_prd: '082019',
+      rtntype: 'GSTR1',
+      arn: 'AA3308199800330',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-09-2019',
+      ret_prd: '082019',
+      rtntype: 'GSTR3B',
+      arn: 'AA330819883883D',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '12-08-2019',
+      ret_prd: '072019',
+      rtntype: 'GSTR1',
+      arn: 'AA3307193343750',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '12-08-2019',
+      ret_prd: '072019',
+      rtntype: 'GSTR3B',
+      arn: 'AA3307193342851',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '17-07-2019',
+      ret_prd: '062019',
+      rtntype: 'GSTR1',
+      arn: 'AA330619580013A',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '17-07-2019',
+      ret_prd: '062019',
+      rtntype: 'GSTR3B',
+      arn: 'AA330619579907E',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '12-06-2019',
+      ret_prd: '052019',
+      rtntype: 'GSTR1',
+      arn: 'AA330519350291C',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '12-06-2019',
+      ret_prd: '052019',
+      rtntype: 'GSTR3B',
+      arn: 'AA330519350090I',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '11-05-2019',
+      ret_prd: '042019',
+      rtntype: 'GSTR1',
+      arn: 'AA3304192783119',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '09-05-2019',
+      ret_prd: '042019',
+      rtntype: 'GSTR3B',
+      arn: 'AA3304191622970',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '01-05-2019',
+      ret_prd: '032019',
+      rtntype: 'GSTR1',
+      arn: 'AB330319326906Z',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '01-05-2019',
+      ret_prd: '022019',
+      rtntype: 'GSTR1',
+      arn: 'AB330219171794X',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '01-05-2019',
+      ret_prd: '112018',
+      rtntype: 'GSTR1',
+      arn: 'AB331118224082P',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '22-04-2019',
+      ret_prd: '122018',
+      rtntype: 'GSTR1',
+      arn: 'AB331218564855T',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '22-04-2019',
+      ret_prd: '012019',
+      rtntype: 'GSTR1',
+      arn: 'AA3301196427074',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-04-2019',
+      ret_prd: '032019',
+      rtntype: 'GSTR3B',
+      arn: 'AA330319811505D',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      dof: '29-03-2019',
+      status: 'Filed',
+      ret_prd: '022019',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AB330219085537W'
+    },
+    {
+      valid: 'Y',
+      dof: '18-02-2019',
+      status: 'Filed',
+      ret_prd: '012019',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AA3301196405195'
+    },
+    {
+      valid: 'Y',
+      dof: '21-01-2019',
+      status: 'Filed',
+      ret_prd: '122018',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AB3312180755048'
+    },
+    {
+      valid: 'Y',
+      dof: '18-12-2018',
+      status: 'Filed',
+      ret_prd: '102018',
+      rtntype: 'GSTR1',
+      mof: 'ONLINE',
+      arn: 'AB331018053428A'
+    },
+    {
+      valid: 'Y',
+      dof: '18-12-2018',
+      status: 'Filed',
+      ret_prd: '092018',
+      rtntype: 'GSTR1',
+      mof: 'ONLINE',
+      arn: 'AB330918228010H'
+    },
+    {
+      valid: 'Y',
+      dof: '11-12-2018',
+      status: 'Filed',
+      ret_prd: '112018',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AA331118307545F'
+    },
+    {
+      valid: 'Y',
+      dof: '14-11-2018',
+      status: 'Filed',
+      ret_prd: '102018',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AA331018373405D'
+    },
+    {
+      valid: 'Y',
+      dof: '25-10-2018',
+      status: 'Filed',
+      ret_prd: '092018',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AB330918039050C'
+    },
+    {
+      valid: 'Y',
+      dof: '21-09-2018',
+      status: 'Filed',
+      ret_prd: '082018',
+      rtntype: 'GSTR1',
+      mof: 'ONLINE',
+      arn: 'AA330818262905S'
+    },
+    {
+      valid: 'Y',
+      dof: '11-09-2018',
+      status: 'Filed',
+      ret_prd: '082018',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AA330818262705W'
+    },
+    {
+      valid: 'Y',
+      dof: '30-08-2018',
+      status: 'Filed',
+      ret_prd: '072018',
+      rtntype: 'GSTR1',
+      mof: 'ONLINE',
+      arn: 'AA330718889403R'
+    },
+    {
+      valid: 'Y',
+      dof: '20-08-2018',
+      status: 'Filed',
+      ret_prd: '072018',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AA3307186692015'
+    },
+    {
+      valid: 'Y',
+      dof: '04-08-2018',
+      status: 'Filed',
+      ret_prd: '062018',
+      rtntype: 'GSTR1',
+      mof: 'ONLINE',
+      arn: 'AB330618119719T'
+    },
+    {
+      valid: 'Y',
+      dof: '18-07-2018',
+      status: 'Filed',
+      ret_prd: '062018',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AA330618626917R'
+    },
+    {
+      valid: 'Y',
+      dof: '25-06-2018',
+      status: 'Filed',
+      ret_prd: '052018',
+      rtntype: 'GSTR1',
+      mof: 'ONLINE',
+      arn: 'AA3305188536215'
+    },
+    {
+      valid: 'Y',
+      dof: '19-06-2018',
+      status: 'Filed',
+      ret_prd: '052018',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AA330518582908L'
+    },
+    {
+      valid: 'Y',
+      dof: '24-05-2018',
+      status: 'Filed',
+      ret_prd: '042018',
+      rtntype: 'GSTR1',
+      mof: 'ONLINE',
+      arn: 'AA330418843460B'
+    },
+    {
+      valid: 'Y',
+      dof: '15-05-2018',
+      status: 'Filed',
+      ret_prd: '042018',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AA330418230340Q'
+    },
+    {
+      valid: 'Y',
+      dof: '09-05-2018',
+      status: 'Filed',
+      ret_prd: '032018',
+      rtntype: 'GSTR1',
+      mof: 'ONLINE',
+      arn: 'AB330318013540P'
+    },
+    {
+      valid: 'Y',
+      dof: '16-04-2018',
+      status: 'Filed',
+      ret_prd: '032018',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AA330318255666Z'
+    },
+    {
+      valid: 'Y',
+      dof: '07-04-2018',
+      status: 'Filed',
+      ret_prd: '022018',
+      rtntype: 'GSTR1',
+      mof: 'ONLINE',
+      arn: 'AA330218795918J'
+    },
+    {
+      valid: 'Y',
+      dof: '15-03-2018',
+      status: 'Filed',
+      ret_prd: '022018',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AA330218231037M'
+    },
+    {
+      valid: 'Y',
+      dof: '10-03-2018',
+      status: 'Filed',
+      ret_prd: '012018',
+      rtntype: 'GSTR1',
+      mof: 'ONLINE',
+      arn: 'AA3301188639801'
+    },
+    {
+      valid: 'Y',
+      dof: '16-02-2018',
+      status: 'Filed',
+      ret_prd: '012018',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AA330118302660R'
+    },
+    {
+      valid: 'Y',
+      dof: '09-02-2018',
+      status: 'Filed',
+      ret_prd: '122017',
+      rtntype: 'GSTR1',
+      mof: 'ONLINE',
+      arn: 'AA3312179257536'
+    },
+    {
+      valid: 'Y',
+      dof: '22-01-2018',
+      status: 'Filed',
+      ret_prd: '122017',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AA331217571630E'
+    },
+    {
+      valid: 'Y',
+      dof: '09-01-2018',
+      status: 'Filed',
+      ret_prd: '082017',
+      rtntype: 'GSTR1',
+      mof: 'ONLINE',
+      arn: 'AB330817078498H'
+    },
+    {
+      valid: 'Y',
+      dof: '09-01-2018',
+      status: 'Filed',
+      ret_prd: '092017',
+      rtntype: 'GSTR1',
+      mof: 'ONLINE',
+      arn: 'AB330917074662U'
+    },
+    {
+      valid: 'Y',
+      dof: '09-01-2018',
+      status: 'Filed',
+      ret_prd: '102017',
+      rtntype: 'GSTR1',
+      mof: 'ONLINE',
+      arn: 'AA331017829515B'
+    },
+    {
+      valid: 'Y',
+      dof: '09-01-2018',
+      status: 'Filed',
+      ret_prd: '112017',
+      rtntype: 'GSTR1',
+      mof: 'ONLINE',
+      arn: 'AA3311177745650'
+    },
+    {
+      valid: 'Y',
+      dof: '14-12-2017',
+      status: 'Filed',
+      ret_prd: '112017',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AA3311172118597'
+    },
+    {
+      valid: 'Y',
+      dof: '10-11-2017',
+      status: 'Filed',
+      ret_prd: '102017',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AA3310171294986'
+    },
+    {
+      valid: 'Y',
+      dof: '26-10-2017',
+      status: 'Filed',
+      ret_prd: '092017',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AA3309175940421'
+    },
+    {
+      valid: 'Y',
+      dof: '19-10-2017',
+      status: 'Filed',
+      ret_prd: '082017',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AA330817590047X'
+    },
+    {
+      valid: 'Y',
+      dof: '10-10-2017',
+      status: 'Filed',
+      ret_prd: '072017',
+      rtntype: 'GSTR1',
+      mof: 'ONLINE',
+      arn: 'AB330717542001L'
+    },
+    {
+      valid: 'Y',
+      dof: '14-08-2017',
+      status: 'Filed',
+      ret_prd: '072017',
+      rtntype: 'GSTR3B',
+      mof: 'ONLINE',
+      arn: 'AA330717272639P'
+    }
+  ],
+  '33BZMPM1544H1ZD': [
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '18-12-2023',
+      ret_prd: '072023',
+      rtntype: 'GSTR1',
+      arn: 'AB330623224141T',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '18-07-2023',
+      ret_prd: '062023',
+      rtntype: 'GSTR1',
+      arn: 'AB330623224141T',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '18-07-2023',
+      ret_prd: '062023',
+      rtntype: 'GSTR3B',
+      arn: 'AB3306232248283',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '17-06-2023',
+      ret_prd: '052023',
+      rtntype: 'GSTR3B',
+      arn: 'AB3305231096792',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '10-06-2023',
+      ret_prd: '052023',
+      rtntype: 'GSTR1',
+      arn: 'AA330523510076P',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '29-05-2023',
+      ret_prd: '042023',
+      rtntype: 'GSTR3B',
+      arn: 'AB330423832451K',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '27-05-2023',
+      ret_prd: '042023',
+      rtntype: 'GSTR1',
+      arn: 'AB330423821931F',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '21-04-2023',
+      ret_prd: '032023',
+      rtntype: 'GSTR1',
+      arn: 'AB3303238952256',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '21-04-2023',
+      ret_prd: '032023',
+      rtntype: 'GSTR3B',
+      arn: 'AB3303238954252',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-03-2023',
+      rtntype: 'GSTR3B',
+      ret_prd: '022023',
+      arn: 'AB330223584490D',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-03-2023',
+      rtntype: 'GSTR1',
+      ret_prd: '022023',
+      arn: 'AB3302235727646',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '21-02-2023',
+      rtntype: 'GSTR1',
+      ret_prd: '012023',
+      arn: 'AB330123755475A',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '21-02-2023',
+      rtntype: 'GSTR3B',
+      ret_prd: '012023',
+      arn: 'AB3301237596067',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '25-01-2023',
+      rtntype: 'GSTR1',
+      ret_prd: '122022',
+      arn: 'AB331222989578P',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '25-01-2023',
+      rtntype: 'GSTR3B',
+      ret_prd: '122022',
+      arn: 'AB3312229896042',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '16-12-2022',
+      rtntype: 'GSTR3B',
+      ret_prd: '112022',
+      arn: 'AB331122029780N',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '16-12-2022',
+      rtntype: 'GSTR1',
+      ret_prd: '112022',
+      arn: 'AB331122029278I',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '18-11-2022',
+      rtntype: 'GSTR3B',
+      ret_prd: '102022',
+      arn: 'AB331022281507H',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '09-11-2022',
+      rtntype: 'GSTR1',
+      ret_prd: '102022',
+      arn: 'AA331022336119Q',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-10-2022',
+      rtntype: 'GSTR1',
+      ret_prd: '092022',
+      arn: 'AB3309224253971',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '19-10-2022',
+      rtntype: 'GSTR3B',
+      ret_prd: '092022',
+      arn: 'AB330922426302J',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '16-09-2022',
+      rtntype: 'GSTR3B',
+      ret_prd: '082022',
+      arn: 'AA330822917879O',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '05-09-2022',
+      rtntype: 'GSTR1',
+      ret_prd: '082022',
+      arn: 'AA330822162582A',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '16-08-2022',
+      rtntype: 'GSTR3B',
+      ret_prd: '072022',
+      arn: 'AA3307228515753',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '08-08-2022',
+      rtntype: 'GSTR1',
+      ret_prd: '072022',
+      arn: 'AA330722242308F',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '18-07-2022',
+      rtntype: 'GSTR3B',
+      ret_prd: '062022',
+      arn: 'AB330622257154F',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '08-07-2022',
+      rtntype: 'GSTR1',
+      ret_prd: '062022',
+      arn: 'AA330622307702N',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '18-06-2022',
+      rtntype: 'GSTR3B',
+      ret_prd: '052022',
+      arn: 'AB330522225637B',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '18-06-2022',
+      rtntype: 'GSTR1',
+      ret_prd: '052022',
+      arn: 'AB330522225388A',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '18-05-2022',
+      rtntype: 'GSTR1',
+      ret_prd: '042022',
+      arn: 'AB330422077730F',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '18-05-2022',
+      rtntype: 'GSTR3B',
+      ret_prd: '042022',
+      arn: 'AB3304220777446',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-04-2022',
+      rtntype: 'GSTR3B',
+      ret_prd: '032022',
+      arn: 'AB330322659847W',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-04-2022',
+      rtntype: 'GSTR1',
+      ret_prd: '032022',
+      arn: 'AB3303226595448',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-03-2022',
+      rtntype: 'GSTR3B',
+      ret_prd: '022022',
+      arn: 'AB3302224952288',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '11-03-2022',
+      rtntype: 'GSTR1',
+      ret_prd: '022022',
+      arn: 'AA330222614237Q',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-02-2022',
+      rtntype: 'GSTR1',
+      ret_prd: '012022',
+      arn: 'AB330122351342V',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-02-2022',
+      rtntype: 'GSTR3B',
+      ret_prd: '012022',
+      arn: 'AB330122351607J',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '18-01-2022',
+      rtntype: 'GSTR1',
+      ret_prd: '122021',
+      arn: 'AB331221173481M',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '18-01-2022',
+      rtntype: 'GSTR3B',
+      ret_prd: '122021',
+      arn: 'AB331221174003X',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '20-12-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '112021',
+      arn: 'AB331121365504M',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-12-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '112021',
+      arn: 'AB331121363322U',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-11-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '102021',
+      arn: 'AB331021281495G',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-11-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '102021',
+      arn: 'AA331021570612S',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-10-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '092021',
+      arn: 'AB3309214019185',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-10-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '092021',
+      arn: 'AB330921402570M',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '16-09-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '082021',
+      arn: 'AA3308218731961',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '05-09-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '082021',
+      arn: 'AA330821214241V',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '17-08-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '072021',
+      arn: 'AA330721976268W',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '17-08-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '072021',
+      arn: 'AA3307219766406',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '18-07-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '052021',
+      arn: 'AB3305212891476',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '18-07-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '062021',
+      arn: 'AA330621980116D',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '10-07-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '052021',
+      arn: 'AB3305211200317',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '10-07-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '062021',
+      arn: 'AA3306214458472',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '04-07-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '042021',
+      arn: 'AB330421369641D',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '04-07-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '042021',
+      arn: 'AB330421369469Z',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '25-05-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '022021',
+      arn: 'AB330221485284E',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '25-05-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '012021',
+      arn: 'AB3301214631103',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '25-05-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '032021',
+      arn: 'AB330321803455N',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '25-05-2021',
+      rtntype: 'GSTR1',
+      ret_prd: '122020',
+      arn: 'AB331220878105I',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '20-04-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '032021',
+      arn: 'AB330321314294R',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '19-03-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '022021',
+      arn: 'AB330221124264W',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-02-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '012021',
+      arn: 'AA330121954480O',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '07-02-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '112020',
+      arn: 'AB331120537523Q',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '07-02-2021',
+      rtntype: 'GSTR3B',
+      ret_prd: '122020',
+      arn: 'AB331220725974B',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-12-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '112020',
+      arn: 'AA331120982341P',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '19-12-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '102020',
+      arn: 'AB331020450660W',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-12-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '102020',
+      arn: 'AB331020450742S',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '19-12-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '092020',
+      arn: 'AB330920077198Z',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '22-10-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '092020',
+      arn: 'AA3309205515780',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '022020',
+      arn: 'AB330220434537K',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '082020',
+      arn: 'AA330820834292G',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '072020',
+      arn: 'AB330720181322L',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '062020',
+      arn: 'AB3306204548554',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '052020',
+      arn: 'AB3305203329949',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '042020',
+      arn: 'AB330420304002A',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '032020',
+      arn: 'AB3303206507893',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '082019',
+      arn: 'AB330819422931Z',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '092019',
+      arn: 'AB330919727725M',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '102019',
+      arn: 'AB3310194445647',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '112019',
+      arn: 'AB331119467169W',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '012020',
+      arn: 'AB330120450863L',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '032020',
+      arn: 'AB330320650791I',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '042020',
+      arn: 'AB330420304001C',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '052020',
+      arn: 'AB330520332993B',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '062020',
+      arn: 'AB330620454850E',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '072020',
+      arn: 'AB330720181315G',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '082020',
+      arn: 'AA330820834281J',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '20-09-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '122019',
+      arn: 'AB3312197701092',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '13-09-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '012020',
+      arn: 'AB330120447433R',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '13-09-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '022020',
+      arn: 'AB330220428676E',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '13-09-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '122019',
+      arn: 'AB3312197668200',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '13-09-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '112019',
+      arn: 'AB331119464907T',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '13-09-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '102019',
+      arn: 'AB3310194424956',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '13-09-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '092019',
+      arn: 'AB330919725415V',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '16-08-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '082019',
+      arn: 'AB3308194144129',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '02-07-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '062019',
+      arn: 'AB330619682715N',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '02-07-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '072019',
+      arn: 'AB330719399626E',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '02-07-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '052019',
+      arn: 'AB330519363576R',
+      status: 'Filed'
+    },
+    {
+      mof: 'ONLINE',
+      dof: '02-07-2020',
+      rtntype: 'GSTR3B',
+      ret_prd: '052019',
+      arn: 'AB330519363556T',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '02-07-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '072019',
+      arn: 'AB330719399625G',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '02-07-2020',
+      rtntype: 'GSTR1',
+      ret_prd: '062019',
+      arn: 'AB330619682717J',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '15-05-2019',
+      ret_prd: '022019',
+      rtntype: 'GSTR1',
+      arn: 'AA330219715061O',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '15-05-2019',
+      ret_prd: '032019',
+      rtntype: 'GSTR1',
+      arn: 'AB3303194347434',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '15-05-2019',
+      ret_prd: '042019',
+      rtntype: 'GSTR1',
+      arn: 'AA330419455974Q',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '15-05-2019',
+      ret_prd: '022019',
+      rtntype: 'GSTR3B',
+      arn: 'AB330219206205M',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '15-05-2019',
+      ret_prd: '032019',
+      rtntype: 'GSTR3B',
+      arn: 'AB3303194347418',
+      status: 'Filed'
+    },
+    {
+      valid: 'Y',
+      mof: 'ONLINE',
+      dof: '15-05-2019',
+      ret_prd: '042019',
+      rtntype: 'GSTR3B',
+      arn: 'AA330419455844V',
+      status: 'Filed'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '012019',
+      dof: '25-02-2019',
+      arn: 'AB3301190089373',
+      rtntype: 'GSTR3B'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '012019',
+      dof: '25-02-2019',
+      arn: 'AB330119009055M',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '112018',
+      dof: '07-02-2019',
+      arn: 'AB331118130166K',
+      rtntype: 'GSTR3B'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '112018',
+      dof: '07-02-2019',
+      arn: 'AB331118130635F',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '122018',
+      dof: '07-02-2019',
+      arn: 'AB3312184106677',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '122018',
+      dof: '07-02-2019',
+      arn: 'AB331218410640N',
+      rtntype: 'GSTR3B'
+    },
+    {
+      status: 'Filed',
+      mof: 'ONLINE',
+      ret_prd: '102018',
+      dof: '03-01-2019',
+      arn: 'AB331018116239F',
+      rtntype: 'GSTR3B'
+    },
+    {
+      status: 'Filed',
+      mof: 'ONLINE',
+      ret_prd: '092018',
+      dof: '03-01-2019',
+      arn: 'AA3309180338413',
+      rtntype: 'GSTR3B'
+    },
+    {
+      status: 'Filed',
+      mof: 'ONLINE',
+      ret_prd: '082018',
+      dof: '03-01-2019',
+      arn: 'AA330818017977O',
+      rtntype: 'GSTR3B'
+    },
+    {
+      status: 'Filed',
+      mof: 'ONLINE',
+      ret_prd: '072018',
+      dof: '03-01-2019',
+      arn: 'AB330718144161D',
+      rtntype: 'GSTR3B'
+    },
+    {
+      status: 'Filed',
+      mof: 'ONLINE',
+      ret_prd: '062018',
+      dof: '03-01-2019',
+      arn: 'AA3306180158362',
+      rtntype: 'GSTR3B'
+    },
+    {
+      status: 'Filed',
+      mof: 'ONLINE',
+      ret_prd: '052018',
+      dof: '03-01-2019',
+      arn: 'AA330518010169E',
+      rtntype: 'GSTR3B'
+    },
+    {
+      status: 'Filed',
+      mof: 'ONLINE',
+      ret_prd: '042018',
+      dof: '03-01-2019',
+      arn: 'AB330418304581F',
+      rtntype: 'GSTR3B'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '032018',
+      dof: '03-01-2019',
+      arn: 'AA330318008869Y',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '102018',
+      dof: '03-01-2019',
+      arn: 'AB331018116332R',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '092018',
+      dof: '03-01-2019',
+      arn: 'AA3309180339700',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '082018',
+      dof: '03-01-2019',
+      arn: 'AA330818018036B',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '072018',
+      dof: '03-01-2019',
+      arn: 'AB3307181441556',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '062018',
+      dof: '03-01-2019',
+      arn: 'AA330618015897U',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '052018',
+      dof: '03-01-2019',
+      arn: 'AA3305180102000',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '042018',
+      dof: '03-01-2019',
+      arn: 'AB330418182828P',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      mof: 'ONLINE',
+      ret_prd: '032018',
+      dof: '27-07-2018',
+      arn: 'AB330318308426B',
+      rtntype: 'GSTR3B'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '022018',
+      dof: '07-04-2018',
+      arn: 'AA3302187963712',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '022018',
+      dof: '14-03-2018',
+      arn: 'AA330218205832I',
+      rtntype: 'GSTR3B'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '012018',
+      dof: '10-03-2018',
+      arn: 'AA330118864430F',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '012018',
+      dof: '16-02-2018',
+      arn: 'AA330118310198I',
+      rtntype: 'GSTR3B'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '122017',
+      dof: '09-02-2018',
+      arn: 'AA331217876592Y',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '122017',
+      dof: '21-01-2018',
+      arn: 'AA331217522411R',
+      rtntype: 'GSTR3B'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '082017',
+      dof: '11-01-2018',
+      arn: 'AB3308170871811',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '092017',
+      dof: '11-01-2018',
+      arn: 'AB3309170901616',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '102017',
+      dof: '11-01-2018',
+      arn: 'AA331017839479X',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '112017',
+      dof: '11-01-2018',
+      arn: 'AA331117804301V',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '112017',
+      dof: '14-12-2017',
+      arn: 'AA331117212914I',
+      rtntype: 'GSTR3B'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '102017',
+      dof: '10-11-2017',
+      arn: 'AA331017133438G',
+      rtntype: 'GSTR3B'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '072017',
+      dof: '01-11-2017',
+      arn: 'AB330717849076U',
+      rtntype: 'GSTR2'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '092017',
+      dof: '26-10-2017',
+      arn: 'AA330917592802R',
+      rtntype: 'GSTR3B'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '082017',
+      dof: '29-09-2017',
+      arn: 'AA330817520569V',
+      rtntype: 'GSTR3B'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '072017',
+      dof: '09-09-2017',
+      arn: 'AB330717105132N',
+      rtntype: 'GSTR1'
+    },
+    {
+      status: 'Filed',
+      valid: 'Y',
+      mof: 'ONLINE',
+      ret_prd: '072017',
+      dof: '17-08-2017',
+      arn: 'AA330717296908G',
+      rtntype: 'GSTR3B'
+    }
   ]
+}
+
+export const gstDetails: { [key: string]: GST } = {
+  '33AOSPA7307Q1ZI_Details': {
+    status_code: 1,
+    gstin: '33AOSPA7307Q1ZI',
+    fetchTime: '2023-04-11T23:27:31.598',
+    name: 'PARUN  ARUN',
+    tradename: 'POPULAR GROUPS',
+    registrationDate: '2017-07-01',
+    center: 'METTUR-I RANGE',
+    state: 'METTUR',
+    center_cd: 'XP0202',
+    state_cd: 'TN390',
+    constitution: 'Sole Proprietorship',
+    type: 'Regular',
+    status: 'Active',
+    lastUpdateDate: '2019-09-19',
+    cancellationDate: null,
+    nature: ['Retail Business'],
+    einvoiceStatus: 'No',
+    pradr: {
+      bnm: 'Mettur Main Road',
+      st: 'Near union office',
+      loc: 'kolathur',
+      bno: '10-11-48d6',
+      stcd: 'Tamil Nadu',
+      flno: '',
+      lt: '',
+      lg: '',
+      pncd: '636303',
+      ntr: 'Retail Business',
+      district: 'Salem',
+      city: '',
+      locality: '',
+      geocodelvl: '',
+      landMark: ''
+    },
+    adadr: []
+  } as any as GST,
+  '33AKBPA6032B1Z6_Details': {
+    status_code: 1,
+    gstin: '33AKBPA6032B1Z6',
+    fetchTime: '2023-04-11T23:27:31.598',
+    name: 'MATHAPPAN  APPU',
+    tradename: 'APPU FURNITURE   ELECTRONICS',
+    registrationDate: '2017-07-01',
+    center: 'METTUR-I RANGE',
+    state: 'METTUR',
+    center_cd: 'XP0202',
+    state_cd: 'TN390',
+    constitution: 'Sole Proprietorship',
+    type: 'Regular',
+    status: 'Active',
+    lastUpdateDate: '2021-04-15',
+    cancellationDate: null,
+    nature: ['Wholesale Business', 'Retail Business', 'Office / Sale Office'],
+    einvoiceStatus: 'No',
+    pradr: {
+      bnm: '',
+      st: 'METTUR MAIN ROAD, KOLATHUR,METTUR TK',
+      loc: 'METTUR',
+      bno: '4-3-6/L',
+      stcd: 'Tamil Nadu',
+      flno: '',
+      lt: '',
+      lg: '',
+      pncd: '636303',
+      ntr: 'Wholesale Business, Retail Business',
+      district: 'Salem',
+      city: '',
+      locality: '',
+      geocodelvl: '',
+      landMark: ''
+    },
+    adadr: [
+      {
+        addr: {
+          bnm: 'A.S.FURNITURE',
+          st: 'Veerakkaran koil street',
+          loc: 'kolathur',
+          bno: '12-3-61A',
+          dst: 'Salem',
+          stcd: 'Tamil Nadu',
+          pncd: '636303',
+          locality: '',
+          geocodelvl: '',
+          lg: '',
+          lt: '',
+          landMark: '',
+          city: '',
+          flno: ''
+        },
+        ntr: 'Retail Business, Office / Sale Office'
+      }
+    ]
+  } as any as GST,
+  '33AAJPE0640D1ZH_Details': {
+    status_code: 1,
+    gstin: '33AAJPE0640D1ZH',
+    fetchTime: '2023-04-11T23:27:31.598',
+    name: 'KUPPUSAMY  ESWARAN',
+    tradename: 'ARASI ELECTRICALS',
+    registrationDate: '2017-07-01',
+    center: 'METTUR-I RANGE',
+    state: 'METTUR',
+    center_cd: 'XP0202',
+    state_cd: 'TN390',
+    constitution: 'Sole Proprietorship',
+    type: 'Regular',
+    status: 'Active',
+    lastUpdateDate: '2019-09-04',
+    cancellationDate: null,
+    nature: ['Retail Business', 'Wholesale Business'],
+    einvoiceStatus: 'No',
+    pradr: {
+      bnm: '',
+      st: 'METTUR MAIN ROAD,KOLATHUR',
+      loc: 'METTUR',
+      bno: '4-3-7A',
+      stcd: 'Tamil Nadu',
+      flno: '',
+      lt: '',
+      lg: '',
+      pncd: '636303',
+      ntr: 'Retail Business, Wholesale Business',
+      district: 'Salem',
+      city: '',
+      locality: '',
+      geocodelvl: '',
+      landMark: ''
+    },
+    adadr: []
+  } as any as GST,
+  '33DJPPS1423E1ZA_Details': {
+    status_code: 1,
+    gstin: '33DJPPS1423E1ZA',
+    fetchTime: '2023-12-14T21:52:52.899',
+    name: 'ARUMUGAM  SIDHESH KUMAR',
+    tradename: 'AYYA  STORES',
+    registrationDate: '2017-07-01',
+    center: 'METTUR-I RANGE',
+    state: 'METTUR',
+    center_cd: 'XP0202',
+    state_cd: 'TN390',
+    constitution: 'Sole Proprietorship',
+    type: 'Regular',
+    status: 'Active',
+    lastUpdateDate: '2019-09-04',
+    cancellationDate: null,
+    nature: ['Retail Business'],
+    einvoiceStatus: 'Yes',
+    pradr: {
+      bnm: 'METTUR MAIN ROAD',
+      st: 'KOLATHUR',
+      loc: 'OMALUR',
+      bno: '4/3-17',
+      stcd: 'Tamil Nadu',
+      flno: '',
+      lt: '',
+      lg: '',
+      pncd: '636303',
+      ntr: 'Retail Business',
+      district: 'Salem',
+      city: '',
+      locality: '',
+      geocodelvl: 'NA',
+      landMark: ''
+    },
+    adadr: []
+  } as any as GST,
+  '33BZMPM1544H1ZD_Details': {
+    status_code: 1,
+    gstin: '33BZMPM1544H1ZD',
+    fetchTime: '2023-04-11T23:27:31.598',
+    name: 'MANORANJITH',
+    tradename: 'AADHI DRIP IRRIGATION',
+    registrationDate: '2017-07-01',
+    center: 'METTUR-I RANGE',
+    state: 'SANKARI',
+    center_cd: 'XP0202',
+    state_cd: 'TN230',
+    constitution: 'Sole Proprietorship',
+    type: 'Regular',
+    status: 'Active',
+    lastUpdateDate: '2020-07-03',
+    cancellationDate: null,
+    nature: ['Retail Business', 'Bonded Warehouse', 'Warehouse / Depot'],
+    einvoiceStatus: 'No',
+    pradr: {
+      bnm: '',
+      st: 'SUBRAMANIYAPURAM,PANNAVADI POST',
+      loc: 'KOLATHUR',
+      bno: '1/128',
+      stcd: 'Tamil Nadu',
+      flno: '',
+      lt: '',
+      lg: '',
+      pncd: '636303',
+      ntr: 'Retail Business, Bonded Warehouse, Warehouse / Depot',
+      district: 'Salem',
+      city: '',
+      locality: '',
+      geocodelvl: '',
+      landMark: ''
+    },
+    adadr: []
+  } as any as GST
 }

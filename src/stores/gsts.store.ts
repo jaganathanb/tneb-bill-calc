@@ -18,21 +18,32 @@ import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { Ref } from 'vue'
 import { ref } from 'vue'
 import { useHttpClient } from '@/hooks'
-import { useCurrentUser, useFirestore } from 'vuefire'
-import { data } from './data'
-import { groupBy } from 'lodash'
+import { useCollection, useCurrentUser, useFirestore } from 'vuefire'
+import { data, gstDetails } from './data'
+import { delay, groupBy } from 'lodash'
+import dayjs from 'dayjs'
+import type { PaginationProps, SortBy } from 'element-plus'
+import type { OptionType } from 'element-plus/es/components/select-v2/src/select.types'
+import { Phone, DocumentChecked, Memo, Select } from '@element-plus/icons-vue'
+import type { Component, VNode } from 'vue'
 
 export const useGSTsStore = defineStore('gsts', () => {
   const httpClient = useHttpClient()
-  const gsts: Ref<{ [key: number]: GST[] | undefined }> = ref({})
-  const availableGSTs: Ref<GST[] | null> = ref(null)
-  const gstsReturns: Ref<{ [key: string]: GSTReturn[] }> = ref({})
+
+  let gsts: Ref<GST[] | undefined> = ref(undefined)
+  let lastRecord: GST | null = null
   const totalGSTs: Ref<number> = ref(0)
-  const currPage = ref(1)
-  const pageSize = ref(PAGE_LIMIT)
+  const lastUpdateDate = ref(dayjs().format())
 
   const db = useFirestore()
   const user = useCurrentUser()
+
+  const paging = ref({
+    page: 1,
+    limit: 2,
+    sort: 'registrationDate',
+    order: 'desc'
+  } as Params)
 
   const gstsRef = collection(db, `gst/${user.value?.uid}/gsts`).withConverter<
     GST,
@@ -40,11 +51,25 @@ export const useGSTsStore = defineStore('gsts', () => {
   >({
     toFirestore(gst) {
       const add = gst.pradr as IRIS_PRADR
+
       return {
-        owner: gst.name,
-        tradename: gst.tradename,
-        registrationDate: gst.registrationDate,
-        gstin: gst.gstin,
+        owner: gst.name || '',
+        tradename: gst.tradename || '',
+        registrationDate: gst.registrationDate || '',
+        gstin: gst.gstin || '',
+        sno: gst.sno || '',
+        gstr1LastFiledDate: gst.gstr1LastFiledDate || '',
+        gstr1LastFiledTaxPeriod: gst.gstr1LastFiledTaxPeriod || '',
+        gstr1PendingReturns: gst.gstr1PendingReturns || '',
+        gstr1LastStatus: gst.gstr1LastStatus || '',
+        gstr3bLastFiledDate: gst.gstr3bLastFiledDate || '',
+        gstr3bLastFiledTaxPeriod: gst.gstr3bLastFiledTaxPeriod || '',
+        gstr3bPendingReturns: gst.gstr3bPendingReturns || '',
+        gstr3bLastStatus: gst.gstr3bLastStatus || '',
+        gstr9LastFiledDate: gst.gstr9LastFiledDate || '',
+        gstr9LastFiledTaxPeriod: gst.gstr9LastFiledTaxPeriod || '',
+        gstr9PendingReturns: gst.gstr9PendingReturns || '',
+        gstr9LastStatus: gst.gstr9LastStatus || '',
         address: `${add.bno}, ${add.st}, ${add.loc}, ${add.stcd} - ${add.pncd}`
       }
     },
@@ -52,67 +77,146 @@ export const useGSTsStore = defineStore('gsts', () => {
       const gst = snapshot.data() as GST
       gst.id = snapshot.id
 
+      lastRecord = gst
+
       return gst
     }
   })
 
-  const getInitialPage = (params: Params) => {
+  const gstsQuery = computed(() => {
+    const pageSize = paging.value.limit || PAGE_LIMIT
+    const currPage = paging.value.page || 1
+
+    if (lastRecord) {
+      return query(
+        gstsRef,
+        orderBy(paging.value.sort as string, paging.value.order),
+        pageSize > currPage
+          ? startAfter(lastRecord.registrationDate)
+          : startAt(lastRecord.registrationDate),
+        limit(pageSize)
+      )
+    }
+
     return query(
       gstsRef,
-      orderBy(params.sort, params.order),
-      limit(params.limit as number)
+      orderBy(paging.value.sort as string, paging.value.order),
+      limit(pageSize || PAGE_LIMIT)
     )
-  }
-
-  let collRef = getInitialPage({
-    page: 1,
-    limit: PAGE_LIMIT,
-    sort: 'registrationDate',
-    order: 'desc'
   })
+
+  gsts = useCollection(gstsQuery, { ssrKey: 'gsts' })
 
   const getTotalGSTCount = async () => {
     totalGSTs.value = (await getCountFromServer(gstsRef)).data().count
   }
 
-  const getGSTReturns = async (gstin: string) => {
-    const result = await httpClient.get(`/returnstatus?gstin=${gstin}`)
+  const getGSTDetail = async (gstin: string) => {
+    // const res = await httpClient.get(`/search?gstin=${gstin}`)
+    // if (res.status === 200) {
+    //   const returns = await getGSTReturns(gstin)
+    //   const gst = { ...res.data } as GST
 
-    if (result.status === 200) {
-      const {
-        data: {
-          data: { EFiledlist }
-        }
-      } = result
+    //   getGSTUpdatedWithReturns(gst, returns)
 
-      gstsReturns.value[gstin] = EFiledlist as GSTReturn[]
+    //   gst.sno = totalGSTs.value ? totalGSTs.value + 1 : 1
+
+    //   addGST(gst)
+    // }
+    const data = gstDetails[`${gstin}_Details`]
+
+    const returns = await getGSTReturns(gstin)
+    const gst = { ...data } as GST
+
+    getGSTUpdatedWithReturns(gst, returns)
+
+    gst.sno = totalGSTs.value ? totalGSTs.value + 1 : 1
+
+    addGST(gst)
+  }
+
+  const getGSTUpdatedWithReturns = (data: GST, returns: GSTReturn[]) => {
+    const returnsGroup = groupBy(returns, 'rtntype')
+
+    for (const [key, val] of Object.entries(returnsGroup)) {
+      switch (key as GSTReturnType) {
+        case 'GSTR1':
+          fillReturnDates('GSTR1', val, data)
+          break
+        case 'GSTR3B':
+          fillReturnDates('GSTR3B', val, data)
+          break
+        default:
+          fillReturnDates('GSTR9', val, data)
+          break
+      }
+    }
+  }
+
+  const fillReturnDates = (
+    type: GSTReturnType,
+    val: GSTReturn[],
+    data: GST
+  ) => {
+    const pendings: string[] = []
+    const typeLowered = type.toLowerCase()
+
+    const filed = val
+      .filter((v) => v.status === 'Filed')
+      .map((m) => ({ dof: m.dof, ret_prd: m.ret_prd }))
+      .sort((a, b) =>
+        dayjs(a.dof, 'DD-MM-YYYY').isAfter(dayjs(b.dof, 'DD-MM-YYYY')) ? -1 : 1
+      ) // sort by desc
+
+    const lastFiledDate = dayjs(filed[0].dof, 'DD-MM-YYYY')
+    const lastTaxPeriod = dayjs(filed[0].ret_prd, 'MMYYYY')
+    const pendingCount = dayjs().diff(lastTaxPeriod, 'M') - 1
+
+    if (pendingCount > 0) {
+      for (let i = 0; i < pendingCount; i++) {
+        pendings.push(lastTaxPeriod.add(i + 1, 'M').format('MMYYYY'))
+      }
+
+      data[`${typeLowered}LastFiledDate` as string] = ''
+      data[`${typeLowered}LastFiledTaxPeriod` as string] = lastTaxPeriod
+        .add(1, 'M')
+        .format('MMYYYY')
+      data[`${typeLowered}LastStatus` as string] = 1
+    } else {
+      if (lastFiledDate.isBefore(dayjs().startOf('month').add(12, 'day'))) {
+        data[`${typeLowered}LastFiledDate` as string] = filed[0].dof || ''
+        data[`${typeLowered}LastFiledTaxPeriod` as string] = filed[0].ret_prd
+        data[`${typeLowered}LastStatus` as string] = 4
+      } else {
+        data[`${typeLowered}LastFiledDate` as string] = ''
+        data[`${typeLowered}LastFiledTaxPeriod` as string] = lastTaxPeriod
+          .add(1, 'month')
+          .format('MMYYYY')
+        data[`${typeLowered}LastStatus` as string] = 1
+      }
     }
 
-    // gstsReturns.value[gstin] = data[gstin]
+    data[`${typeLowered}PendingReturns` as string] = pendings
   }
 
-  const refresh = async (page: number) => {
-    const docs = (await getDocs(collRef)).docs
+  const getGSTReturns = async (gstin: string) => {
+    // const result = await httpClient.get(`/returnstatus?gstin=${gstin}`)
 
-    gsts.value[page] = docs.map((d) => d.data())
+    // if (result.status === 200) {
+    //   const {
+    //     data: {
+    //       data: { EFiledlist }
+    //     }
+    //   } = result
 
-    getTotalGSTCount()
+    //   return EFiledlist as GSTReturn[]
+    // }
+
+    return data[gstin]
   }
 
-  watch(
-    [currPage, pageSize],
-    async ([p]) => {
-      await refresh(p)
-    },
-    { immediate: true }
-  )
-
-  const addGST = async (data: GST, params: Params) => {
+  const addGST = async (data: GST) => {
     await addDoc(gstsRef, data)
-
-    collRef = getInitialPage(params)
-
-    await refresh(params.page as number)
   }
 
   const setGST = async (data: GST) => {
@@ -123,45 +227,56 @@ export const useGSTsStore = defineStore('gsts', () => {
     await deleteDoc(doc(gstsRef, id))
   }
 
-  const loadPage = (params: Params) => {
-    // Get the last visible document
-    const lastVisible =
-      params.page > currPage.value
-        ? gsts.value[currPage.value]?.[pageSize.value - 1]
-        : gsts.value[params.page]?.[0]
+  const refresh = async () => {
+    const notFiled = gsts.value?.filter((g) => g.gstr1LastStatus === 3) || []
+    for (const gst of notFiled) {
+      delay(
+        async (g: GST) => {
+          const returns = await getGSTReturns(g.gstin)
 
-    if (lastVisible) {
-      collRef = query(
-        gstsRef,
-        orderBy(params.sort, params.order),
-        params.page > currPage.value
-          ? startAfter(lastVisible.registrationDate)
-          : startAt(lastVisible.registrationDate),
-        limit(params.limit)
+          const filed = returns.find(
+            (r) =>
+              r.ret_prd === g.gstr1LastFiledTaxPeriod &&
+              r.status === 'Filed' &&
+              r.rtntype === 'GSTR1'
+          )
+
+          if (filed) {
+            if (
+              dayjs(filed?.dof, 'DD-MM-YYYY').isAfter(
+                dayjs().startOf('month').add(11, 'day')
+              )
+            ) {
+              g.gstr1LastStatus = 1
+              g.gstr1LastFiledTaxPeriod = dayjs(filed?.ret_prd, 'MMYYYY')
+                .add(1, 'month')
+                .format('MMYYYY')
+            } else {
+              g.gstr1LastStatus = 4
+            }
+            g.gstr1PendingReturns = g.gstr1PendingReturns.filter(
+              (p) => p !== filed.ret_prd
+            )
+
+            await setGST(g)
+          }
+        },
+        200,
+        gst
       )
     }
-
-    currPage.value = params.page
-    pageSize.value = params.limit
-  }
-
-  const getAllGSTs = async () => {
-    const docs = (await getDocs(gstsRef)).docs
-
-    availableGSTs.value = docs.map((d) => d.data())
   }
 
   return {
     gsts,
-    availableGSTs,
-    gstsReturns,
+    paging,
+    totalGSTs,
     addGST,
     setGST,
     removeGST,
-    loadPage,
-    getGSTReturns,
-    getAllGSTs,
-    totalGSTs
+    getGSTDetail,
+    getTotalGSTCount,
+    refresh
   }
 })
 

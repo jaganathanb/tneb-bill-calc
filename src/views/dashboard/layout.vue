@@ -7,7 +7,7 @@ import { storeToRefs } from 'pinia'
 
 const gstStore = useGSTsStore()
 const cardsStore = useCardsStore()
-const { gsts, availableGSTs, gstsReturns } = storeToRefs(gstStore)
+const { gsts } = storeToRefs(gstStore)
 const { cards, totalDCards } = storeToRefs(cardsStore)
 const allReturns = ref<GSTReturn[]>([])
 const cardForm = reactive<{ gstin: string | null }>({
@@ -21,7 +21,7 @@ let options: OptionType[]
 const getReturns = async () => {
   progress.value = true
 
-  await gstStore.getGSTReturns(cardForm.gstin as string)
+  // await gstStore.getGSTReturns(cardForm.gstin as string)
 
   dialogVisible.value = false
 
@@ -37,17 +37,8 @@ const getReturns = async () => {
   progress.value = false
 }
 
-watch(availableGSTs, (agsts) => {
-  if (agsts != null) {
-    options = agsts.map((gst) => ({
-      value: gst.gstin,
-      label: gst.tradename
-    }))
-  }
-})
-
 onMounted(async () => {
-  await gstStore.getAllGSTs()
+  // await gstStore.getAllGSTs()
 
   progress.value = false
 })
