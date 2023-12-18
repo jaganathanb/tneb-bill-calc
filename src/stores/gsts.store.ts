@@ -110,8 +110,8 @@ export const useGSTsStore = defineStore('gsts', () => {
     if (lastRecord) {
       constraints.value.push(
         paging.value.move === 'next'
-          ? startAfter(lastRecord.sno)
-          : startAt(lastRecord.sno)
+          ? startAfter(lastRecord[paging.value.sort])
+          : startAt(lastRecord[paging.value.sort])
       )
 
       return query(gstsRef, ...constraints.value)
@@ -159,7 +159,7 @@ export const useGSTsStore = defineStore('gsts', () => {
 
       getGSTUpdatedWithReturns(gst, returns)
 
-      addGST(gst)
+      await addGST(gst)
     }
   }
 
@@ -244,6 +244,7 @@ export const useGSTsStore = defineStore('gsts', () => {
   }
 
   const addGST = async (data: GST) => {
+    await getTotalGSTCount()
     data.sno = totalGSTs.value + 1
     await addDoc(gstsRef, data)
 

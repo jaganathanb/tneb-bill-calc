@@ -117,8 +117,11 @@ const onAction = async ({ action, data }: { action: string; data: GST }) => {
   switch (action) {
     case 'view':
     case 'edit':
-      selectedGST.value = data
-      dialogVisible.value = true
+      feedback.setMessage({
+        message:
+          'This action is not supported yet!. Please contact administrator.',
+        type: 'warning'
+      })
       break
     case 'lock':
       data.locked = true
@@ -164,6 +167,7 @@ const movePage = (page: number) => {
 }
 
 const changePageSize = (size: number) => {
+  progress.value = true
   paging.value.limit = size
 }
 
