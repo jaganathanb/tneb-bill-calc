@@ -1,14 +1,14 @@
 export const data: { [key: string]: GSTReturn[] } = {
   '33AOSPA7307Q1ZI': [
-    {
-      valid: 'Y',
-      mof: 'ONLINE',
-      dof: '25-12-2023',
-      rtntype: 'GSTR1',
-      ret_prd: '112023',
-      arn: 'AB331023668802C',
-      status: 'Filed'
-    },
+    // {
+    //   valid: 'Y',
+    //   mof: 'ONLINE',
+    //   dof: '05-12-2023',
+    //   rtntype: 'GSTR1',
+    //   ret_prd: '112023',
+    //   arn: 'AB331023668802C',
+    //   status: 'Filed'
+    // },
     {
       valid: 'Y',
       mof: 'ONLINE',

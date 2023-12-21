@@ -198,7 +198,8 @@ export const useGSTsStore = defineStore('gsts', () => {
 
     const lastFiledDate = dayjs(filed[0].dof, 'DD-MM-YYYY')
     const lastTaxPeriod = dayjs(filed[0].ret_prd, 'MMYYYY')
-    const pendingCount = dayjs().diff(lastTaxPeriod, 'M') - 1
+    const pendingCount =
+      dayjs().diff(lastTaxPeriod, type === 'GSTR9' ? 'year' : 'month') - 1
 
     if (pendingCount > 0) {
       for (let i = 0; i < pendingCount; i++) {
@@ -211,7 +212,13 @@ export const useGSTsStore = defineStore('gsts', () => {
         .format('MMYYYY')
       data[`${typeLowered}LastStatus` as string] = 1
     } else {
-      if (lastFiledDate.isBefore(dayjs().startOf('month').add(12, 'day'))) {
+      if (
+        lastFiledDate.isBefore(
+          dayjs()
+            .startOf('month')
+            .add(type === 'GSTR1' ? 12 : 21, 'day')
+        )
+      ) {
         data[`${typeLowered}LastFiledDate` as string] = filed[0].dof || ''
         data[`${typeLowered}LastFiledTaxPeriod` as string] = filed[0].ret_prd
         data[`${typeLowered}LastStatus` as string] = 4
@@ -306,6 +313,11 @@ export const useGSTsStore = defineStore('gsts', () => {
         200,
         gst
       )
+    }
+
+    if (notFiled.length === 0) {
+      progress.value = true
+      lastUpdateDate.value = dayjs().format()
     }
   }
 

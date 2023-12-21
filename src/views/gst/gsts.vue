@@ -17,9 +17,9 @@ import {
   Warning
 } from '@element-plus/icons-vue'
 import dayjs from 'dayjs'
-import { ElButton } from 'element-plus'
+import { ElButton, ElStatistic } from 'element-plus'
 import { storeToRefs } from 'pinia'
-import { ReturnStatusCell } from './index'
+import ReturnStatusCell from './return-status-cell.vue'
 import type { OptionType } from 'element-plus/es/components/select-v2/src/select.types'
 
 type StatusDropdownItem = OptionType & {
@@ -69,16 +69,21 @@ const add = async () => {
     const result = await feedback.getConfirmation({
       boxType: 'prompt',
       confirmButtonText: 'Add',
-      inputType: 'text',
+      inputType: 'textarea',
       showInput: true,
       inputPlaceholder: 'Enter GST number here',
-      title: 'Add GST'
+      title: 'Add GST',
+      closeOnPressEscape: true,
+      closeOnClickModal: false
     })
 
     if (result.action === 'confirm') {
-      await gstStore.getGSTDetail(result.value.trim().split(','))
-
-      await gstStore.getTotalGSTCount()
+      await gstStore.getGSTDetail(
+        result.value
+          .trim()
+          .split(',')
+          .map((a) => a.trim())
+      )
     }
   } catch (error) {}
 }
@@ -108,8 +113,6 @@ const deleteGST = async (data: GST) => {
       list?.splice(index as number, 1)
     }
     feedback.setMessage({ message: 'Delete successfully!', type: 'success' })
-
-    await gstStore.getTotalGSTCount()
   } catch (error) {}
 }
 
@@ -135,7 +138,7 @@ const onAction = async ({ action, data }: { action: string; data: GST }) => {
 }
 
 const refreshPage = async () => {
-  gstStore.refresh()
+  await gstStore.refresh()
 }
 
 const updateStatus = async (data: {
@@ -193,8 +196,8 @@ const onSearch = (evt: KeyboardEvent | Event) => {
 onMounted(async () => {
   await gstStore.getTotalGSTCount()
 
-  watch(gsts, () => {
-    gstStore.refresh()
+  watch(gsts, async () => {
+    await gstStore.refresh()
   })
 })
 </script>
@@ -409,6 +412,14 @@ onMounted(async () => {
 
   > :not(.el-table-fixed-column--right) {
     pointer-events: none;
+  }
+}
+
+.el-col {
+  margin-right: 8px;
+
+  &:last-of-type {
+    margin-right: 0;
   }
 }
 </style>
