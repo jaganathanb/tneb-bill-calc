@@ -34,19 +34,19 @@ const { paging, totalGSTs, gsts, progress } = storeToRefs(gstStore)
 
 const r1StatusOptions = [
   {
-    label: 'Call for invoice',
+    label: 'Call for invoice', // Tax payable
     icon: Phone,
     color: 'blue',
     value: 1
   },
   {
-    label: 'Invoice received',
+    label: 'Invoice received', // Intimated
     icon: DocumentChecked,
     color: 'orange',
     value: 2
   },
   {
-    label: 'Entry done',
+    label: 'Entry done', // Amount received
     icon: Memo,
     color: 'lightBlue',
     value: 3
