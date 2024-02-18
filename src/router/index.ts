@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { getCurrentUser } from 'vuefire'
 import { Grid, Tickets } from '@element-plus/icons-vue'
 
-import { useFeedbackStore } from '@/stores'
+import { useAuthStore, useFeedbackStore } from '@/stores'
+import { storeToRefs } from 'pinia'
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -72,10 +72,10 @@ export const router = createRouter({
 })
 
 router.beforeEach(async (to, _from, next) => {
-  const currentUser = await getCurrentUser()
+  const { isAuthenticated } = storeToRefs(useAuthStore())
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (currentUser) {
+    if (isAuthenticated) {
       next()
     } else {
       next({

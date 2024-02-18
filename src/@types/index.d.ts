@@ -94,3 +94,109 @@ interface ReceiptQuery {
 }
 
 type SearchParams = Params & ReceiptQuery
+
+type User = {
+  userId: string
+  firstName: string
+  lastName: string
+  userName: string
+  email: string
+  mobileNumber: string
+  expiresIn: number
+}
+
+type UserCredential = {
+  accessToken: string
+  refreshToken: string
+  expiresIn: number
+}
+
+type UserDetail = {
+  user: User
+  userCredential: UserCredential
+}
+
+interface PagingRequest {
+  filter: Filter
+  pageNumber: number
+  pageSize: number
+  sort: Sort[]
+}
+
+interface Filter {
+  [prop: string]: FilterProp
+}
+
+interface FilterProp {
+  filterType: string
+  from: string
+  to: string
+  type: string
+}
+
+interface Sort {
+  colId: string
+  sort: string
+}
+
+interface PagingResponse {
+  error: string
+  result: PagingResult
+  resultCode: number
+  success: boolean
+  validationErrors: ValidationError[]
+}
+
+interface PagingResult {
+  hasNextPage: boolean
+  hasPreviousPage: boolean
+  items: Gst[]
+  pageNumber: number
+  totalPages: number
+  totalRows: number
+}
+
+interface Gst {
+  gstStatuses: GstStatus[]
+  gstin: string
+  lastUpdateDate: string
+  locked: boolean
+  mobile: string
+  name: string
+  permenantAddress: PermenantAddress
+  registrationDate: string
+  tradeName: string
+  type: string
+}
+
+interface GstStatus {
+  arn: string
+  lastFiledDate: string
+  modeOfFiling: string
+  notes: string
+  pendingReturns: string[]
+  returnPeriod: string
+  returnType: string
+  status: string
+  valid: string
+}
+
+interface PermenantAddress {
+  city: string
+  district: string
+  doorNo: string
+  landMark: string
+  locality: string
+  pincode: string
+  state: string
+  street: string
+}
+
+interface ValidationError {
+  message: string
+  property: string
+  tag: string
+  value: string
+}
+
+

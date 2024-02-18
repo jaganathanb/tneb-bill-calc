@@ -1,17 +1,6 @@
-import { router } from '@/router'
-import {
-  createUserWithEmailAndPassword,
-  updateProfile,
-  signInWithEmailAndPassword,
-  indexedDBLocalPersistence,
-  setPersistence,
-  type UserCredential,
-  type Unsubscribe,
-  type User
-} from 'firebase/auth'
+import { authService } from '@/services'
 import { defineStore } from 'pinia'
 import { ref, type Ref } from 'vue'
-import { useCurrentUser, useFirebaseAuth } from 'vuefire'
 
 export type RegistrationForm = {
   firstName: string
@@ -27,36 +16,40 @@ export interface LoginForm {
 }
 
 interface AuthStore {
-  user: UserCredential | null
+  user: User | null
   isAuthenticated: boolean
 }
 
 export const useAuthStore = defineStore('authStore', () => {
-  const auth = useFirebaseAuth()! // only exists on client side
+  const service = authService()
+  const currentUser: Ref<User|null> = ref(null)
+  const isAuthenticated = ref(false)
 
-  async function signIn({ email, password }: LoginForm) {
-    await setPersistence(auth, indexedDBLocalPersistence)
+  const signIn = async ({ email, password }: LoginForm) => {
+    const d = await service.signIn({ email, password })
+    currentUser.value = { ...d.data.user, expiresIn: d.data.userCredential.expiresIn } as User
 
-    await signInWithEmailAndPassword(auth, email, password)
+    isAuthenticated.value = d.data?.userCredential?.accessToken !== null
   }
 
-  async function createUser({
-    email,
-    password,
-    firstName,
-    lastName
-  }: RegistrationForm) {
-    const user = await createUserWithEmailAndPassword(auth, email, password)
-    await updateProfile(user.user, { displayName: `${firstName} ${lastName}` })
+  const signOut = async () => {
+    await service.signOut(currentUser.value?.userId as string)
+    currentUser.value = null
+
+    isAuthenticated.value = false
   }
 
-  async function signOut() {
-    await auth.signOut()
-  }
+ const register = async (data: RegistrationForm): Promise<string> => {
+  const r = await service.register(data)
+
+  return r.data ? `${r.data.firstName} ${r.data.lastName}` : ''
+ }
 
   return {
     signIn,
-    createUser,
-    signOut
+    register,
+    signOut,
+    currentUser,
+    isAuthenticated
   }
 })

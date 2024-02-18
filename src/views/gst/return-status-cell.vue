@@ -4,8 +4,6 @@ import type { OptionType } from 'element-plus/es/components/select-v2/src/select
 import type { Component } from 'vue'
 import type { PropType } from 'vue'
 
-import { useGSTsStore } from '@/stores/gsts.store'
-
 type GSTRStatus = {
   gstr1Status: string | null
   gstr3bStatus?: string | null

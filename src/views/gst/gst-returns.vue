@@ -6,10 +6,10 @@ import { PAGE_LIMIT } from '@/constants'
 import BasePagination from '@/components/table/base-pagination.vue'
 
 import type { PropType } from 'vue'
-import { useGSTsStore } from '@/stores/gsts.store'
 import { useFeedbackStore } from '@/stores/feedback.store'
+import { useGstsStore } from '@/stores'
 
-const gstStore = useGSTsStore()
+const gstStore = useGstsStore()
 const feedback = useFeedbackStore()
 
 //const { gstsReturns } = storeToRefs(gstStore)

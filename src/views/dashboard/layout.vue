@@ -1,14 +1,12 @@
 <script lang="ts" setup>
 import { PAGE_LIMIT } from '@/constants'
-import { useGSTsStore, useCardsStore } from '@/stores'
+import { useGstsStore } from '@/stores'
 import { Plus, Search } from '@element-plus/icons-vue'
 import type { OptionType } from 'element-plus/es/components/select-v2/src/select.types'
 import { storeToRefs } from 'pinia'
 
-const gstStore = useGSTsStore()
-const cardsStore = useCardsStore()
+const gstStore = useGstsStore()
 const { gsts } = storeToRefs(gstStore)
-const { cards, totalDCards } = storeToRefs(cardsStore)
 const allReturns = ref<GSTReturn[]>([])
 const cardForm = reactive<{ gstin: string | null }>({
   gstin: null
@@ -24,15 +22,6 @@ const getReturns = async () => {
   // await gstStore.getGSTReturns(cardForm.gstin as string)
 
   dialogVisible.value = false
-
-  await cardsStore.addDCard(
-    {
-      gstin: cardForm.gstin as string,
-      tradename: options.find((o) => o.value === cardForm.gstin)?.label,
-      order: totalDCards.value + 1
-    } as DCard,
-    { limit: PAGE_LIMIT, order: 'asc', page: 1, sort: 'order', move: 'next' }
-  )
 
   progress.value = false
 }
@@ -72,7 +61,6 @@ onMounted(async () => {
   </el-dialog>
 
   <el-row
-    v-if="cards && cards?.length > 0"
     class="m-b"
     style="justify-content: space-between"
     ><el-col class="flex-grow" :span="4">
@@ -87,30 +75,6 @@ onMounted(async () => {
         placeholder="Search card here"
       ></el-input>
     </el-col>
-  </el-row>
-  <el-row
-    v-if="cards && cards?.length > 0"
-    :align="'top'"
-    :justify="'start'"
-    :gutter="10"
-  >
-    <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" v-for="card of cards">
-      <return-status-card :card="card"></return-status-card>
-    </el-col>
-  </el-row>
-  <el-row
-    v-else
-    v-loading="cards == null || progress"
-    class="h-full w-full justify-center"
-  >
-    <el-empty
-      :image-size="300"
-      description="Add application cards to your dashboard"
-    >
-      <el-button type="primary" @click="dialogVisible = true"
-        >Add card</el-button
-      >
-    </el-empty>
   </el-row>
 </template>
 

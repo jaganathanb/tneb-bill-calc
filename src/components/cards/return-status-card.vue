@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useGSTsStore, useCardsStore } from '@/stores'
+import { useGstsStore } from '@/stores'
 import { Edit, More, Refresh, Remove } from '@element-plus/icons-vue'
 import dayjs from 'dayjs'
 import {
@@ -16,8 +16,7 @@ import { DPieChart } from '@/components/charts'
 import type { OptionType } from 'element-plus/es/components/select-v2/src/select.types'
 
 const router = useRouter()
-const gstStore = useGSTsStore()
-const cardStore = useCardsStore()
+const gstStore = useGstsStore()
 
 const props = defineProps({
   card: {
@@ -96,8 +95,6 @@ const navigateTo = async () => {
 
 const removeCard = async () => {
   loading.value = true
-
-  await cardStore.removeDCard(props.card.id)
 
   loading.value = false
 }

@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { useFeedbackStore } from '@/stores/feedback.store'
-import { useGSTsStore } from '@/stores/gsts.store'
 import {
   Delete,
   DocumentChecked,
@@ -21,16 +20,17 @@ import { ElButton, ElStatistic } from 'element-plus'
 import { storeToRefs } from 'pinia'
 import ReturnStatusCell from './return-status-cell.vue'
 import type { OptionType } from 'element-plus/es/components/select-v2/src/select.types'
+import { useGstsStore } from '@/stores'
 
 type StatusDropdownItem = OptionType & {
   icon: VNode | Component
   color: string
 }
 
-const gstStore = useGSTsStore()
+const gstStore = useGstsStore()
 const feedback = useFeedbackStore()
 
-const { paging, totalGSTs, gsts, progress } = storeToRefs(gstStore)
+const { gsts } = storeToRefs(gstStore)
 
 const r1StatusOptions = [
   {
@@ -59,6 +59,7 @@ const r1StatusOptions = [
   }
 ] as StatusDropdownItem[]
 
+const progress = ref(true)
 const search = ref('')
 const currPage = ref(1)
 const dialogVisible = ref(false)
@@ -78,7 +79,7 @@ const add = async () => {
     })
 
     if (result.action === 'confirm') {
-      await gstStore.getGSTDetail(
+      await gstStore.createByIds(
         result.value
           .trim()
           .split(',')
@@ -88,7 +89,7 @@ const add = async () => {
   } catch (error) {}
 }
 
-const deleteGST = async (data: GST) => {
+const deleteGST = async (data: Gst) => {
   try {
     const result = (await feedback.getConfirmation({
       message: h('p', null, [
@@ -104,19 +105,14 @@ const deleteGST = async (data: GST) => {
     })) as string
 
     if (result === 'confirm') {
-      await gstStore.removeGST(data.id)
+      await gstStore.deleteById(data.gstin)
     }
 
-    const list = gsts.value[paging.value.page]
-    const index = list?.findIndex((item: GST) => item.id === data.id)
-    if (index !== -1) {
-      list?.splice(index as number, 1)
-    }
     feedback.setMessage({ message: 'Delete successfully!', type: 'success' })
   } catch (error) {}
 }
 
-const onAction = async ({ action, data }: { action: string; data: GST }) => {
+const onAction = async ({ action, data }: { action: string; data: Gst }) => {
   switch (action) {
     case 'view':
     case 'edit':
@@ -128,7 +124,7 @@ const onAction = async ({ action, data }: { action: string; data: GST }) => {
       break
     case 'lock':
       data.locked = true
-      await gstStore.setGST(data)
+      await gstStore.updateById(data)
       break
     case 'delete':
       await deleteGST(data)
@@ -138,11 +134,11 @@ const onAction = async ({ action, data }: { action: string; data: GST }) => {
 }
 
 const refreshPage = async () => {
-  await gstStore.refresh()
+  await gstStore.getAll({} as PagingRequest)
 }
 
 const updateStatus = async (data: {
-  data: GST
+  data: Gst
   type: GSTReturnType
   status: number
 }) => {
@@ -151,27 +147,28 @@ const updateStatus = async (data: {
       data.data = {
         ...data.data,
         gstr1LastStatus: data.status
-      } as GST
+      } as Gst
       break
     case 'GSTR3B':
       data.data = {
         ...data.data,
         gstr3bLastStatus: data.status
-      } as GST
+      } as Gst
     default:
       break
   }
 
-  await gstStore.setGST(data.data)
+  await gstStore.updateById(data.data)
 }
 
-const movePage = (page: number) => {
-  gstStore.move(page)
+const movePage = async (page: number) => {
+  await gstStore.getAll({} as PagingRequest)
 }
 
-const changePageSize = (size: number) => {
+const changePageSize = async (size: number) => {
   progress.value = true
-  paging.value.limit = size
+  
+  await gstStore.getAll({} as PagingRequest)
 }
 
 const lockRow = ({ row }: { row: GST }) => {
@@ -182,23 +179,19 @@ const lockRow = ({ row }: { row: GST }) => {
   return ''
 }
 
-const unlockRow = async (data: GST) => {
+const unlockRow = async (data: Gst) => {
   data.locked = false
-  await gstStore.setGST(data)
+  await gstStore.updateById(data)
 }
 
 const onSearch = (evt: KeyboardEvent | Event) => {
   if (evt instanceof KeyboardEvent && evt.key === 'Enter') {
-    gstStore.searchGST(search.value.trim())
+    gstStore.getAll({} as PagingRequest)
   }
 }
 
 onMounted(async () => {
-  await gstStore.getTotalGSTCount()
-
-  watch(gsts, async () => {
-    await gstStore.refresh()
-  })
+  await gstStore.getAll({} as PagingRequest)
 })
 </script>
 
@@ -224,7 +217,7 @@ onMounted(async () => {
     </el-row>
   </el-container>
   <el-table
-    :data="gsts[paging.page]"
+    :data="gsts?.items"
     v-loading="progress"
     :border="true"
     style="width: 100%"
@@ -399,8 +392,8 @@ onMounted(async () => {
   </el-table>
   <BasePagination
     v-model:page="currPage"
-    v-model:limit="paging.limit"
-    :total="totalGSTs"
+    v-model:limit="gsts?.totalPages"
+    :total="gsts?.totalRows"
     @update:limit="changePageSize"
     @update:page="movePage"
   />

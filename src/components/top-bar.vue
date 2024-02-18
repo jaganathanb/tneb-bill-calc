@@ -1,17 +1,17 @@
 <script lang="ts" setup>
 import { useDark, useToggle } from '@vueuse/core'
-import { useCurrentUser } from 'vuefire'
 
 import { Sunny, Moon } from '@element-plus/icons-vue'
 
 import { router } from '@/router'
 import { useAuthStore } from '@/stores'
+import { storeToRefs } from 'pinia';
 
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
 
-const user = useCurrentUser()
 const authStore = useAuthStore()
+const { currentUser } =  storeToRefs(authStore)
 
 const value1 = ref(true)
 
@@ -48,7 +48,7 @@ const signOut = async () => {
         </template>
         <div class="box-card">
           <div class="card-header">
-            <span>{{ user?.displayName }}</span>
+            <span>{{ currentUser?.firstName }}</span>
             <el-button class="button" text @click="signOut()"
               >Sign out</el-button
             >

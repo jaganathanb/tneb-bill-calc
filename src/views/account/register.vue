@@ -81,7 +81,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     const authStore = useAuthStore()
     const alertStore = useFeedbackStore()
     try {
-      await authStore.createUser({
+      const name = await authStore.register({
         email: registerForm.value.email,
         firstName: registerForm.value.firstName,
         password: registerForm.value.password,
@@ -91,7 +91,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       await router.push('/auth/login')
 
       alertStore.setMessage({
-        message: 'Registration successful.',
+        message: `Thank you ${name}!, Registration successful.`,
         type: 'success'
       })
     } catch (error: unknown) {
