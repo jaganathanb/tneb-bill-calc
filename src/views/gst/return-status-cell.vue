@@ -1,20 +1,15 @@
 <script setup lang="ts">
 import { DocumentChecked, Memo, Phone, Select } from '@element-plus/icons-vue'
-import type { OptionType } from 'element-plus/es/components/select-v2/src/select.types'
-import type { Component } from 'vue'
-import type { PropType } from 'vue'
 
-type GSTRStatus = {
-  gstr1Status: string | null
-  gstr3bStatus?: string | null
-}
+import type { OptionType } from 'element-plus/es/components/select-v2/src/select.types'
+import type { Component, PropType } from 'vue'
 
 type StatusDropdownItem = OptionType & {
   icon: VNode | Component
   color: string
 }
 
-const props = defineProps({
+const properties = defineProps({
   gst: {
     type: Object as PropType<GST>,
     required: true
@@ -56,9 +51,9 @@ const status = computed(() => {
     r1StatusOptions.find(
       (s) =>
         s.value ===
-        (props.type === 'GSTR1'
-          ? props.gst.gstr1LastStatus
-          : props.gst.gstr3bLastStatus)
+        (properties.type === 'GSTR1'
+          ? properties.gst.gstr1LastStatus
+          : properties.gst.gstr3bLastStatus)
     ) || r1StatusOptions[0]
   )
 })
@@ -66,6 +61,6 @@ const status = computed(() => {
 
 <template>
   <el-icon size="18" :color="status.color" style="margin-right: 8px"
-    ><component :is="status.icon"></component></el-icon
+    ><component :is="status.icon" /></el-icon
   ><el-text>{{ status.label }}</el-text>
 </template>

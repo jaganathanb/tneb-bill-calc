@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
+import { ElDatePicker } from 'element-plus'
+
 type ValueType = Date | string | number | undefined
 
-const props = withDefaults(
+const properties = withDefaults(
   defineProps<{
     modelValue?: ValueType
     placeholder?: string
@@ -14,12 +16,12 @@ const props = withDefaults(
   }
 )
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: ValueType): void
+  (event: 'update:modelValue', value: ValueType): void
 }>()
 
 const current = computed({
   get: () => {
-    return props.modelValue
+    return properties.modelValue
   },
   set: (value) => {
     emit('update:modelValue', value as ValueType)

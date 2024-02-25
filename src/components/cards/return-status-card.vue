@@ -1,24 +1,14 @@
 <script lang="ts" setup>
-import { useGstsStore } from '@/stores'
+import { type PropType, ref } from 'vue'
+
 import { Edit, More, Refresh, Remove } from '@element-plus/icons-vue'
-import dayjs from 'dayjs'
-import {
-  ElDropdownItem,
-  type ElDropdown,
-  ElDropdownMenu,
-  ElTooltip
-} from 'element-plus'
-import { storeToRefs } from 'pinia'
-import type { PropType } from 'vue'
-import { useRouter } from 'vue-router'
+import { type ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus'
+
 import { DPieChart } from '@/components/charts'
 
 import type { OptionType } from 'element-plus/es/components/select-v2/src/select.types'
 
-const router = useRouter()
-const gstStore = useGstsStore()
-
-const props = defineProps({
+const properties = defineProps({
   card: {
     type: Object as PropType<DCard>,
     required: true
@@ -69,28 +59,7 @@ const options = {
   maintainAspectRatio: false,
   animation: {
     duration: 2000
-  },
-  onClick: (evt: any) => {
-    const points = evt.chart.getElementsAtEventForMode(
-      evt.native,
-      'nearest',
-      { intersect: true },
-      true
-    )
-
-    if (points.length) {
-      const firstPoint = points[0]
-      const label = evt.chart.data.labels[firstPoint.index]
-      const value =
-        evt.chart.data.datasets[firstPoint.datasetIndex].data[firstPoint.index]
-
-      console.log(label, value)
-    }
   }
-}
-
-const navigateTo = async () => {
-  await router.push('gsts')
 }
 
 const removeCard = async () => {
@@ -127,8 +96,7 @@ onMounted(async () => {
           v-model="cardForm.duration"
           :options="dateOptions"
           placeholder="Please select a duration"
-        >
-        </el-select-v2>
+        />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -138,10 +106,10 @@ onMounted(async () => {
       </span>
     </template>
   </el-dialog>
-  <el-card :shadow="'hover'" v-loading="loading">
+  <el-card v-loading="loading" :shadow="'hover'">
     <template #header>
       <div class="card-header">
-        <span>{{ props.card.tradename }}</span>
+        <span>{{ properties.card.tradename }}</span>
 
         <el-dropdown trigger="click">
           <el-button :icon="More" link />
@@ -164,7 +132,7 @@ onMounted(async () => {
     <el-container>
       <el-row align="middle" class="w-full" :justify="'center'">
         <el-col class="flex w-full justify-center">
-          <DPieChart ref="piechart" :data="data" :options="options"></DPieChart>
+          <DPieChart ref="piechart" :data="data" :options="options" />
         </el-col>
       </el-row>
     </el-container>

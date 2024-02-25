@@ -1,16 +1,19 @@
-import { defineConfig } from 'eslint-define-config'
+/* eslint-disable unicorn/prefer-module */
+// @ts-check
+const { defineConfig } = require('eslint-define-config')
 
-export default defineConfig({
+module.exports = defineConfig({
   root: true,
   env: {
     browser: true,
     node: true,
     es6: true
   },
+  ignorePatterns: ['mode_modules'],
   parser: 'vue-eslint-parser',
   parserOptions: {
     parser: '@typescript-eslint/parser',
-    ecmaVersion: 2020,
+    ecmaVersion: 2022,
     sourceType: 'module',
     jsxPragma: 'React',
     ecmaFeatures: {
@@ -19,6 +22,7 @@ export default defineConfig({
     extraFileExtensions: ['.vue']
   },
   extends: [
+    'plugin:vue/vue3-strongly-recommended',
     'plugin:vue/vue3-recommended',
     'plugin:import/recommended',
     'plugin:@typescript-eslint/recommended',
@@ -101,7 +105,7 @@ export default defineConfig({
     '@typescript-eslint/no-non-null-asserted-optional-chain': 'off',
     '@typescript-eslint/consistent-type-imports': [
       'error',
-      { disallowTypeAnnotations: false }
+      { prefer: 'type-imports', disallowTypeAnnotations: false }
     ],
     '@typescript-eslint/ban-ts-comment': ['off', { 'ts-ignore': false }],
     '@typescript-eslint/no-empty-function': 'off',

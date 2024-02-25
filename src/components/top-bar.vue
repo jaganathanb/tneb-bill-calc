@@ -1,17 +1,15 @@
 <script lang="ts" setup>
+import { Moon, Sunny } from '@element-plus/icons-vue'
 import { useDark, useToggle } from '@vueuse/core'
+import { storeToRefs } from 'pinia'
 
-import { Sunny, Moon } from '@element-plus/icons-vue'
-
-import { router } from '@/router'
 import { useAuthStore } from '@/stores'
-import { storeToRefs } from 'pinia';
 
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
 
 const authStore = useAuthStore()
-const { currentUser } =  storeToRefs(authStore)
+const { currentUser } = storeToRefs(authStore)
 
 const value1 = ref(true)
 
@@ -29,16 +27,16 @@ const signOut = async () => {
         class="border-none w-full bg-transparent cursor-pointer"
         style="height: var(--ep-menu-item-height)"
       >
-        <SvgImg :name="'DhuruvahApps'" :width="64" :height="56"></SvgImg>
+        <SvgImg :name="'DhuruvahApps'" :width="64" :height="56" />
       </button>
     </el-menu-item>
     <div class="flex-grow-1" />
     <el-menu-item>
       <el-switch
         v-model="value1"
-        @change="toggleDark()"
         :active-action-icon="Sunny"
         :inactive-action-icon="Moon"
+        @change="toggleDark()"
       />
     </el-menu-item>
     <el-menu-item>

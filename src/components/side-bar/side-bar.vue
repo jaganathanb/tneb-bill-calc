@@ -1,15 +1,9 @@
 <script lang="ts" setup>
-import { useAppStore } from '@/stores/app.store'
-import {
-  Document,
-  Menu as IconMenu,
-  SwitchButton,
-  Setting,
-  ArrowRightBold,
-  ArrowLeftBold
-} from '@element-plus/icons-vue'
+import { ArrowLeftBold, ArrowRightBold } from '@element-plus/icons-vue'
 import { storeToRefs } from 'pinia'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+
+import { useAppStore } from '@/stores/app.store'
 
 const router = useRouter()
 const filteredRoutes = router.options.routes
@@ -20,13 +14,6 @@ const appStore = useAppStore()
 const activeRoute = useRoute()
 
 const { isCollapse } = storeToRefs(appStore)
-
-const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
-const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
 
 const toggleSideBar = (index: string) => {
   if (index === '3') {
@@ -51,7 +38,7 @@ const toggleSideBar = (index: string) => {
               :key="index"
               :index="routeConfig.path"
               :route-config="routeConfig"
-            ></side-bar-item>
+            />
           </el-menu>
         </el-row>
 
@@ -66,7 +53,7 @@ const toggleSideBar = (index: string) => {
               <el-icon v-if="isCollapse">
                 <ArrowRightBold />
               </el-icon>
-              <template #title v-if="!isCollapse"
+              <template v-if="!isCollapse" #title
                 ><el-container class="justify-center">
                   <el-icon>
                     <ArrowLeftBold />

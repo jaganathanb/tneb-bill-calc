@@ -1,7 +1,8 @@
 <script lang="ts" setup>
+import { ElScrollbar } from 'element-plus'
+
 import SideBar from '@/components/side-bar/side-bar.vue'
 import TopBar from '@/components/top-bar.vue'
-import { ElScrollbar } from 'element-plus'
 </script>
 
 <template>

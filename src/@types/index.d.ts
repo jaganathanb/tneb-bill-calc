@@ -3,7 +3,7 @@ interface PageTable<T> {
   total: number
 }
 
-interface Params {
+interface Parameters_ {
   move: 'prev' | 'next'
   page: number
   limit: number
@@ -93,7 +93,7 @@ interface ReceiptQuery {
   area?: string
 }
 
-type SearchParams = Params & ReceiptQuery
+type SearchParameters = Parameters_ & ReceiptQuery
 
 type User = {
   userId: string
@@ -124,10 +124,10 @@ interface PagingRequest {
 }
 
 interface Filter {
-  [prop: string]: FilterProp
+  [prop: string]: FilterProperty
 }
 
-interface FilterProp {
+interface FilterProperty {
   filterType: string
   from: string
   to: string
@@ -199,4 +199,30 @@ interface ValidationError {
   value: string
 }
 
+interface HttpResponse<T> {
+  data: HttpResponseData<T>
+  status: number
+  statusText: string
+}
 
+interface HttpResponseData<T> {
+  result: T
+  success: boolean
+  resultCode: number
+  validationErrors: ValidationError[]
+  error: any
+}
+
+interface AuthResult {
+  accessToken: string
+  refreshToken: string
+  accessTokenExpireTime: number
+  refreshTokenExpireTime: number
+}
+
+interface ValidationError {
+  property: string
+  tag: string
+  field: string
+  message: string
+}

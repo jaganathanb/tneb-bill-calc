@@ -1,6 +1,8 @@
-import { authService } from '@/services'
+import { type Ref, ref } from 'vue'
+
 import { defineStore } from 'pinia'
-import { ref, type Ref } from 'vue'
+
+import { authService } from '@/services'
 
 export type RegistrationForm = {
   firstName: string
@@ -8,42 +10,45 @@ export type RegistrationForm = {
   email: string
   password: string
   confirmPassword: string
+  username: string
 }
 
 export interface LoginForm {
-  email: string
+  username: string
   password: string
-}
-
-interface AuthStore {
-  user: User | null
-  isAuthenticated: boolean
 }
 
 export const useAuthStore = defineStore('authStore', () => {
   const service = authService()
-  const currentUser: Ref<User|null> = ref(null)
+  const currentUser: Ref<User | undefined> = ref(undefined)
   const isAuthenticated = ref(false)
 
-  const signIn = async ({ email, password }: LoginForm) => {
-    const d = await service.signIn({ email, password })
-    currentUser.value = { ...d.data.user, expiresIn: d.data.userCredential.expiresIn } as User
+  const signIn = async ({ username: email, password }: LoginForm) => {
+    const response = await service.signIn({ username: email, password })
 
-    isAuthenticated.value = d.data?.userCredential?.accessToken !== null
+    if (response.status === 201) {
+      localStorage.setItem(`_token`, btoa(response.data.result.accessToken))
+
+      isAuthenticated.value = response.data.result.accessToken !== undefined
+    } else {
+      throw new Error('Check form values')
+    }
   }
 
   const signOut = async () => {
     await service.signOut(currentUser.value?.userId as string)
-    currentUser.value = null
-
+    currentUser.value = undefined
+    localStorage.removeItem('_token')
     isAuthenticated.value = false
   }
 
- const register = async (data: RegistrationForm): Promise<string> => {
-  const r = await service.register(data)
+  const register = async (data: RegistrationForm): Promise<string> => {
+    const r = await service.register(data)
 
-  return r.data ? `${r.data.firstName} ${r.data.lastName}` : ''
- }
+    return r.status === 200
+      ? `${r.data.result.firstName} ${r.data.result.lastName}`
+      : ''
+  }
 
   return {
     signIn,

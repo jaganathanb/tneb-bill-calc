@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { PAGE_LIMIT } from '@/constants'
 import { computed } from 'vue'
 
-const props = withDefaults(
+import { PAGE_LIMIT } from '@/constants'
+
+const properties = withDefaults(
   defineProps<{
     total: number
     page: number
@@ -21,31 +22,31 @@ const props = withDefaults(
 )
 
 const emit = defineEmits<{
-  (e: 'update:page', value: number): void
-  (e: 'update:limit', value: number): void
-  (e: 'pagination', value: number): void
+  (event: 'update:page', value: number): void
+  (event: 'update:limit', value: number): void
+  (event: 'pagination', value: number): void
 }>()
 
 const currentPage = computed({
-  get: () => props.page,
-  set: (val) => {
-    emit('update:page', val)
+  get: () => properties.page,
+  set: (value) => {
+    emit('update:page', value)
   }
 })
 
 const pageSize = computed({
-  get: () => props.limit,
-  set: (val) => {
-    emit('update:limit', val)
+  get: () => properties.limit,
+  set: (value) => {
+    emit('update:limit', value)
   }
 })
 
-function handleSizeChange(val: number) {
-  emit('pagination', val)
+function handleSizeChange(value: number) {
+  emit('pagination', value)
 }
 
-function handleCurrentChange(val: number) {
-  emit('pagination', val)
+function handleCurrentChange(value: number) {
+  emit('pagination', value)
 }
 </script>
 

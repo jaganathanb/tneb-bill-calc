@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { DocumentChecked, Memo, Phone, Select } from '@element-plus/icons-vue'
+
 import type { OptionType } from 'element-plus/es/components/select-v2/src/select.types'
-import type { Component } from 'vue'
-import type { PropType } from 'vue'
+import { ref, type Component, type PropType } from 'vue'
 
 type GSTRStatus = {
-  gstr1Status: string | null
-  gstr3bStatus?: string | null
+  gstr1Status: string | undefined
+  gstr3bStatus?: string | undefined
 }
 
-const props = defineProps({
+const properties = defineProps({
   isOpen: {
     type: Boolean,
     required: true
@@ -21,13 +21,13 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-  (e: 'submit', value: GSTRStatus): void
-  (e: 'cancel'): void
+  (event: 'submit', value: GSTRStatus): void
+  (event: 'cancel'): void
 }>()
 
 const dialogVisible = ref(false)
-const dialogTitle = ref(`Edit ${props.gst.gstin}`)
-const gstr1Status = ref(null)
+const dialogTitle = ref(`Edit ${properties.gst.gstin}`)
+const gstr1Status = ref(undefined)
 const gstr1StatusOptions = [
   {
     label: 'Call for invoice',
@@ -58,7 +58,7 @@ const gstr1StatusOptions = [
   color: string
 })[]
 
-watch([props.isOpen], (v) => {
+watch([properties.isOpen], (v) => {
   dialogVisible.value = v[0]
 })
 </script>
@@ -78,7 +78,7 @@ watch([props.isOpen], (v) => {
         >
           <template #default="{ item }">
             <el-icon size="18" :color="item.color" style="margin-right: 8px"
-              ><component :is="item.icon"></component></el-icon
+              ><component :is="item.icon" /></el-icon
             ><el-text>{{ item.label }}</el-text>
           </template>
         </el-select-v2>

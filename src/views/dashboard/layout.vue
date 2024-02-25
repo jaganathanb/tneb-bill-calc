@@ -1,15 +1,10 @@
 <script lang="ts" setup>
-import { PAGE_LIMIT } from '@/constants'
-import { useGstsStore } from '@/stores'
 import { Plus, Search } from '@element-plus/icons-vue'
-import type { OptionType } from 'element-plus/es/components/select-v2/src/select.types'
-import { storeToRefs } from 'pinia'
 
-const gstStore = useGstsStore()
-const { gsts } = storeToRefs(gstStore)
-const allReturns = ref<GSTReturn[]>([])
-const cardForm = reactive<{ gstin: string | null }>({
-  gstin: null
+import type { OptionType } from 'element-plus/es/components/select-v2/src/select.types'
+
+const cardForm = reactive<{ gstin: string | undefined }>({
+  gstin: undefined
 })
 const progress = ref(true)
 const dialogVisible = ref(false)
@@ -60,9 +55,7 @@ onMounted(async () => {
     </template>
   </el-dialog>
 
-  <el-row
-    class="m-b"
-    style="justify-content: space-between"
+  <el-row class="m-b" style="justify-content: space-between"
     ><el-col class="flex-grow" :span="4">
       <el-button :icon="Plus" type="primary" @click="dialogVisible = true"
         >Add card</el-button
@@ -73,7 +66,7 @@ onMounted(async () => {
         :suffix-icon="Search"
         :autosize="false"
         placeholder="Search card here"
-      ></el-input>
+      />
     </el-col>
   </el-row>
 </template>

@@ -1,14 +1,13 @@
 /// <reference types="vitest/config" />
 
-import { fileURLToPath, URL } from 'node:url'
+import { URL, fileURLToPath } from 'node:url'
+import path from 'node:path'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-
 import Unocss from 'unocss/vite'
 import { presetAttributify, presetUno } from 'unocss'
 import svgLoader from 'vite-svg-loader'
-
 import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -16,8 +15,11 @@ import Components from 'unplugin-vue-components/vite'
 import ElementPlus from 'unplugin-element-plus/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import checker from 'vite-plugin-checker'
-import path from 'path'
-const pathSrc = path.resolve(__dirname, 'src')
+
+const pathSource = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  'src'
+)
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -39,7 +41,7 @@ export default defineConfig({
           prefix: 'Icon'
         })
       ],
-      dts: path.resolve(pathSrc, '@types/auto-imports.d.ts')
+      dts: path.resolve(pathSource, '@types/auto-imports.d.ts')
     }),
     Components({
       resolvers: [
@@ -49,7 +51,7 @@ export default defineConfig({
         ElementPlusResolver()
       ],
 
-      dts: path.resolve(pathSrc, '@types/components.d.ts')
+      dts: path.resolve(pathSource, '@types/components.d.ts')
     }),
     Icons({
       autoInstall: true
@@ -57,7 +59,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('src', import.meta.url))
     }
   }
 })

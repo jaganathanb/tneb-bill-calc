@@ -6724,7 +6724,7 @@ export const gstDetails: { [key: string]: GST } = {
     type: 'Regular',
     status: 'Active',
     lastUpdateDate: '2019-09-19',
-    cancellationDate: null,
+    cancellationDate: undefined,
     nature: ['Retail Business'],
     einvoiceStatus: 'No',
     pradr: {
@@ -6761,7 +6761,7 @@ export const gstDetails: { [key: string]: GST } = {
     type: 'Regular',
     status: 'Active',
     lastUpdateDate: '2021-04-15',
-    cancellationDate: null,
+    cancellationDate: undefined,
     nature: ['Wholesale Business', 'Retail Business', 'Office / Sale Office'],
     einvoiceStatus: 'No',
     pradr: {
@@ -6818,7 +6818,7 @@ export const gstDetails: { [key: string]: GST } = {
     type: 'Regular',
     status: 'Active',
     lastUpdateDate: '2019-09-04',
-    cancellationDate: null,
+    cancellationDate: undefined,
     nature: ['Retail Business', 'Wholesale Business'],
     einvoiceStatus: 'No',
     pradr: {
@@ -6855,7 +6855,7 @@ export const gstDetails: { [key: string]: GST } = {
     type: 'Regular',
     status: 'Active',
     lastUpdateDate: '2019-09-04',
-    cancellationDate: null,
+    cancellationDate: undefined,
     nature: ['Retail Business'],
     einvoiceStatus: 'Yes',
     pradr: {
@@ -6892,7 +6892,7 @@ export const gstDetails: { [key: string]: GST } = {
     type: 'Regular',
     status: 'Active',
     lastUpdateDate: '2020-07-03',
-    cancellationDate: null,
+    cancellationDate: undefined,
     nature: ['Retail Business', 'Bonded Warehouse', 'Warehouse / Depot'],
     einvoiceStatus: 'No',
     pradr: {

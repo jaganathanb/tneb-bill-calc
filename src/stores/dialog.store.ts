@@ -1,36 +1,35 @@
-import { markRaw } from 'vue'
 import { defineStore } from 'pinia'
+
 import type { Component } from 'vue'
-import type { PropType } from 'vue'
 
 export type ModalAction = {
   label: string
-  callback: (props?: any) => void
+  callback: (properties?: any) => void
 }
 
-export interface ModalProps {
-  comp: null | Component
+export interface ModalProperties {
+  comp: undefined | Component
   props?: any
-  actions: ModalAction[] | null | undefined
+  actions: ModalAction[] | undefined | undefined
 }
 
 export const useDialog = defineStore('dDialog', () => {
   const isOpen = ref(false)
-  let props: ModalProps | null = {} as ModalProps
+  let properties: ModalProperties | undefined = {} as ModalProperties
 
-  const open = (dialogProps: ModalProps) => {
+  const open = (dialogProperties: ModalProperties) => {
     isOpen.value = true
-    props = dialogProps
+    properties = dialogProperties
   }
 
   const close = () => {
     isOpen.value = false
-    props = null
+    properties = undefined
   }
 
   return {
     isOpen,
-    props,
+    props: properties,
     open,
     close
   }

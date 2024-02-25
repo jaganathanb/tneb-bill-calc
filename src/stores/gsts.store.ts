@@ -1,11 +1,12 @@
-import { gstService } from '@/services'
+import { type Ref, ref } from 'vue'
+
 import { defineStore } from 'pinia'
-import { ref, type Ref } from 'vue'
+
+import { gstService } from '@/services'
 
 export const useGstsStore = defineStore('gstsStore', () => {
   const service = gstService()
-  const gsts: Ref<PagingResult | null> = ref(null)
-  const isAuthenticated = ref(false)
+  const gsts: Ref<PagingResult | undefined> = ref(undefined)
 
   const getAll = async (pageFilter: PagingRequest) => {
     const d = await service.getAll(pageFilter)

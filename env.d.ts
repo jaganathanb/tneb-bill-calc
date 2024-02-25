@@ -1,7 +1,8 @@
 /// <reference types="vite/client" />
 /// <reference types="vite-svg-loader" />
 
-interface ImportMetaEnv {
+// eslint-disable-next-line unicorn/prevent-abbreviations
+interface ImportMetaEnvironment {
   readonly VITE_APP_TITLE: string
   readonly VITE_APIKEY: string
   readonly VITE_AUTHDOMAIN: string
@@ -13,5 +14,5 @@ interface ImportMetaEnv {
 }
 
 interface ImportMeta {
-  readonly env: ImportMetaEnv
+  readonly env: ImportMetaEnvironment
 }

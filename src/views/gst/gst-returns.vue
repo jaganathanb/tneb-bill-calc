@@ -1,22 +1,14 @@
 <script lang="ts" setup>
-import { ElButton, dayjs } from 'element-plus'
 import { Select, Timer } from '@element-plus/icons-vue'
-import { storeToRefs } from 'pinia'
-import { PAGE_LIMIT } from '@/constants'
+import { dayjs } from 'element-plus'
+
 import BasePagination from '@/components/table/base-pagination.vue'
-
-import type { PropType } from 'vue'
-import { useFeedbackStore } from '@/stores/feedback.store'
-import { useGstsStore } from '@/stores'
-
-const gstStore = useGstsStore()
-const feedback = useFeedbackStore()
-
-//const { gstsReturns } = storeToRefs(gstStore)
+import { PAGE_LIMIT } from '@/constants'
+import { ref } from 'vue'
 
 const loading = ref(false)
 
-const params = reactive<Params>({
+const parameters = reactive({
   move: 'next',
   sort: 'dof',
   order: 'desc',
@@ -24,38 +16,16 @@ const params = reactive<Params>({
   page: 1
 })
 
-const props = defineProps({
-  gst: {
-    type: Object as PropType<GST>,
-    required: true
-  },
-  fetch: {
-    type: Boolean,
-    defaults: true
-  }
-})
-
 const pagedGstsReturns = computed(() => {
-  const start = params.limit * (params.page - 1)
-  const end = start + params.limit
-
   return []
-})
-
-onMounted(async () => {
-  if (![]) {
-    loading.value = true
-    //  await gstStore.getGSTReturns(props.gst.gstin)
-    loading.value = false
-  }
 })
 </script>
 
 <template>
   <el-table
+    v-loading="loading"
     :data="pagedGstsReturns"
     :border="true"
-    v-loading="loading"
     style="width: 100%"
   >
     <el-table-column prop="ret_prd" :sortable="true" label="GST Month">
@@ -72,8 +42,7 @@ onMounted(async () => {
         </el-text>
       </template>
     </el-table-column>
-    <el-table-column prop="rtntype" :sortable="true" label="Return type">
-    </el-table-column>
+    <el-table-column prop="rtntype" :sortable="true" label="Return type" />
     <el-table-column prop="status" label="Status">
       <template #default="scope">
         <el-space v-if="scope.row.status === 'Filed'">
@@ -88,8 +57,8 @@ onMounted(async () => {
     </el-table-column>
   </el-table>
   <BasePagination
-    v-model:page="params.page"
-    v-model:limit="params.limit"
+    v-model:page="parameters.page"
+    v-model:limit="parameters.limit"
     :total="1"
   />
 </template>

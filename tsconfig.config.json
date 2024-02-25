@@ -4,6 +4,7 @@
     "strictTemplates": true
   },
   "compilerOptions": {
+    "isolatedModules": true,
     "target": "ES2022",
     "module": "ES2022",
     "strict": true,

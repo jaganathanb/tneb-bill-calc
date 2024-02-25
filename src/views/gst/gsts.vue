@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { useFeedbackStore } from '@/stores/feedback.store'
 import {
   Delete,
   DocumentChecked,
@@ -16,11 +15,15 @@ import {
   Warning
 } from '@element-plus/icons-vue'
 import dayjs from 'dayjs'
-import { ElButton, ElStatistic } from 'element-plus'
+import { ElButton } from 'element-plus'
 import { storeToRefs } from 'pinia'
-import ReturnStatusCell from './return-status-cell.vue'
-import type { OptionType } from 'element-plus/es/components/select-v2/src/select.types'
+
+import { useFeedbackStore } from '@/stores/feedback.store'
 import { useGstsStore } from '@/stores'
+
+import ReturnStatusCell from './return-status-cell.vue'
+
+import type { OptionType } from 'element-plus/es/components/select-v2/src/select.types'
 
 type StatusDropdownItem = OptionType & {
   icon: VNode | Component
@@ -61,9 +64,8 @@ const r1StatusOptions = [
 
 const progress = ref(true)
 const search = ref('')
-const currPage = ref(1)
-const dialogVisible = ref(false)
-const selectedGST = ref({} as GST)
+const currentPage = ref(1)
+const pageSize = ref(10)
 
 const add = async () => {
   try {
@@ -86,16 +88,16 @@ const add = async () => {
           .map((a) => a.trim())
       )
     }
-  } catch (error) {}
+  } catch {}
 }
 
 const deleteGST = async (data: Gst) => {
   try {
     const result = (await feedback.getConfirmation({
-      message: h('p', null, [
-        h('span', null, 'Are you sure want to delete the GST '),
+      message: h('p', undefined, [
+        h('span', undefined, 'Are you sure want to delete the GST '),
         h('i', { style: 'color: red; font-weight: 600' }, data.gstin),
-        h('span', null, ' from system?')
+        h('span', undefined, ' from system?')
       ]),
       boxType: 'confirm',
       confirmButtonText: 'Yes',
@@ -109,27 +111,31 @@ const deleteGST = async (data: Gst) => {
     }
 
     feedback.setMessage({ message: 'Delete successfully!', type: 'success' })
-  } catch (error) {}
+  } catch {}
 }
 
 const onAction = async ({ action, data }: { action: string; data: Gst }) => {
   switch (action) {
     case 'view':
-    case 'edit':
+    case 'edit': {
       feedback.setMessage({
         message:
           'This action is not supported yet!. Please contact administrator.',
         type: 'warning'
       })
       break
-    case 'lock':
+    }
+    case 'lock': {
       data.locked = true
       await gstStore.updateById(data)
       break
-    case 'delete':
+    }
+    case 'delete': {
       await deleteGST(data)
-    default:
+    }
+    default: {
       break
+    }
   }
 }
 
@@ -143,31 +149,38 @@ const updateStatus = async (data: {
   status: number
 }) => {
   switch (data.type) {
-    case 'GSTR1':
+    case 'GSTR1': {
       data.data = {
         ...data.data,
         gstr1LastStatus: data.status
       } as Gst
       break
-    case 'GSTR3B':
+    }
+    case 'GSTR3B': {
       data.data = {
         ...data.data,
         gstr3bLastStatus: data.status
       } as Gst
-    default:
+    }
+    default: {
       break
+    }
   }
 
   await gstStore.updateById(data.data)
 }
 
 const movePage = async (page: number) => {
+  currentPage.value = page
+
   await gstStore.getAll({} as PagingRequest)
 }
 
 const changePageSize = async (size: number) => {
   progress.value = true
-  
+
+  pageSize.value = size
+
   await gstStore.getAll({} as PagingRequest)
 }
 
@@ -184,8 +197,8 @@ const unlockRow = async (data: Gst) => {
   await gstStore.updateById(data)
 }
 
-const onSearch = (evt: KeyboardEvent | Event) => {
-  if (evt instanceof KeyboardEvent && evt.key === 'Enter') {
+const onSearch = (event_: KeyboardEvent | Event) => {
+  if (event_ instanceof KeyboardEvent && event_.key === 'Enter') {
     gstStore.getAll({} as PagingRequest)
   }
 }
@@ -201,24 +214,23 @@ onMounted(async () => {
       <el-button
         type="primary"
         :icon="Plus"
-        @click="add"
         style="margin-bottom: 8px"
+        @click="add"
       >
         Add
       </el-button>
       <el-tooltip content="Refresh">
         <el-button
           :icon="Refresh"
-          @click="refreshPage"
           style="margin-bottom: 8px"
-        >
-        </el-button>
+          @click="refreshPage"
+        />
       </el-tooltip>
     </el-row>
   </el-container>
   <el-table
-    :data="gsts?.items"
     v-loading="progress"
+    :data="gsts?.items"
     :border="true"
     style="width: 100%"
     :row-class-name="lockRow"
@@ -255,23 +267,21 @@ onMounted(async () => {
             @command="updateStatus"
           >
             <span class="el-dropdown-link flex">
-              <return-status-cell
-                :gst="row"
-                :type="'GSTR1'"
-              ></return-status-cell>
+              <return-status-cell :gst="row" :type="'GSTR1'" />
             </span>
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item
+                  v-for="(opt, i) of r1StatusOptions"
+                  :key="i"
                   :command="{ status: opt.value, data: row, type: 'GSTR1' }"
-                  v-for="opt of r1StatusOptions"
                   :disabled="opt.value === 4"
                 >
                   <el-icon
                     size="18"
                     :color="opt.color"
                     style="margin-right: 8px"
-                    ><component :is="opt.icon"></component></el-icon
+                    ><component :is="opt.icon" /></el-icon
                   ><el-text>{{ opt.label }}</el-text>
                 </el-dropdown-item>
               </el-dropdown-menu>
@@ -306,23 +316,21 @@ onMounted(async () => {
             @command="updateStatus"
           >
             <span class="el-dropdown-link flex">
-              <return-status-cell
-                :gst="row"
-                :type="'GSTR3B'"
-              ></return-status-cell>
+              <return-status-cell :gst="row" :type="'GSTR3B'" />
             </span>
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item
+                  v-for="(opt, i) of r1StatusOptions"
+                  :key="i"
                   :command="{ status: opt.value, data: row, type: 'GSTR3B' }"
-                  v-for="opt of r1StatusOptions"
                   :disabled="opt.value === 4"
                 >
                   <el-icon
                     size="18"
                     :color="opt.color"
                     style="margin-right: 8px"
-                    ><component :is="opt.icon"></component></el-icon
+                    ><component :is="opt.icon" /></el-icon
                   ><el-text>{{ opt.label }}</el-text>
                 </el-dropdown-item>
               </el-dropdown-menu>
@@ -356,7 +364,7 @@ onMounted(async () => {
             trigger="click"
             @command="onAction"
           >
-            <el-button :icon="More" link></el-button>
+            <el-button :icon="More" link />
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item :command="{ action: 'view', data: scope.row }"
@@ -385,14 +393,14 @@ onMounted(async () => {
             :icon="Unlock"
             link
             @click="() => unlockRow(scope.row)"
-          ></el-button>
+          />
         </el-tooltip>
       </template>
     </el-table-column>
   </el-table>
   <BasePagination
-    v-model:page="currPage"
-    v-model:limit="gsts?.totalPages"
+    v-model:page="currentPage"
+    v-model:limit="pageSize"
     :total="gsts?.totalRows"
     @update:limit="changePageSize"
     @update:page="movePage"

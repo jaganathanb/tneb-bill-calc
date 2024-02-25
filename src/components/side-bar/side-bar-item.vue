@@ -1,34 +1,39 @@
 <script setup lang="ts">
 import type { RouteRecordRaw } from 'vue-router'
 
-const props = defineProps<{
+const properties = defineProps<{
   routeConfig: RouteRecordRaw
   index: string
 }>()
 </script>
 
 <template>
-  <el-sub-menu :index="props.index" v-if="props.routeConfig.children?.length">
+  <el-sub-menu
+    v-if="properties.routeConfig.children?.length"
+    :index="properties.index"
+  >
     <template #title>
-      <el-icon><component :is="props.routeConfig.meta?.icon" /></el-icon>
-      <span>{{ props.routeConfig.meta?.label }}</span>
+      <el-icon><component :is="properties.routeConfig.meta?.icon" /></el-icon>
+      <span>{{ properties.routeConfig.meta?.label }}</span>
     </template>
     <el-menu-item
-      v-for="(r, i) in props.routeConfig.children"
+      v-for="(r, i) in properties.routeConfig.children"
       :key="i"
       :index="r.path"
       :route="r"
     >
-      <el-icon><component :is="r.meta?.icon"></component></el-icon>
+      <el-icon><component :is="r.meta?.icon" /></el-icon>
       {{ r.meta?.label }}
     </el-menu-item>
   </el-sub-menu>
-  <el-menu-item v-else :index="props.index" :route="props.routeConfig">
-    <el-icon
-      ><component :is="props.routeConfig.meta?.icon"></component
-    ></el-icon>
+  <el-menu-item
+    v-else
+    :index="properties.index"
+    :route="properties.routeConfig"
+  >
+    <el-icon><component :is="properties.routeConfig.meta?.icon" /></el-icon>
     <template #title
-      ><span>{{ props.routeConfig.meta?.label }}</span></template
+      ><span>{{ properties.routeConfig.meta?.label }}</span></template
     >
   </el-menu-item>
 </template>

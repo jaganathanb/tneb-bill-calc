@@ -1,15 +1,14 @@
 <script lang="ts" setup>
 import {
-  Chart as ChartJS,
   ArcElement,
-  Tooltip,
-  Legend,
   type ChartData,
-  type ChartOptions,
-  type ChartDataset
+  Chart as ChartJS,
+  Legend,
+  Tooltip
 } from 'chart.js'
+import { Pie } from 'vue-chartjs'
+
 import type { PropType } from 'vue'
-import { Chart, Pie } from 'vue-chartjs'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 ChartJS.defaults.plugins.legend.labels.usePointStyle = true

@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-import { router } from '@/router'
-import { useAuthStore, useFeedbackStore, type RegistrationForm } from '@/stores'
-import type { FormInstance, FormRules } from 'element-plus'
 import { ref } from 'vue'
+
+import { router } from '@/router'
+import { type RegistrationForm, useAuthStore, useFeedbackStore } from '@/stores'
+
+import type { FormInstance, FormRules } from 'element-plus'
 
 const registerForm = ref<RegistrationForm>({} as RegistrationForm)
 const regForm = ref<FormInstance>()
@@ -12,15 +14,13 @@ const validatePass = async (rule: any, value: string, callback: any) => {
     callback(new Error('Please input the password'))
   } else {
     if (
-      !/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/.test(
-        value
-      )
+      !/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\s\w:])(\S){8,16}$/.test(value)
     ) {
       return callback(new Error('Please input valid password'))
     }
     if (registerForm.value.confirmPassword !== '') {
       if (!registerForm.value) return
-      await regForm.value?.validateField('confirmPassword', () => null)
+      await regForm.value?.validateField('confirmPassword', () => {})
     }
     callback()
   }
@@ -28,10 +28,10 @@ const validatePass = async (rule: any, value: string, callback: any) => {
 const validatePass2 = (rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('Please input the password again'))
-  } else if (value !== registerForm.value.password) {
-    callback(new Error("Two inputs don't match!"))
-  } else {
+  } else if (value === registerForm.value.password) {
     callback()
+  } else {
+    callback(new Error("Two inputs don't match!"))
   }
 }
 
@@ -74,10 +74,10 @@ const registrationRules: FormRules = {
   ]
 }
 
-const submitForm = async (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  const res = await formEl.validate()
-  if (res) {
+const submitForm = async (formElement: FormInstance | undefined) => {
+  if (!formElement) return
+  const result = await formElement.validate()
+  if (result) {
     const authStore = useAuthStore()
     const alertStore = useFeedbackStore()
     try {
@@ -85,7 +85,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         email: registerForm.value.email,
         firstName: registerForm.value.firstName,
         password: registerForm.value.password,
-        lastName: registerForm.value.lastName
+        lastName: registerForm.value.lastName,
+        username: registerForm.value.email
       } as RegistrationForm)
 
       await router.push('/auth/login')
@@ -103,18 +104,18 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   }
 }
 
-const resetForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  formEl.resetFields()
+const resetForm = (formElement: FormInstance | undefined) => {
+  if (!formElement) return
+  formElement.resetFields()
 }
 </script>
 
 <template>
   <el-container class="h-full w-full justify-center" direction="vertical">
     <el-row align="middle" class="w-full justify-center">
-      <SvgImg :name="'DhuruvahApps'" :width="250" :height="250"></SvgImg>
+      <SvgImg :name="'DhuruvahApps'" :width="250" :height="250" />
     </el-row>
-    <el-row style="height: 50px"></el-row>
+    <el-row style="height: 50px" />
     <el-row align="middle" class="w-full justify-center">
       <el-card header="Sign up">
         <el-form

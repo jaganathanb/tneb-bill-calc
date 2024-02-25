@@ -1,6 +1,8 @@
 <script lang="ts" setup>
-let url: Ref<string> = ref('')
-const props = defineProps({
+import { ref } from 'vue'
+
+const url: Ref<string> = ref('')
+const properties = defineProps({
   name: {
     type: String,
     required: true
@@ -18,16 +20,21 @@ const props = defineProps({
 const modules = import.meta.glob('../assets/img/**/*.svg', { as: 'url' })
 
 watch(
-  () => props.name,
+  () => properties.name,
   async () => {
-    url.value = await modules[`../assets/img/${props.name}.svg`]()
+    url.value = await modules[`../assets/img/${properties.name}.svg`]()
   },
   { immediate: true }
 )
 </script>
 
 <template>
-  <img :src="url" :width="props.width" :height="props.height" alt="logo" />
+  <img
+    :src="url"
+    :width="properties.width"
+    :height="properties.height"
+    alt="logo"
+  />
 </template>
 
 <style lang="scss" scoped></style>
