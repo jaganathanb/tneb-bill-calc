@@ -1,3 +1,6 @@
 export { default as GSTs } from './gsts.vue'
 export { default as GSTReturns } from './gst-returns.vue'
 export { default as ReturnStatusCell } from './return-status-cell.vue'
+export { default as ReturnStatusCellDropDown } from './return-status-cell-dropdown.vue'
+export { default as PendingReturnWarning } from './pending-return-warning.vue'
+export { default as GstStatus } from './gst-status.vue'

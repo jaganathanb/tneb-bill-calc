@@ -66,7 +66,15 @@ interface DCard {
 
 type ModeOfFiling = 'ONLINE' | 'OFFLINE'
 type GSTReturnType = 'GSTR1' | 'GSTR3B' | 'GSTR9' | 'GSTR2'
-type GSTReturnStatus = 'Filed' | 'Not Filed'
+
+type GstReturn1Status =
+  | 'InvoiceCall'
+  | 'InvoiceReceived'
+  | 'EntryDone'
+  | 'Filed'
+type GstReturn3bStatus = 'TaxPayable' | 'Intimated' | 'TaxPaid' | 'Filed'
+
+type GstReturnStatus = GstReturn1Status | GstReturn3bStatus
 
 interface GSTReturn {
   id?: string
@@ -76,7 +84,7 @@ interface GSTReturn {
   rtntype: GSTReturnType
   ret_prd: string
   arn: string
-  status: GSTReturnStatus
+  status: GstReturn1Status
 }
 
 interface GSTReturnGroupedByType {
@@ -154,6 +162,17 @@ interface PagingResult {
   pageNumber: number
   totalPages: number
   totalRows: number
+}
+
+interface PagedGsts extends PagingResult {
+  items: GstMap[]
+}
+
+interface GstMap extends Omit<Gst, 'gstStatuses'> {
+  gstr1: GstStatus
+  gstr3b: GstStatus
+  gstr2: GstStatus
+  gstr9: GstStatus
 }
 
 interface Gst {

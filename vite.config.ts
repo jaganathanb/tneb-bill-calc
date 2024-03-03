@@ -41,6 +41,7 @@ export default defineConfig({
           prefix: 'Icon'
         })
       ],
+      vueTemplate: true,
       dts: path.resolve(pathSource, '@types/auto-imports.d.ts')
     }),
     Components({
@@ -50,7 +51,7 @@ export default defineConfig({
         }),
         ElementPlusResolver()
       ],
-
+      dirs: ['src/**/*'],
       dts: path.resolve(pathSource, '@types/components.d.ts')
     }),
     Icons({

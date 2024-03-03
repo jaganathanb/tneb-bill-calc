@@ -20,15 +20,23 @@ export interface LoginForm {
 
 export const useAuthStore = defineStore('authStore', () => {
   const service = authService()
-  const currentUser: Ref<User | undefined> = ref(undefined)
-  const isAuthenticated = ref(false)
+  const currentUser: Ref<User | undefined> = ref({
+    userId: localStorage.getItem('userId')
+  } as User)
+  const isAuthenticated = ref(
+    localStorage.getItem(`${localStorage.getItem('userId')}_token`) !== null
+  )
 
   const signIn = async ({ username: email, password }: LoginForm) => {
     const response = await service.signIn({ username: email, password })
 
     if (response.status === 201) {
-      localStorage.setItem(`_token`, btoa(response.data.result.accessToken))
-
+      localStorage.setItem(`userId`, email)
+      localStorage.setItem(
+        `${email}_token`,
+        btoa(response.data.result.accessToken)
+      )
+      currentUser.value = { userId: email } as User
       isAuthenticated.value = response.data.result.accessToken !== undefined
     } else {
       throw new Error('Check form values')
@@ -37,8 +45,9 @@ export const useAuthStore = defineStore('authStore', () => {
 
   const signOut = async () => {
     await service.signOut(currentUser.value?.userId as string)
+
+    localStorage.removeItem(`${currentUser.value?.userId as string}_token`)
     currentUser.value = undefined
-    localStorage.removeItem('_token')
     isAuthenticated.value = false
   }
 

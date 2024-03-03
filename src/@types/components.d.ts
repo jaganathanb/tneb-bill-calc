@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    App: typeof import('./../app.vue')['default']
     BaseDatepicker: typeof import('./../components/table/base-datepicker.vue')['default']
     BasePagination: typeof import('./../components/table/base-pagination.vue')['default']
     DateColumn: typeof import('./../components/table/date-column.vue')['default']
@@ -43,8 +44,20 @@ declare module 'vue' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElText: typeof import('element-plus/es')['ElText']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    GstEdit: typeof import('./../views/gst/gst-edit.vue')['default']
+    GstReturns: typeof import('./../views/gst/gst-returns.vue')['default']
+    Gsts: typeof import('./../views/gst/gsts.vue')['default']
+    GstStatus: typeof import('./../views/gst/gst-status.vue')['default']
+    Layout: typeof import('./../views/dashboard/layout.vue')['default']
+    Login: typeof import('./../views/account/login.vue')['default']
+    PendingReturnWarning: typeof import('./../views/gst/pending-return-warning.vue')['default']
     'Pie.chart': typeof import('./../components/charts/pie.chart.vue')['default']
+    PrivateLayout: typeof import('./../views/private-layout.vue')['default']
+    PublicLayout: typeof import('./../views/account/public-layout.vue')['default']
+    Register: typeof import('./../views/account/register.vue')['default']
     ReturnStatusCard: typeof import('./../components/cards/return-status-card.vue')['default']
+    ReturnStatusCell: typeof import('./../views/gst/return-status-cell.vue')['default']
+    ReturnStatusCellDropdown: typeof import('./../views/gst/return-status-cell-dropdown.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SideBar: typeof import('./../components/side-bar/side-bar.vue')['default']

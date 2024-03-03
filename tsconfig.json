@@ -6,7 +6,8 @@
       "@/*": ["src/*"]
     },
     "isolatedModules": true,
-    "lib": ["dom", "dom.iterable"]
+    "lib": ["dom", "dom.iterable"],
+    "types": ["vite/client"]
   },
   "exclude": ["node_modules", "**/dist", "out"]
 }

@@ -10,6 +10,11 @@ export interface GstsService {
   getById: (id: string) => Promise<AxiosResponse<Gst, any>>
   deleteById: (gstin: string) => Promise<AxiosResponse<boolean, any>>
   updateById: (gst: Gst) => Promise<AxiosResponse<Gst, any>>
+  updateReturnStatusById: (
+    gstin: string,
+    type: GSTReturnType,
+    status: GstReturn1Status | GstReturn3bStatus
+  ) => Promise<AxiosResponse<boolean, any>>
 }
 
 export default (function () {
@@ -31,6 +36,14 @@ export default (function () {
     return httpClient.put(`/gsts`, gst)
   }
 
+  const updateReturnStatusById = (
+    gstin: string,
+    type: GSTReturnType,
+    status: GstReturn1Status | GstReturn3bStatus
+  ) => {
+    return httpClient.put(`/gsts/${gstin}`, { type, status })
+  }
+
   const createByIds = (gstins: string[]) => {
     return httpClient.post<string>('/gsts', gstins)
   }
@@ -40,7 +53,8 @@ export default (function () {
     getById,
     updateById,
     deleteById,
-    createByIds
+    createByIds,
+    updateReturnStatusById
   }
 
   return () => {
