@@ -15,6 +15,10 @@ export interface GstsService {
     type: GSTReturnType,
     status: GstReturn1Status | GstReturn3bStatus
   ) => Promise<AxiosResponse<boolean, any>>
+  updateLockById: (
+    gstin: string,
+    locked: boolean
+  ) => Promise<AxiosResponse<boolean, any>>
 }
 
 export default (function () {
@@ -41,7 +45,11 @@ export default (function () {
     type: GSTReturnType,
     status: GstReturn1Status | GstReturn3bStatus
   ) => {
-    return httpClient.put(`/gsts/${gstin}`, { type, status })
+    return httpClient.put(`/gsts/${gstin}/status`, { status, type })
+  }
+
+  const updateLockById = (gstin: string, locked: boolean) => {
+    return httpClient.put(`/gsts/${gstin}/lock`, { locked })
   }
 
   const createByIds = (gstins: string[]) => {
@@ -54,7 +62,8 @@ export default (function () {
     updateById,
     deleteById,
     createByIds,
-    updateReturnStatusById
+    updateReturnStatusById,
+    updateLockById
   }
 
   return () => {

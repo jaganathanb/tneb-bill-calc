@@ -73,7 +73,7 @@ module.exports = defineConfig({
     'prefer-rest-params': 'error',
     'prefer-spread': 'error',
     'prefer-template': 'error',
-
+    'no-unused-vars': 'off',
     'no-redeclare': 'off',
     '@typescript-eslint/no-redeclare': 'error',
     // best-practice
@@ -109,6 +109,18 @@ module.exports = defineConfig({
     ],
     '@typescript-eslint/ban-ts-comment': ['off', { 'ts-ignore': false }],
     '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        args: 'all',
+        argsIgnorePattern: '^_',
+        caughtErrors: 'all',
+        caughtErrorsIgnorePattern: '^_',
+        destructuredArrayIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        ignoreRestSiblings: true
+      }
+    ],
     // vue
     'vue/no-v-html': 'off',
     'vue/require-default-prop': 'off',

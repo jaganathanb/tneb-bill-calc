@@ -71,6 +71,16 @@ export const useGstsStore = defineStore('gstsStore', () => {
     }
   }
 
+  const updateLockById = async (gstin: string, locked: boolean) => {
+    try {
+      return await service.updateLockById(gstin, locked)
+    } catch (dataError: unknown) {
+      error.value = (dataError as Error).toString()
+    } finally {
+      loading.value = false
+    }
+  }
+
   const createByIds = async (gstins: string[]) => {
     try {
       return await service.createByIds(gstins)
@@ -90,6 +100,7 @@ export const useGstsStore = defineStore('gstsStore', () => {
     deleteById,
     updateById,
     updateReturnStatusById,
+    updateLockById,
     createByIds
   }
 })

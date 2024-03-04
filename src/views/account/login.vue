@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-
 import { StarFilled } from '@element-plus/icons-vue'
+import { useRoute } from 'vue-router'
 
 import { router } from '@/router'
 import { useAuthStore, useFeedbackStore } from '@/stores'
@@ -12,6 +11,9 @@ const loginForm = ref({
   username: '',
   password: ''
 })
+const authStore = useAuthStore()
+const alertStore = useFeedbackStore()
+const route = useRoute()
 
 const loginFormReference = ref<FormInstance>()
 
@@ -33,14 +35,12 @@ const submitForm = async (formElement: FormInstance | undefined) => {
   if (!formElement) return
   const result = await formElement.validate()
 
-  const authStore = useAuthStore()
-  const alertStore = useFeedbackStore()
-
   if (result) {
     try {
       await authStore.signIn(loginForm.value)
 
-      await router.push('/')
+      const redirect = route.query?.['redirect']?.toString()
+      await (redirect ? router.push(redirect) : router.push('/'))
     } catch {
       alertStore.setMessage({
         message: 'Please check your input and try again.',

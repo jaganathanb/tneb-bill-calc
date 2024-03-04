@@ -14,33 +14,6 @@ const feedback = useFeedbackStore()
 
 const { gsts, loading } = storeToRefs(gstStore)
 
-// const r1StatusOptions = [
-//   {
-//     label: 'Call for invoice', // Tax payable
-//     icon: Phone,
-//     color: 'blue',
-//     value: 1
-//   },
-//   {
-//     label: 'Invoice received', // Intimated
-//     icon: DocumentChecked,
-//     color: 'orange',
-//     value: 2
-//   },
-//   {
-//     label: 'Entry done', // Amount received
-//     icon: Memo,
-//     color: 'lightBlue',
-//     value: 3
-//   },
-//   {
-//     label: 'Filed',
-//     icon: Select,
-//     color: 'green',
-//     value: 4
-//   }
-// ] as StatusDropdownItem[]
-
 const search = ref('')
 
 const add = async () => {
@@ -67,53 +40,54 @@ const add = async () => {
   } catch {}
 }
 
-// const deleteGST = async (data: Gst) => {
-//   try {
-//     const result = (await feedback.getConfirmation({
-//       message: h('p', undefined, [
-//         h('span', undefined, 'Are you sure want to delete the GST '),
-//         h('i', { style: 'color: red; font-weight: 600' }, data.gstin),
-//         h('span', undefined, ' from system?')
-//       ]),
-//       boxType: 'confirm',
-//       confirmButtonText: 'Yes',
-//       cancelButtonText: 'No',
-//       showCancelButton: true,
-//       title: 'Confirm'
-//     })) as string
+const deleteGST = async (data: GstMap) => {
+  try {
+    const result = (await feedback.getConfirmation({
+      message: h('p', undefined, [
+        h('span', undefined, 'Are you sure want to delete the GST '),
+        h('i', { style: 'color: red; font-weight: 600' }, data.gstin),
+        h('span', undefined, ' from system?')
+      ]),
+      boxType: 'confirm',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      showCancelButton: true,
+      title: 'Confirm'
+    })) as string
 
-//     if (result === 'confirm') {
-//       await gstStore.deleteById(data.gstin)
-//     }
+    if (result === 'confirm') {
+      await gstStore.deleteById(data.gstin)
+    }
 
-//     feedback.setMessage({ message: 'Delete successfully!', type: 'success' })
-//   } catch {}
-// }
+    feedback.setMessage({ message: 'Delete successfully!', type: 'success' })
+  } catch {}
+}
 
-// const onAction = async ({ action, data }: { action: string; data: Gst }) => {
-//   switch (action) {
-//     case 'view':
-//     case 'edit': {
-//       feedback.setMessage({
-//         message:
-//           'This action is not supported yet!. Please contact administrator.',
-//         type: 'warning'
-//       })
-//       break
-//     }
-//     case 'lock': {
-//       data.locked = true
-//       await gstStore.updateById(data)
-//       break
-//     }
-//     case 'delete': {
-//       await deleteGST(data)
-//     }
-//     default: {
-//       break
-//     }
-//   }
-// }
+const onAction = async (data: { action: string; data: GstMap }) => {
+  switch (data.action) {
+    case 'view':
+    case 'edit': {
+      feedback.setMessage({
+        message:
+          'This action is not supported yet!. Please contact administrator.',
+        type: 'warning'
+      })
+      break
+    }
+    case 'lock': {
+      data.data.locked = true
+      await gstStore.updateLockById(data.data.gstin, true)
+      break
+    }
+    case 'delete': {
+      await deleteGST(data.data)
+      break
+    }
+    default: {
+      break
+    }
+  }
+}
 
 const refreshPage = async () => {
   await gstStore.getAll({} as PagingRequest)
@@ -150,32 +124,18 @@ const updateStatus = async (data: {
   await gstStore.updateReturnStatusById(data.data.gstin, data.type, data.status)
 }
 
-// const movePage = async (page: number) => {
-//   currentPage.value = page
+const lockRow = ({ row }: { row: GST }) => {
+  if (row.locked) {
+    return 'error-row'
+  }
 
-//   await gstStore.getAll({} as PagingRequest)
-// }
+  return ''
+}
 
-// const changePageSize = async (size: number) => {
-//   loading.value = true
-
-//   pageSize.value = size
-
-//   await gstStore.getAll({} as PagingRequest)
-// }
-
-// const lockRow = ({ row }: { row: GST }) => {
-//   if (row.locked) {
-//     return 'error-row'
-//   }
-
-//   return ''
-// }
-
-// const unlockRow = async (data: Gst) => {
-//   data.locked = false
-//   await gstStore.updateById(data)
-// }
+const unlockRow = async (data: GstMap) => {
+  data.locked = false
+  await gstStore.updateLockById(data.gstin, false)
+}
 
 const onSearch = (event_: KeyboardEvent | Event) => {
   if (event_ instanceof KeyboardEvent && event_.key === 'Enter') {
@@ -208,8 +168,14 @@ onMounted(async () => {
       </el-tooltip>
     </el-row>
   </el-container>
-  <el-table v-loading="loading" :data="gsts?.items">
-    <el-table-column prop="gstin" width="150" label="GSTIN" fixed>
+  <el-table
+    v-loading="loading"
+    :data="gsts?.items"
+    class="w-full"
+    :border="true"
+    :row-class-name="lockRow"
+  >
+    <el-table-column prop="gstin" label="GSTIN" min-width="150" fixed>
       <template #header>
         <el-input
           v-model="search"
@@ -220,14 +186,18 @@ onMounted(async () => {
       </template>
     </el-table-column>
     <el-table-column align="center" label="GSTR-1">
-      <el-table-column label="Tax period" width="90">
+      <el-table-column label="Tax period" min-width="90">
         <template #default="{ row }">
-          {{ dayjs(row.gstr1.returnPeriod, 'MMYYYY').format('MMM YYYY') }}
+          <span v-if="row.gstr1">{{
+            dayjs(row.gstr1?.returnPeriod, 'MMYYYY').format('MMM YYYY')
+          }}</span>
+          <span v-else>N/A</span>
         </template>
       </el-table-column>
-      <el-table-column label="Status" width="170" align="center">
+      <el-table-column label="Status" align="center" min-width="170">
         <template #default="{ row }">
           <GstStatus
+            v-if="row.gstr1"
             :gst="row"
             :type="'GSTR1'"
             @status-change="
@@ -239,18 +209,23 @@ onMounted(async () => {
                 })
             "
           />
+          <span v-else>N/A</span>
         </template>
       </el-table-column>
     </el-table-column>
     <el-table-column align="center" label="GSTR-3B">
-      <el-table-column label="Tax period" width="90">
+      <el-table-column label="Tax period" min-width="90">
         <template #default="{ row }">
-          {{ dayjs(row.gstr3b.returnPeriod, 'MMYYYY').format('MMM YYYY') }}
+          <span v-if="row.gstr3b">{{
+            dayjs(row.gstr3b?.returnPeriod, 'MMYYYY').format('MMM YYYY')
+          }}</span>
+          <span v-else>N/A</span>
         </template>
       </el-table-column>
-      <el-table-column label="Status" width="170" align="center">
+      <el-table-column label="Status" align="center" min-width="170">
         <template #default="{ row }">
           <GstStatus
+            v-if="row.gstr3b"
             :gst="row"
             :type="'GSTR3B'"
             @status-change="
@@ -262,8 +237,53 @@ onMounted(async () => {
                 })
             "
           />
+          <span v-else>N/A</span>
         </template>
       </el-table-column>
+    </el-table-column>
+    <el-table-column align="center" label="GSTR-2">
+      <el-table-column label="Tax period" min-width="90">
+        <template #default="{ row }">
+          <span v-if="row.gstr2">{{
+            dayjs(row.gstr2?.returnPeriod, 'MMYYYY').format('MMM YYYY')
+          }}</span>
+          <span v-else>N/A</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="Status" align="center" min-width="170">
+        <template #default="{ row }">
+          <GstStatus
+            v-if="row.gstr2"
+            :gst="row"
+            :type="'GSTR2'"
+            @status-change="
+              (st: string) =>
+                updateStatus({
+                  data: row,
+                  status: st as GstReturnStatus,
+                  type: 'GSTR2'
+                })
+            "
+          />
+          <span v-else>N/A</span>
+        </template>
+      </el-table-column>
+    </el-table-column>
+    <el-table-column prop="name" min-width="200" label="Owner" />
+    <el-table-column prop="tradeName" min-width="200" label="Trade name" />
+    <el-table-column label="Address">
+      <el-table-column prop="permenantAddress.doorNo" label="Door no" />
+      <el-table-column prop="permenantAddress.street" label="Street" />
+      <el-table-column prop="permenantAddress.pincode" />
+    </el-table-column>
+    <el-table-column fixed="right" align="center" min-width="50">
+      <template #default="scope">
+        <GstRowActions
+          :gst="scope.row"
+          @action-click="onAction"
+          @unlock-click="unlockRow"
+        />
+      </template>
     </el-table-column>
   </el-table>
 </template>

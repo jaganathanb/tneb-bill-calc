@@ -46,6 +46,7 @@ declare module 'vue' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     GstEdit: typeof import('./../views/gst/gst-edit.vue')['default']
     GstReturns: typeof import('./../views/gst/gst-returns.vue')['default']
+    GstRowActions: typeof import('./../views/gst/gst-row-actions.vue')['default']
     Gsts: typeof import('./../views/gst/gsts.vue')['default']
     GstStatus: typeof import('./../views/gst/gst-status.vue')['default']
     Layout: typeof import('./../views/dashboard/layout.vue')['default']
