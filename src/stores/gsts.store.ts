@@ -63,7 +63,29 @@ export const useGstsStore = defineStore('gstsStore', () => {
     status: GstReturnStatus
   ) => {
     try {
-      return await service.updateReturnStatusById(gstin, type, status)
+      const response = await service.updateReturnStatusById(gstin, type, status)
+      if (response.data.result) {
+        const gst = gsts.value?.items.find((g) => g.gstin === gstin) as GstMap
+        switch (type) {
+          case 'GSTR1': {
+            gst.gstr1.status = status
+            break
+          }
+          case 'GSTR3B': {
+            gst.gstr3b.status = status
+            break
+          }
+          case 'GSTR2': {
+            gst.gstr2.status = status
+            break
+          }
+          default: {
+            break
+          }
+        }
+      }
+
+      return response.data.result
     } catch (dataError: unknown) {
       error.value = (dataError as Error).toString()
     } finally {
@@ -73,7 +95,12 @@ export const useGstsStore = defineStore('gstsStore', () => {
 
   const updateLockById = async (gstin: string, locked: boolean) => {
     try {
-      return await service.updateLockById(gstin, locked)
+      const response = await service.updateLockById(gstin, locked)
+
+      const gst = gsts.value?.items.find((g) => g.gstin === gstin) as GstMap
+      gst.locked = response.data.result ? locked : !locked
+
+      return response.data.result
     } catch (dataError: unknown) {
       error.value = (dataError as Error).toString()
     } finally {

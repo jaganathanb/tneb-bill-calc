@@ -5,9 +5,9 @@ import { PAGE_LIMIT } from '@/constants'
 
 const properties = withDefaults(
   defineProps<{
-    total: number
-    page: number
-    limit: number
+    total?: number
+    page?: number
+    limit?: number
     layout?: string
     background?: boolean
     hidden?: boolean
@@ -24,7 +24,7 @@ const properties = withDefaults(
 const emit = defineEmits<{
   (event: 'update:page', value: number): void
   (event: 'update:limit', value: number): void
-  (event: 'pagination', value: number): void
+  (event: 'pagination', value: PageConfig): void
 }>()
 
 const currentPage = computed({
@@ -42,11 +42,12 @@ const pageSize = computed({
 })
 
 function handleSizeChange(value: number) {
-  emit('pagination', value)
+  pageSize.value = value
+  emit('pagination', { page: currentPage.value, size: value })
 }
 
 function handleCurrentChange(value: number) {
-  emit('pagination', value)
+  emit('pagination', { page: value, size: pageSize.value })
 }
 </script>
 
@@ -56,7 +57,7 @@ function handleCurrentChange(value: number) {
       v-model:current-page="currentPage"
       v-model:page-size="pageSize"
       :layout="layout"
-      :page-sizes="[10, 20, 50, 100]"
+      :page-sizes="[2, 10, 20, 50, 100]"
       :total="total"
       :background="background"
       @size-change="handleSizeChange"

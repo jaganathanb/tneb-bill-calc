@@ -131,6 +131,11 @@ interface PagingRequest {
   sort: Sort[]
 }
 
+interface PageConfig {
+  page: number
+  size: number
+}
+
 interface Filter {
   [prop: string]: FilterProperty
 }

@@ -6,26 +6,33 @@ export interface GstsService {
   createByIds: (gstins: string[]) => Promise<AxiosResponse<string, any>>
   getAll: (
     pageRequest: PagingRequest
-  ) => Promise<AxiosResponse<PagingResponse, any>>
-  getById: (id: string) => Promise<AxiosResponse<Gst, any>>
-  deleteById: (gstin: string) => Promise<AxiosResponse<boolean, any>>
-  updateById: (gst: Gst) => Promise<AxiosResponse<Gst, any>>
+  ) => Promise<AxiosResponse<HttpResponseData<PagingResult>, any>>
+  getById: (id: string) => Promise<AxiosResponse<HttpResponseData<Gst>, any>>
+  deleteById: (
+    gstin: string
+  ) => Promise<AxiosResponse<HttpResponseData<boolean>, any>>
+  updateById: (gst: Gst) => Promise<AxiosResponse<HttpResponseData<Gst>, any>>
   updateReturnStatusById: (
     gstin: string,
     type: GSTReturnType,
     status: GstReturn1Status | GstReturn3bStatus
-  ) => Promise<AxiosResponse<boolean, any>>
+  ) => Promise<
+    AxiosResponse<HttpResponseData<GstReturn1Status | GstReturn3bStatus>, any>
+  >
   updateLockById: (
     gstin: string,
     locked: boolean
-  ) => Promise<AxiosResponse<boolean, any>>
+  ) => Promise<AxiosResponse<HttpResponseData<boolean>, any>>
 }
 
 export default (function () {
   const httpClient = useHttpClient()
 
   const getAll = (pageRequest: PagingRequest) => {
-    return httpClient.post<PagingResponse>('/gsts/page', pageRequest)
+    return httpClient.post<HttpResponseData<PagingResult>>(
+      '/gsts/page',
+      pageRequest
+    )
   }
 
   const getById = (gstin: string) => {
@@ -42,10 +49,13 @@ export default (function () {
 
   const updateReturnStatusById = (
     gstin: string,
-    type: GSTReturnType,
+    returnType: GSTReturnType,
     status: GstReturn1Status | GstReturn3bStatus
   ) => {
-    return httpClient.put(`/gsts/${gstin}/status`, { status, type })
+    return httpClient.put(`/gsts/${gstin}/return-status`, {
+      status,
+      returnType
+    })
   }
 
   const updateLockById = (gstin: string, locked: boolean) => {

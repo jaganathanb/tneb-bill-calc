@@ -15,6 +15,8 @@ const feedback = useFeedbackStore()
 const { gsts, loading } = storeToRefs(gstStore)
 
 const search = ref('')
+const pageSize = ref(2)
+const currentPage = ref(1)
 
 const add = async () => {
   try {
@@ -90,38 +92,26 @@ const onAction = async (data: { action: string; data: GstMap }) => {
 }
 
 const refreshPage = async () => {
-  await gstStore.getAll({} as PagingRequest)
+  await gstStore.getAll({
+    pageNumber: currentPage.value,
+    pageSize: pageSize.value,
+    filter: {
+      Gstin: {
+        filterType: 'text',
+        type: 'contains',
+        to: '',
+        from: search.value
+      }
+    } as Filter
+  } as PagingRequest)
 }
 
-const updateStatus = async (data: {
-  data: GstMap
-  type: GSTReturnType
+const updateStatus = async (
+  gstin: string,
+  type: GSTReturnType,
   status: GstReturnStatus
-}) => {
-  switch (data.type) {
-    case 'GSTR1': {
-      data.data = {
-        ...data.data,
-        gstr1: {
-          ...data.data.gstr1,
-          status
-        }
-      } as GstMap
-      break
-    }
-    case 'GSTR3B': {
-      data.data = {
-        ...data.data,
-        gstr3bLastStatus: data.status
-      } as GstMap
-      break
-    }
-    default: {
-      break
-    }
-  }
-
-  await gstStore.updateReturnStatusById(data.data.gstin, data.type, data.status)
+) => {
+  await gstStore.updateReturnStatusById(gstin, type, status)
 }
 
 const lockRow = ({ row }: { row: GST }) => {
@@ -133,18 +123,41 @@ const lockRow = ({ row }: { row: GST }) => {
 }
 
 const unlockRow = async (data: GstMap) => {
-  data.locked = false
   await gstStore.updateLockById(data.gstin, false)
 }
 
 const onSearch = (event_: KeyboardEvent | Event) => {
   if (event_ instanceof KeyboardEvent && event_.key === 'Enter') {
-    gstStore.getAll({} as PagingRequest)
+    gstStore.getAll({
+      pageNumber: currentPage.value,
+      pageSize: pageSize.value,
+      filter: {
+        Gstin: {
+          filterType: 'text',
+          type: 'contains',
+          to: '',
+          from: search.value
+        }
+      } as Filter
+    } as PagingRequest)
   }
 }
 
+const paginateTable = async (page: PageConfig) => {
+  loading.value = true
+  //currentPage.value = page
+
+  await gstStore.getAll({
+    pageNumber: page.page,
+    pageSize: page.size
+  } as PagingRequest)
+}
+
 onMounted(async () => {
-  await gstStore.getAll({} as PagingRequest)
+  await gstStore.getAll({
+    pageNumber: currentPage.value,
+    pageSize: pageSize.value
+  } as PagingRequest)
 })
 </script>
 
@@ -202,11 +215,7 @@ onMounted(async () => {
             :type="'GSTR1'"
             @status-change="
               (st: string) =>
-                updateStatus({
-                  data: row,
-                  status: st as GstReturnStatus,
-                  type: 'GSTR1'
-                })
+                updateStatus(row.gstin, 'GSTR1', st as GstReturnStatus)
             "
           />
           <span v-else>N/A</span>
@@ -230,11 +239,7 @@ onMounted(async () => {
             :type="'GSTR3B'"
             @status-change="
               (st: string) =>
-                updateStatus({
-                  data: row,
-                  status: st as GstReturnStatus,
-                  type: 'GSTR3B'
-                })
+                updateStatus(row.gstin, 'GSTR3B', st as GstReturnStatus)
             "
           />
           <span v-else>N/A</span>
@@ -258,11 +263,7 @@ onMounted(async () => {
             :type="'GSTR2'"
             @status-change="
               (st: string) =>
-                updateStatus({
-                  data: row,
-                  status: st as GstReturnStatus,
-                  type: 'GSTR2'
-                })
+                updateStatus(row.gstin, 'GSTR2', st as GstReturnStatus)
             "
           />
           <span v-else>N/A</span>
@@ -286,6 +287,12 @@ onMounted(async () => {
       </template>
     </el-table-column>
   </el-table>
+  <BasePagination
+    v-model:page="currentPage"
+    v-model:limit="pageSize"
+    :total="gsts?.totalRows"
+    @pagination="paginateTable"
+  />
 </template>
 
 <style lang="scss">

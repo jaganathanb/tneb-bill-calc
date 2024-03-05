@@ -17,7 +17,7 @@ export default (function () {
   }
 
   const signOut = (id: string) => {
-    return httpClient.get(`/auth/${id}/logout`)
+    return httpClient.post(`/auth/logout`, { username: id })
   }
 
   const register = (data: RegistrationForm) => {
