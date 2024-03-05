@@ -22,7 +22,7 @@ const signOut = async () => {
 
 <template>
   <el-menu mode="horizontal" :ellipsis="false">
-    <el-menu-item style="padding: 0">
+    <el-menu-item index="1" style="padding: 0">
       <button
         class="border-none w-full bg-transparent cursor-pointer"
         style="height: var(--ep-menu-item-height)"
@@ -31,7 +31,7 @@ const signOut = async () => {
       </button>
     </el-menu-item>
     <div class="flex-grow-1" />
-    <el-menu-item>
+    <el-menu-item index="2">
       <el-switch
         v-model="value1"
         :active-action-icon="Sunny"
@@ -39,7 +39,7 @@ const signOut = async () => {
         @change="toggleDark()"
       />
     </el-menu-item>
-    <el-menu-item>
+    <el-menu-item index="3">
       <el-popover placement="bottom" :width="300" trigger="click">
         <template #reference>
           <el-avatar size="default" alt="JaganB" :icon="'account'" />
@@ -71,5 +71,9 @@ const signOut = async () => {
 .el-menu--horizontal .el-menu-item:not(.is-disabled):focus,
 .el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
   background-color: var(--el-menu-bg-color);
+}
+
+.el-menu--horizontal > .el-menu-item.is-active {
+  border-bottom: none;
 }
 </style>
