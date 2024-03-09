@@ -12,6 +12,7 @@ declare global {
   const DashboardLayout: (typeof import('../views/dashboard/index'))['DashboardLayout']
   const DateColumn: (typeof import('../components/table/index'))['DateColumn']
   const EffectScope: typeof import('vue')['EffectScope']
+  const ElMessage: typeof import('element-plus/es')['ElMessage']
   const GSTReturns: (typeof import('../views/gst/index'))['GSTReturns']
   const GSTs: (typeof import('../views/gst/index'))['GSTs']
   const GstStatus: (typeof import('../views/gst/index'))['GstStatus']
@@ -33,13 +34,11 @@ declare global {
   const customReference: (typeof import('vue'))['customRef']
   const customReference_: (typeof import('vue'))['customRef']
   const customReference__: (typeof import('vue'))['customRef']
-  const data: (typeof import('../stores/data'))['data']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
   const effectScope: typeof import('vue')['effectScope']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
-  const gstDetails: (typeof import('../stores/data'))['gstDetails']
   const gstService: (typeof import('../services/index'))['gstService']
   const h: typeof import('vue')['h']
   const httpClientService: (typeof import('../services/http-client.service'))['default']
@@ -74,7 +73,6 @@ declare global {
   const reference_: (typeof import('vue'))['ref']
   const reference__: (typeof import('vue'))['ref']
   const resolveComponent: typeof import('vue')['resolveComponent']
-  const router: (typeof import('../router/index'))['router']
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
@@ -96,23 +94,17 @@ declare global {
   const triggerReference_: (typeof import('vue'))['triggerRef']
   const triggerReference__: (typeof import('vue'))['triggerRef']
   const unref: typeof import('vue')['unref']
-  const useAppStore: (typeof import('../stores/app.store'))['useAppStore']
   const useAttributes: (typeof import('vue'))['useAttrs']
   const useAttributes_: (typeof import('vue'))['useAttrs']
   const useAttributes__: (typeof import('vue'))['useAttrs']
   const useAttrs: typeof import('vue')['useAttrs']
-  const useAuthStore: (typeof import('../stores/auth.store'))['useAuthStore']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVariables: (typeof import('vue'))['useCssVars']
   const useCssVariables_: (typeof import('vue'))['useCssVars']
   const useCssVariables__: (typeof import('vue'))['useCssVars']
   const useCssVars: typeof import('vue')['useCssVars']
-  const useDialog: (typeof import('../stores/dialog.store'))['useDialog']
-  const useFeedbackStore: (typeof import('../stores/feedback.store'))['useFeedbackStore']
-  const useGstsStore: (typeof import('../stores/gsts.store'))['useGstsStore']
   const useHttpClient: (typeof import('../hooks/use-http-client'))['useHttpClient']
   const useSlots: typeof import('vue')['useSlots']
-  const useUsersStore: (typeof import('../stores/users.store'))['useUsersStore']
   const userService: (typeof import('../services/index'))['userService']
   const usersService: (typeof import('../services/users.service'))['default']
   const watch: typeof import('vue')['watch']
@@ -131,6 +123,7 @@ import { UnwrapRef } from 'vue'
 declare module 'vue' {
   interface ComponentCustomProperties {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
@@ -187,6 +180,7 @@ declare module 'vue' {
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>

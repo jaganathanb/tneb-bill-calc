@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AddGst: typeof import('./../views/gst/add-gst.vue')['default']
     App: typeof import('./../app.vue')['default']
     BaseDatepicker: typeof import('./../components/table/base-datepicker.vue')['default']
     BasePagination: typeof import('./../components/table/base-pagination.vue')['default']
@@ -43,12 +44,15 @@ declare module 'vue' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElText: typeof import('element-plus/es')['ElText']
+    ElTextarea: typeof import('element-plus/es')['ElTextarea']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
     GstEdit: typeof import('./../views/gst/gst-edit.vue')['default']
     GstReturns: typeof import('./../views/gst/gst-returns.vue')['default']
     GstRowActions: typeof import('./../views/gst/gst-row-actions.vue')['default']
     Gsts: typeof import('./../views/gst/gsts.vue')['default']
     GstStatus: typeof import('./../views/gst/gst-status.vue')['default']
+    GstUpload: typeof import('./../views/gst/gst-upload.vue')['default']
     Layout: typeof import('./../views/dashboard/layout.vue')['default']
     Login: typeof import('./../views/account/login.vue')['default']
     PendingReturnWarning: typeof import('./../views/gst/pending-return-warning.vue')['default']
@@ -65,6 +69,7 @@ declare module 'vue' {
     SideBarItem: typeof import('./../components/side-bar/side-bar-item.vue')['default']
     SvgImg: typeof import('./../components/svg-img.vue')['default']
     TopBar: typeof import('./../components/top-bar.vue')['default']
+    UploadGst: typeof import('./../views/gst/upload-gst.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

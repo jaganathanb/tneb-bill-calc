@@ -5,12 +5,14 @@ import { ElButton } from 'element-plus'
 import { storeToRefs } from 'pinia'
 
 import { useGstsStore } from '@/stores'
+import { useDDialog } from '@/stores/dialog.store'
 import { useFeedbackStore } from '@/stores/feedback.store'
 
-import { GstStatus } from '.'
+import { UploadGst } from '.'
 
 const gstStore = useGstsStore()
 const feedback = useFeedbackStore()
+const dialog = useDDialog()
 
 const { gsts, loading } = storeToRefs(gstStore)
 
@@ -18,28 +20,17 @@ const search = ref('')
 const pageSize = ref(2)
 const currentPage = ref(1)
 
-const add = async () => {
-  try {
-    const result = await feedback.getConfirmation({
-      boxType: 'prompt',
-      confirmButtonText: 'Add',
-      inputType: 'textarea',
-      showInput: true,
-      inputPlaceholder: 'Enter GST number here',
-      title: 'Add GST',
-      closeOnPressEscape: true,
-      closeOnClickModal: false
-    })
+const add = () => {
+  const createGsts = async (gstins: string) => {
+    await gstStore.createByIds(gstins.split(',').map((s) => s.trim()))
 
-    if (result.action === 'confirm') {
-      await gstStore.createByIds(
-        result.value
-          .trim()
-          .split(',')
-          .map((a) => a.trim())
-      )
-    }
-  } catch {}
+    dialog.close()
+  }
+
+  dialog.open({ title: 'Add GST', data: { gstins: '' } }, [
+    { label: 'Cancel', type: 'danger', callback: () => dialog.close() },
+    { label: 'Submit', callback: (data) => createGsts(data.gstins) }
+  ])
 }
 
 const deleteGST = async (data: GstMap) => {
@@ -162,6 +153,7 @@ onMounted(async () => {
 </script>
 
 <template>
+  <d-dialog :view="UploadGst" />
   <el-container class="w-full">
     <el-row class="w-full flex-justify-between">
       <el-button

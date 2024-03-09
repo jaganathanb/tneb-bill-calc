@@ -1,35 +1,47 @@
 import { defineStore } from 'pinia'
 
+import type { ButtonType } from 'element-plus'
 import type { Component } from 'vue'
 
-export type ModalAction = {
+export type DModal = {
+  isOpen: boolean
+  view: Component
+  actions?: DModalAction[]
+}
+
+export type DDialogData<T> = {
+  title: string
+  width?: number
+  data?: T
+}
+
+export type DModalAction = {
   label: string
+  type?: ButtonType
   callback: (properties?: any) => void
 }
 
-export interface ModalProperties {
-  comp: undefined | Component
-  props?: any
-  actions: ModalAction[] | undefined | undefined
-}
-
-export const useDialog = defineStore('dDialog', () => {
+export const useDDialog = defineStore('dDialog', () => {
   const isOpen = ref(false)
-  let properties: ModalProperties | undefined = {} as ModalProperties
+  const model = ref<DDialogData<any>>({} as DDialogData<any>)
+  const actions = ref<DModalAction[]>([])
 
-  const open = (dialogProperties: ModalProperties) => {
+  const open = <T>(viewModel: DDialogData<T>, viewActions: DModalAction[]) => {
+    actions.value = viewActions
+    model.value = viewModel
+
     isOpen.value = true
-    properties = dialogProperties
   }
 
   const close = () => {
     isOpen.value = false
-    properties = undefined
+    actions.value = []
   }
 
   return {
     isOpen,
-    props: properties,
+    actions,
+    model,
     open,
     close
   }
