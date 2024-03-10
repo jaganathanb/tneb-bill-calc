@@ -6,6 +6,7 @@ import { router } from '@/router'
 import { useAuthStore, useFeedbackStore } from '@/stores'
 
 import type { FormInstance, FormRules } from 'element-plus'
+import type { AxiosError } from 'axios'
 
 const loginForm = ref({
   username: '',
@@ -41,11 +42,21 @@ const submitForm = async (formElement: FormInstance | undefined) => {
 
       const redirect = route.query?.['redirect']?.toString()
       await (redirect ? router.push(redirect) : router.push('/'))
-    } catch {
-      alertStore.setMessage({
-        message: 'Please check your input and try again.',
-        type: 'error'
-      })
+    } catch (error: any) {
+      const axiosError = error as AxiosError
+      if ((axiosError.response?.data as any).error === 'record not found') {
+        alertStore.setMessage({
+          message: `You (${loginForm.value.username}) are not registered with us yet. Please join us by signing up.`,
+          showClose: true,
+          type: 'error',
+          duration: 0
+        })
+      } else {
+        alertStore.setMessage({
+          message: `Please check your input and try again.`,
+          type: 'error'
+        })
+      }
     }
   }
 }
