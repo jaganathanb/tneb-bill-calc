@@ -3,7 +3,7 @@ import { useHttpClient } from '@/hooks'
 import type { AxiosResponse } from 'axios'
 
 export interface GstsService {
-  createByIds: (gstins: string[]) => Promise<AxiosResponse<string, any>>
+  createByIds: (gstins: Gst[]) => Promise<AxiosResponse<string, any>>
   getAll: (
     pageRequest: PagingRequest
   ) => Promise<AxiosResponse<HttpResponseData<PagingResult>, any>>
@@ -62,8 +62,8 @@ export default (function () {
     return httpClient.put(`/gsts/${gstin}/lock`, { locked })
   }
 
-  const createByIds = (gstins: string[]) => {
-    return httpClient.post<string>('/gsts', gstins)
+  const createByIds = (gsts: Gst[]) => {
+    return httpClient.post<string>('/gsts/create', { gsts })
   }
 
   const instance: GstsService = {

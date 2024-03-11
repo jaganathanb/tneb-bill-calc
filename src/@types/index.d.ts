@@ -185,12 +185,13 @@ interface Gst {
   gstin: string
   lastUpdateDate: string
   locked: boolean
-  mobile: string
+  mobileNumber: string
   name: string
   permenantAddress: PermenantAddress
   registrationDate: string
   tradeName: string
   type: string
+  email: string
 }
 
 interface GstStatus {

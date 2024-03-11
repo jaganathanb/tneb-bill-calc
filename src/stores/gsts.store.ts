@@ -108,9 +108,9 @@ export const useGstsStore = defineStore('gstsStore', () => {
     }
   }
 
-  const createByIds = async (gstins: string[]) => {
+  const createByIds = async (gsts: Gst[]) => {
     try {
-      return await service.createByIds(gstins)
+      return await service.createByIds(gsts)
     } catch (dataError: unknown) {
       error.value = (dataError as Error).toString()
     } finally {

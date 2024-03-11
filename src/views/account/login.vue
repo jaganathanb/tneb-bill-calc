@@ -44,7 +44,14 @@ const submitForm = async (formElement: FormInstance | undefined) => {
       await (redirect ? router.push(redirect) : router.push('/'))
     } catch (error: any) {
       const axiosError = error as AxiosError
-      if ((axiosError.response?.data as any).error === 'record not found') {
+      if (axiosError.code === 'ERR_NETWORK') {
+        alertStore.setMessage({
+          message: `Please check your connection and try again.`,
+          type: 'error'
+        })
+      } else if (
+        (axiosError.response?.data as any).error === 'record not found'
+      ) {
         alertStore.setMessage({
           message: `You (${loginForm.value.username}) are not registered with us yet. Please join us by signing up.`,
           showClose: true,

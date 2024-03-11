@@ -1,47 +1,30 @@
 import { defineStore } from 'pinia'
 
-import type { ButtonType } from 'element-plus'
-import type { Component } from 'vue'
+let callback: (data: any) => void
 
-export type DModal = {
-  isOpen: boolean
-  view: Component
-  actions?: DModalAction[]
-}
-
-export type DDialogData<T> = {
-  title: string
-  width?: number
-  data?: T
-}
-
-export type DModalAction = {
-  label: string
-  type?: ButtonType
-  callback: (properties?: any) => void
+const setData = (data: any) => {
+  callback(data)
 }
 
 export const useDDialog = defineStore('dDialog', () => {
   const isOpen = ref(false)
-  const model = ref<DDialogData<any>>({} as DDialogData<any>)
-  const actions = ref<DModalAction[]>([])
+  const inProgress = ref(false)
 
-  const open = <T>(viewModel: DDialogData<T>, viewActions: DModalAction[]) => {
-    actions.value = viewActions
-    model.value = viewModel
-
+  const open = (callback_: (data: any) => Promise<undefined> | undefined) => {
     isOpen.value = true
+
+    callback = callback_
   }
 
   const close = () => {
     isOpen.value = false
-    actions.value = []
+    inProgress.value = false
   }
 
   return {
     isOpen,
-    actions,
-    model,
+    inProgress,
+    setData,
     open,
     close
   }

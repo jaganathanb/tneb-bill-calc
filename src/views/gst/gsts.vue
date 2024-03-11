@@ -10,27 +10,36 @@ import { useFeedbackStore } from '@/stores/feedback.store'
 
 import { UploadGst } from '.'
 
+import type { AxiosError } from 'axios'
+
 const gstStore = useGstsStore()
 const feedback = useFeedbackStore()
 const dialog = useDDialog()
 
 const { gsts, loading } = storeToRefs(gstStore)
+const { inProgress } = storeToRefs(dialog)
 
 const search = ref('')
 const pageSize = ref(2)
 const currentPage = ref(1)
 
 const add = () => {
-  const createGsts = async (gstins: string) => {
-    await gstStore.createByIds(gstins.split(',').map((s) => s.trim()))
+  dialog.open(async (mappedGst: Gst[]) => {
+    inProgress.value = true
 
-    dialog.close()
-  }
+    try {
+      await gstStore.createByIds(mappedGst)
 
-  dialog.open({ title: 'Add GST', data: { gstins: '' } }, [
-    { label: 'Cancel', type: 'danger', callback: () => dialog.close() },
-    { label: 'Submit', callback: (data) => createGsts(data.gstins) }
-  ])
+      inProgress.value = false
+      dialog.close()
+    } catch (error: any) {
+      const axiosError = error as AxiosError
+      if (axiosError.code === 'Redirect') {
+        console.log('Redirect')
+      }
+      inProgress.value = false
+    }
+  })
 }
 
 const deleteGST = async (data: GstMap) => {
@@ -153,7 +162,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <d-dialog :view="UploadGst" />
+  <UploadGst />
   <el-container class="w-full">
     <el-row class="w-full flex-justify-between">
       <el-button
@@ -190,6 +199,12 @@ onMounted(async () => {
         />
       </template>
     </el-table-column>
+    <el-table-column
+      prop="mobileNumber"
+      label="Mobile number"
+      min-width="150"
+      fixed
+    />
     <el-table-column align="center" label="GSTR-1">
       <el-table-column label="Tax period" min-width="90">
         <template #default="{ row }">
