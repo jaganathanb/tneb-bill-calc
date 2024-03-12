@@ -5,10 +5,12 @@ import { storeToRefs } from 'pinia'
 import { uniqBy } from 'lodash'
 
 import { useDDialog } from '@/stores/dialog.store'
+import { useFeedbackStore } from '@/stores'
 
-import type { FormInstance, UploadProps } from 'element-plus'
+import type { FormInstance, UploadProps, UploadUserFile } from 'element-plus'
 
 const dialog = useDDialog()
+const feedback = useFeedbackStore()
 
 const gstColumns = [
   { label: 'Gstin', value: 'gstin' },
@@ -17,7 +19,9 @@ const gstColumns = [
   { label: 'Email', value: 'email' }
 ]
 
+const fileList = ref<UploadUserFile[]>()
 const gsts: any[] = []
+const gstins = ref('')
 const xlColumns = ref<{ label: string; value: string }[]>([])
 const columnMapForm = reactive({
   columns: [{ gst: '', xl: '' }]
@@ -64,48 +68,67 @@ const removeRow = (rowIndex: number) => {
   }
 }
 
-const submitGsts = (formElement: FormInstance | undefined) => {
+const submitGsts = async (formElement: FormInstance | undefined) => {
   if (!formElement) return
-  formElement.validate((valid) => {
-    if (valid) {
-      const mappedGst = uniqBy(
-        gsts.map(
-          (g) =>
-            ({
-              gstin:
-                g[
-                  columnMapForm.columns.find((c) => c.gst === 'gstin')
-                    ?.xl as string
-                ],
-              mobileNumber:
-                g[
-                  columnMapForm.columns.find((c) => c.gst === 'mobileNumber')
-                    ?.xl as string
-                ],
-              name: g[
-                columnMapForm.columns.find((c) => c.gst === 'name')
-                  ?.xl as string
-              ],
-              tradeName:
-                g[
-                  columnMapForm.columns.find((c) => c.gst === 'tradeName')
-                    ?.xl as string
-                ],
-              email:
-                g[
-                  columnMapForm.columns.find((c) => c.gst === 'email')
-                    ?.xl as string
-                ]
-            }) as Gst
-        ),
-        'gstin'
-      )
 
-      dialog.setData(mappedGst)
-    } else {
+  let mappedGst: Gst[] = []
+
+  if (fileList.value) {
+    formElement.validate((valid) => {
+      if (valid) {
+        mappedGst = uniqBy(
+          gsts.map(
+            (g) =>
+              ({
+                gstin:
+                  g[
+                    columnMapForm.columns.find((c) => c.gst === 'gstin')
+                      ?.xl as string
+                  ],
+                mobileNumber:
+                  g[
+                    columnMapForm.columns.find((c) => c.gst === 'mobileNumber')
+                      ?.xl as string
+                  ],
+                name: g[
+                  columnMapForm.columns.find((c) => c.gst === 'name')
+                    ?.xl as string
+                ],
+                tradeName:
+                  g[
+                    columnMapForm.columns.find((c) => c.gst === 'tradeName')
+                      ?.xl as string
+                  ],
+                email:
+                  g[
+                    columnMapForm.columns.find((c) => c.gst === 'email')
+                      ?.xl as string
+                  ]
+              }) as Gst
+          ),
+          'gstin'
+        )
+      } else {
+        return false
+      }
+    })
+  } else {
+    const gstinIds = gstins.value
+      .split(',')
+      .map((g) => g.trim())
+      .filter((g) => /\d{2}[A-Z]{5}\d{4}[A-Z][\dA-Z]Z[\dA-Z]/.test(g))
+    if (gstinIds.length === 0) {
+      feedback.setMessage({
+        type: 'error',
+        message: 'Atleast 1 GSTIN required to submit.'
+      })
       return false
+    } else {
+      mappedGst = gstinIds.map((g) => ({ gstin: g }) as Gst)
     }
-  })
+  }
+
+  dialog.setData(mappedGst)
 }
 </script>
 
@@ -117,11 +140,19 @@ const submitGsts = (formElement: FormInstance | undefined) => {
     title="Add GST"
   >
     <template #default>
+      <el-input
+        v-model="gstins"
+        :autosize="{ minRows: 4, maxRows: 6 }"
+        type="textarea"
+        clearable
+        placeholder="Please enter comma (,) separated GSTINs"
+      />
+      <el-divider>OR</el-divider>
       <el-upload
+        v-model:file-list="fileList"
         class="w-full"
         accept="text/csv"
         drag
-        multiple
         action=""
         :limit="1"
         :http-request="handleRequest"

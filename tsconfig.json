@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.config.json",
-  "include": ["env.d.ts", "src/**/*", "vite.config.ts"],
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
   "compilerOptions": {
     "paths": {
       "@/*": ["src/*"]
