@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Moon, Sunny } from '@element-plus/icons-vue'
+import { Moon, Sunny, User } from '@element-plus/icons-vue'
 import { useDark, useToggle } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 
@@ -11,7 +11,7 @@ const toggleDark = useToggle(isDark)
 const authStore = useAuthStore()
 const { currentUser } = storeToRefs(authStore)
 
-const value1 = ref(true)
+const theme = ref(true)
 
 const signOut = async () => {
   await authStore.signOut()
@@ -21,28 +21,28 @@ const signOut = async () => {
 </script>
 
 <template>
-  <el-menu mode="horizontal" :ellipsis="false">
-    <el-menu-item index="1" style="padding: 0">
-      <button
-        class="border-none w-full bg-transparent cursor-pointer"
-        style="height: var(--ep-menu-item-height)"
-      >
-        <SvgImg :name="'DhuruvahApps'" :width="64" :height="56" />
-      </button>
-    </el-menu-item>
-    <div class="flex-grow-1" />
-    <el-menu-item index="2">
+  <el-page-header icon="">
+    <template #icon />
+    <template #title
+      ><SvgImg :name="'DhuruvahApps'" style="width: 3em; height: 3em"
+    /></template>
+    <template #extra>
       <el-switch
-        v-model="value1"
-        :active-action-icon="Sunny"
-        :inactive-action-icon="Moon"
+        v-model="theme"
+        :active-color="'grey'"
+        :inactive-color="'skyblue'"
+        :active-action-icon="Moon"
+        :inactive-action-icon="Sunny"
         @change="toggleDark()"
       />
-    </el-menu-item>
-    <el-menu-item index="3">
+      <el-divider :direction="'vertical'" />
       <el-popover placement="bottom" :width="300" trigger="click">
         <template #reference>
-          <el-avatar size="default" alt="JaganB" :icon="'account'" />
+          <el-button circle>
+            <template #icon>
+              <User />
+            </template>
+          </el-button>
         </template>
         <div class="box-card">
           <div class="card-header">
@@ -53,27 +53,30 @@ const signOut = async () => {
           </div>
         </div>
       </el-popover>
-    </el-menu-item>
-  </el-menu>
+    </template>
+    <template #default />
+  </el-page-header>
 </template>
 
-<style>
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+<style lang="scss">
+.el-header {
+  height: unset;
 
-.box-card {
-  width: 100%;
-}
+  .el-page-header__header {
+    padding-right: 20px;
 
-.el-menu--horizontal .el-menu-item:not(.is-disabled):focus,
-.el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
-  background-color: var(--el-menu-bg-color);
-}
+    .el-page-header__title {
+      display: flex;
+      padding: 8px 0;
+    }
 
-.el-menu--horizontal > .el-menu-item.is-active {
-  border-bottom: none;
+    .el-page-header__left .el-divider--vertical {
+      display: none;
+    }
+  }
+
+  .el-page-header.is-contentful .el-page-header__main {
+    margin-top: 0;
+  }
 }
 </style>

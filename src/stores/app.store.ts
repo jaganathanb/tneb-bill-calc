@@ -1,6 +1,6 @@
 import { type Ref, ref } from 'vue'
 
-import { defineStore } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 
 export const useAppStore = defineStore('appStore', () => {
   const isCollapse: Ref<boolean> = ref(false)
@@ -11,3 +11,7 @@ export const useAppStore = defineStore('appStore', () => {
 
   return { isCollapse, setIsCollapse }
 })
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useAppStore, import.meta.hot))
+}

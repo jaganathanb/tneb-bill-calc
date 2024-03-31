@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 
 import usersService from '@/services/users.service'
 
@@ -44,3 +44,7 @@ export const useUsersStore = defineStore('users', () => {
     users
   }
 })
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useUsersStore, import.meta.hot))
+}

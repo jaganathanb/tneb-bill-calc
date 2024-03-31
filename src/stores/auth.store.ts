@@ -1,6 +1,6 @@
 import { type Ref, ref } from 'vue'
 
-import { defineStore } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 
 import { authService } from '@/services'
 
@@ -47,6 +47,8 @@ export const useAuthStore = defineStore('authStore', () => {
     await service.signOut(currentUser.value?.userId as string)
 
     localStorage.removeItem(`${currentUser.value?.userId as string}_token`)
+    localStorage.removeItem('userId')
+
     currentUser.value = undefined
     isAuthenticated.value = false
   }
@@ -67,3 +69,7 @@ export const useAuthStore = defineStore('authStore', () => {
     isAuthenticated
   }
 })
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useAuthStore, import.meta.hot))
+}

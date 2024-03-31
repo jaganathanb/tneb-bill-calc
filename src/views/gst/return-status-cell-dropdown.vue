@@ -26,7 +26,7 @@ const gstr1StatusOptions = [
     label: 'Call for invoice',
     icon: Phone,
     color: 'blue',
-    value: 'InvoiceCall'
+    value: 'CallForInvoice'
   },
   {
     label: 'Invoice received',
@@ -38,7 +38,7 @@ const gstr1StatusOptions = [
     label: 'Entry done',
     icon: Memo,
     color: 'lightBlue',
-    value: 'EntryDone'
+    value: 'InvoiceEntry'
   },
   {
     label: 'Filed',
@@ -59,13 +59,13 @@ const gst3bStatusOptions = [
     label: 'Customer intimated',
     icon: DocumentChecked,
     color: 'orange',
-    value: 'Intimated'
+    value: 'CustomerIntimated'
   },
   {
     label: 'Tax amount received',
     icon: Memo,
     color: 'lightBlue',
-    value: 'TaxPaid'
+    value: 'TaxAmountReceived'
   },
   {
     label: 'Filed',
@@ -76,6 +76,18 @@ const gst3bStatusOptions = [
 ] as StatusDropdownItem[]
 
 let statusOptions = gstr1StatusOptions
+
+let statusOption =
+  statusOptions.find((s) => s.value === properties.returnStatus.status) ??
+  statusOptions[0]
+
+const statusChanged = (status: string) => {
+  if (statusOption.value !== status) {
+    emits('statusChange', status)
+    statusOption =
+      statusOptions.find((s) => s.value === status) ?? statusOptions[0]
+  }
+}
 
 onBeforeMount(() => {
   switch (properties.returnStatus.returnType) {
@@ -102,15 +114,10 @@ onBeforeMount(() => {
       'cursor-pointer': returnStatus.status !== 'Filed'
     }"
     placement="right-start"
-    @command="(status: string) => emits('statusChange', status)"
+    @command="statusChanged"
   >
     <span class="el-dropdown-link flex">
-      <ReturnStatusCell
-        :return-status="
-          statusOptions.find((s) => s.value === returnStatus.status) ??
-          statusOptions[0]
-        "
-      />
+      <ReturnStatusCell :return-status="statusOption" />
     </span>
     <template #dropdown>
       <el-dropdown-menu>

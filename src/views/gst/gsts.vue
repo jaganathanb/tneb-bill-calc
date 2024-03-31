@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { Plus, Refresh } from '@element-plus/icons-vue'
+import { useEventSource } from '@vueuse/core'
 import dayjs from 'dayjs'
 import { ElButton } from 'element-plus'
 import { storeToRefs } from 'pinia'
@@ -7,6 +8,7 @@ import { storeToRefs } from 'pinia'
 import { useGstsStore } from '@/stores'
 import { useDDialog } from '@/stores/dialog.store'
 import { useFeedbackStore } from '@/stores/feedback.store'
+import { PAGE_LIMIT } from '@/constants'
 
 import { UploadGst } from '.'
 
@@ -15,13 +17,58 @@ import type { AxiosError } from 'axios'
 const gstStore = useGstsStore()
 const feedback = useFeedbackStore()
 const dialog = useDDialog()
+const { data } = useEventSource(
+  `${import.meta.env.VITE_APIURL}/stream/?token=${atob(
+    localStorage.getItem(`${localStorage.getItem('userId')}_token`) ?? ''
+  )}`,
+  [],
+  {
+    withCredentials: false,
+    autoReconnect: {
+      retries: 3,
+      delay: 1000,
+      onFailed() {
+        feedback.setNotification({
+          message: 'Failed to connect EventSource after 3 retries',
+          type: 'error'
+        })
+      }
+    }
+  }
+)
 
 const { gsts, loading } = storeToRefs(gstStore)
 const { inProgress } = storeToRefs(dialog)
 
 const search = ref('')
-const pageSize = ref(2)
+const pageSize = ref<number>(
+  Number.parseInt(
+    (localStorage.getItem('page-size') as string) ?? PAGE_LIMIT.toString(),
+    10
+  )
+)
 const currentPage = ref(1)
+
+watch([data], () => {
+  const codes = data.value?.split('|') ?? []
+  codes.splice(-1)
+
+  for (const code of codes) {
+    switch (code) {
+      case 'REFRESH_GSTS_TABLE': {
+        refreshPage()
+        break
+      }
+      default: {
+        feedback.setNotification({
+          message: code,
+          type: 'success',
+          title: 'Update'
+        })
+      }
+    }
+  }
+})
 
 const add = () => {
   dialog.open(async (mappedGst: Gst[]) => {
@@ -145,7 +192,8 @@ const onSearch = (event_: KeyboardEvent | Event) => {
 
 const paginateTable = async (page: PageConfig) => {
   loading.value = true
-  //currentPage.value = page
+
+  localStorage.setItem('page-size', page.size.toString())
 
   await gstStore.getAll({
     pageNumber: page.page,
@@ -247,6 +295,30 @@ onMounted(async () => {
             @status-change="
               (st: string) =>
                 updateStatus(row.gstin, 'GSTR3B', st as GstReturnStatus)
+            "
+          />
+          <span v-else>N/A</span>
+        </template>
+      </el-table-column>
+    </el-table-column>
+    <el-table-column align="center" label="GSTR9">
+      <el-table-column label="Tax period" min-width="90">
+        <template #default="{ row }">
+          <span v-if="row.gstr9">{{
+            dayjs(row.gstr9?.returnPeriod, 'MMYYYY').format('MMM YYYY')
+          }}</span>
+          <span v-else>N/A</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="Status" align="center" min-width="170">
+        <template #default="{ row }">
+          <GstStatus
+            v-if="row.gstr9"
+            :gst="row"
+            :type="'GSTR9'"
+            @status-change="
+              (st: string) =>
+                updateStatus(row.gstin, 'GSTR9', st as GstReturnStatus)
             "
           />
           <span v-else>N/A</span>

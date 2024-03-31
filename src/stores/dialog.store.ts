@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 
 let callback: (data: any) => void
 
@@ -32,3 +32,7 @@ export const useDDialog = defineStore('dDialog', () => {
     close
   }
 })
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useDDialog, import.meta.hot))
+}

@@ -68,9 +68,9 @@ type ModeOfFiling = 'ONLINE' | 'OFFLINE'
 type GSTReturnType = 'GSTR1' | 'GSTR3B' | 'GSTR9' | 'GSTR2'
 
 type GstReturn1Status =
-  | 'InvoiceCall'
+  | 'CallForInvoice'
   | 'InvoiceReceived'
-  | 'EntryDone'
+  | 'InvoiceEntry'
   | 'Filed'
 type GstReturn3bStatus = 'TaxPayable' | 'Intimated' | 'TaxPaid' | 'Filed'
 

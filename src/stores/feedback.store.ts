@@ -9,7 +9,7 @@ import {
   type NotificationOptions,
   type NotificationParams
 } from 'element-plus'
-import { defineStore } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 
 const setMessage = (feedback: Partial<MessageOptions>) => {
   const context = getCurrentInstance()
@@ -43,3 +43,7 @@ export const useFeedbackStore = defineStore('feedback', () => {
     getConfirmation
   }
 })
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useFeedbackStore, import.meta.hot))
+}

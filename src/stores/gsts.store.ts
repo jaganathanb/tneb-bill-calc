@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 
-import { defineStore } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 
 import { gstService } from '@/services'
 
@@ -65,18 +65,37 @@ export const useGstsStore = defineStore('gstsStore', () => {
     try {
       const response = await service.updateReturnStatusById(gstin, type, status)
       if (response.data.result) {
-        const gst = gsts.value?.items.find((g) => g.gstin === gstin) as GstMap
+        const gstIndex = gsts.value?.items.findIndex(
+          (g) => g.gstin === gstin
+        ) as number
+        const gst = gsts.value?.items[gstIndex] as GstMap
         switch (type) {
           case 'GSTR1': {
-            gst.gstr1.status = status
+            gst.gstr1 = {
+              ...gst.gstr1,
+              status
+            }
             break
           }
           case 'GSTR3B': {
-            gst.gstr3b.status = status
+            gst.gstr3b = {
+              ...gst.gstr3b,
+              status
+            }
             break
           }
           case 'GSTR2': {
-            gst.gstr2.status = status
+            gst.gstr2 = {
+              ...gst.gstr2,
+              status
+            }
+            break
+          }
+          case 'GSTR9': {
+            gst.gstr9 = {
+              ...gst.gstr9,
+              status
+            }
             break
           }
           default: {
@@ -143,4 +162,8 @@ const getMappedGst = (gsts: Gst[]): GstMap[] | undefined => {
         gstr9: g.gstStatuses.find((s) => s.returnType === 'GSTR9')
       }) as GstMap
   )
+}
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useGstsStore, import.meta.hot))
 }
