@@ -79,10 +79,12 @@ const add = () => {
 
       inProgress.value = false
       dialog.close()
+
+      await refreshPage()
     } catch (error: any) {
       const axiosError = error as AxiosError
       if (axiosError.code === 'Redirect') {
-        console.log('Redirect')
+        console.error('Redirect')
       }
       inProgress.value = false
     }

@@ -108,6 +108,8 @@ const submitGsts = async (formElement: FormInstance | undefined) => {
           ),
           'gstin'
         )
+
+        dialog.setData(mappedGst)
       } else {
         return false
       }
@@ -125,10 +127,10 @@ const submitGsts = async (formElement: FormInstance | undefined) => {
       return false
     } else {
       mappedGst = gstinIds.map((g) => ({ gstin: g }) as Gst)
+
+      dialog.setData(mappedGst)
     }
   }
-
-  dialog.setData(mappedGst)
 }
 </script>
 
