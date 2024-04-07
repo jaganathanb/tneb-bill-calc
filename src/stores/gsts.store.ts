@@ -7,6 +7,7 @@ import { gstService } from '@/services'
 export const useGstsStore = defineStore('gstsStore', () => {
   const service = gstService()
   const gsts = ref<PagedGsts>()
+  const statistics = ref<GstStatistics>({} as GstStatistics)
   const loading = ref(true)
   const error = ref<string>()
 
@@ -137,17 +138,44 @@ export const useGstsStore = defineStore('gstsStore', () => {
     }
   }
 
+  const getGstStatistics = async () => {
+    try {
+      const response = await service.getGstStatistics()
+
+      if (response.status == 200) {
+        statistics.value = response.data.result
+      }
+    } catch (dataError: unknown) {
+      error.value = (dataError as Error).toString()
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const refreshGstReturns = async () => {
+    try {
+      await service.refreshGstReturns()
+    } catch (dataError: unknown) {
+      error.value = (dataError as Error).toString()
+    } finally {
+      loading.value = false
+    }
+  }
+
   return {
     gsts,
     loading,
     error,
+    statistics,
     getAll,
     getById,
     deleteById,
     updateById,
     updateReturnStatusById,
     updateLockById,
-    createByIds
+    createByIds,
+    getGstStatistics,
+    refreshGstReturns
   }
 })
 

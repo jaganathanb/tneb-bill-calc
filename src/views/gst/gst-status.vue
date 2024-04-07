@@ -28,6 +28,14 @@ onBeforeMount(() => {
       returnStatus = properties.gst.gstr3b
       break
     }
+    case 'GSTR2': {
+      returnStatus = properties.gst.gstr2
+      break
+    }
+    case 'GSTR9': {
+      returnStatus = properties.gst.gstr9
+      break
+    }
     default: {
       returnStatus = properties.gst.gstr1
       break

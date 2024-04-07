@@ -202,7 +202,7 @@ interface GstStatus {
   pendingReturns: string[]
   returnPeriod: string
   returnType: string
-  status: string
+  status: GstReturnStatus
   valid: string
 }
 
@@ -215,6 +215,14 @@ interface PermenantAddress {
   pincode: string
   state: string
   street: string
+}
+
+interface GstStatistics {
+  gstr1Count: number
+  gstr2Count: number
+  gstr9Count: number
+  gstr3bCount: number
+  totalGsts: number
 }
 
 interface ValidationError {

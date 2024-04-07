@@ -37,7 +37,7 @@ const { data } = useEventSource(
   }
 )
 
-const { gsts, loading } = storeToRefs(gstStore)
+const { gsts, loading, statistics } = storeToRefs(gstStore)
 const { inProgress } = storeToRefs(dialog)
 
 const search = ref('')
@@ -128,6 +128,10 @@ const onAction = async (data: { action: string; data: GstMap }) => {
       await gstStore.updateLockById(data.data.gstin, true)
       break
     }
+    case 'refresh-returns': {
+      await gstStore.refreshGstReturns()
+      break
+    }
     case 'delete': {
       await deleteGST(data.data)
       break
@@ -151,6 +155,8 @@ const refreshPage = async () => {
       }
     } as Filter
   } as PagingRequest)
+
+  await gstStore.getGstStatistics()
 }
 
 const updateStatus = async (
@@ -206,6 +212,8 @@ onMounted(async () => {
     pageNumber: currentPage.value,
     pageSize: pageSize.value
   } as PagingRequest)
+
+  await gstStore.getGstStatistics()
 })
 </script>
 
@@ -221,6 +229,7 @@ onMounted(async () => {
       >
         Add
       </el-button>
+      <GstStatistics :statistics="statistics" />
       <el-tooltip content="Refresh">
         <el-button
           :icon="Refresh"

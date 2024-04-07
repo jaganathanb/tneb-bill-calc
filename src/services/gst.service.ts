@@ -23,6 +23,10 @@ export interface GstsService {
     gstin: string,
     locked: boolean
   ) => Promise<AxiosResponse<HttpResponseData<boolean>, any>>
+  getGstStatistics: () => Promise<
+    AxiosResponse<HttpResponseData<GstStatistics>, any>
+  >
+  refreshGstReturns: () => Promise<AxiosResponse<HttpResponseData<string>, any>>
 }
 
 export default (function () {
@@ -66,6 +70,14 @@ export default (function () {
     return httpClient.post<string>('/gsts/create', { gsts })
   }
 
+  const getGstStatistics = () => {
+    return httpClient.get('/gsts/statistics')
+  }
+
+  const refreshGstReturns = () => {
+    return httpClient.get('/gsts/refresh-returns')
+  }
+
   const instance: GstsService = {
     getAll,
     getById,
@@ -73,7 +85,9 @@ export default (function () {
     deleteById,
     createByIds,
     updateReturnStatusById,
-    updateLockById
+    updateLockById,
+    getGstStatistics,
+    refreshGstReturns
   }
 
   return () => {
