@@ -5,6 +5,8 @@ import { storeToRefs } from 'pinia'
 
 import { useAuthStore } from '@/stores'
 
+import SvgImg from './svg-img.vue'
+
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
 

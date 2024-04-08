@@ -5,6 +5,8 @@ import { useRoute, useRouter } from 'vue-router'
 
 import { useAppStore } from '@/stores/app.store'
 
+import SideBarItem from './side-bar-item.vue'
+
 const router = useRouter()
 const filteredRoutes = router.options.routes
   .find((r) => r.name === 'private')
@@ -33,7 +35,7 @@ const toggleSideBar = (index: string) => {
             class="da-app-menu h-full"
             :collapse="isCollapse"
           >
-            <side-bar-item
+            <SideBarItem
               v-for="(routeConfig, index) in filteredRoutes"
               :key="index"
               :index="routeConfig.path"

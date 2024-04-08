@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 
 import { router } from '@/router'
 import { useAuthStore, useFeedbackStore } from '@/stores'
+import SvgImg from '@/components/svg-img.vue'
 
 import type { FormInstance, FormRules } from 'element-plus'
 import type { AxiosError } from 'axios'

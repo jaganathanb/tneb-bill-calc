@@ -3,13 +3,14 @@ import { ref } from 'vue'
 
 import { router } from '@/router'
 import { type RegistrationForm, useAuthStore, useFeedbackStore } from '@/stores'
+import SvgImg from '@/components/svg-img.vue'
 
 import type { FormInstance, FormRules } from 'element-plus'
 
 const registerForm = ref<RegistrationForm>({} as RegistrationForm)
 const regForm = ref<FormInstance>()
 
-const validatePass = async (rule: any, value: string, callback: any) => {
+const validatePass = async (_rule: any, value: string, callback: any) => {
   if (value === '') {
     callback(new Error('Please input the password'))
   } else {
@@ -25,7 +26,7 @@ const validatePass = async (rule: any, value: string, callback: any) => {
     callback()
   }
 }
-const validatePass2 = (rule: any, value: any, callback: any) => {
+const validatePass2 = (_rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('Please input the password again'))
   } else if (value === registerForm.value.password) {

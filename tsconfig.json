@@ -7,7 +7,7 @@
     },
     "isolatedModules": true,
     "lib": ["dom", "dom.iterable"],
-    "types": ["vite/client"]
+    "types": ["vite/client", "element-plus/global"]
   },
   "exclude": ["node_modules", "**/dist", "out"]
 }

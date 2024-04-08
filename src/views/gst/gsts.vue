@@ -9,6 +9,11 @@ import { useGstsStore } from '@/stores'
 import { useDDialog } from '@/stores/dialog.store'
 import { useFeedbackStore } from '@/stores/feedback.store'
 import { PAGE_LIMIT } from '@/constants'
+import BasePagination from '@/components/table/base-pagination.vue'
+
+import GstRowActions from './gst-row-actions.vue'
+import GstStatus from './gst-status.vue'
+import GstStatistics from './gst-statistics.vue'
 
 import { UploadGst } from '.'
 

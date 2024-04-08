@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import GstStatistic from './gst-statistic.vue'
+
 defineProps({
   statistics: {
     type: Object as PropType<GstStatistics>,
