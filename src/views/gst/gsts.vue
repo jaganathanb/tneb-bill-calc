@@ -18,7 +18,7 @@ const gstStore = useGstsStore()
 const feedback = useFeedbackStore()
 const dialog = useDDialog()
 const { data } = useEventSource(
-  `${import.meta.env.VITE_APIURL}/stream/?token=${atob(
+  `${window.__dapps.apiUrl}/stream/?token=${atob(
     localStorage.getItem(`${localStorage.getItem('userId')}_token`) ?? ''
   )}`,
   [],

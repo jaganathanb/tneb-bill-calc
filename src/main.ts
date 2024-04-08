@@ -19,4 +19,12 @@ app.use(ElementPlus)
 app.use(createPinia())
 app.use(router)
 
+const response = await fetch(`config.${import.meta.env.MODE}.json`)
+
+const config = (await response.json()) as DAppsConfig
+
+window.__dapps = {
+  apiUrl: config.apiUrl
+}
+
 app.mount('#app')

@@ -259,3 +259,11 @@ interface ValidationError {
   field: string
   message: string
 }
+
+interface DAppsConfig {
+  apiUrl: string
+}
+
+interface Window {
+  __dapps: DAppsConfig
+}

@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "test": "vitest",
-    "dev": "vite --mode dev --port 5173",
+    "dev": "vite --mode development --port 5173",
+    "prod": "vite --mode production --port 5173",
     "build": "run-p type-check build-only",
     "preview": "vite preview --port 4173",
     "build-only": "vite build",
