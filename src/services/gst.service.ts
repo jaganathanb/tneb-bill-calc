@@ -67,7 +67,7 @@ export default (function () {
   }
 
   const createByIds = (gsts: Gst[]) => {
-    return httpClient.post<string>('/gsts/create', { gsts })
+    return httpClient.post<string>('/gsts', { gsts })
   }
 
   const getGstStatistics = () => {

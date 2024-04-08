@@ -107,7 +107,11 @@ const deleteGST = async (data: GstMap) => {
     })) as string
 
     if (result === 'confirm') {
-      await gstStore.deleteById(data.gstin)
+      const deleted = await gstStore.deleteById(data.gstin)
+
+      if (deleted) {
+        await refreshPage()
+      }
     }
 
     feedback.setMessage({ message: 'Delete successfully!', type: 'success' })
