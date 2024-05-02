@@ -19,7 +19,9 @@ app.use(ElementPlus)
 app.use(createPinia())
 app.use(router)
 
-const response = await fetch(`config.${import.meta.env.MODE}.json`)
+const response = await fetch(
+  `${import.meta.env.BASE_URL}config.${import.meta.env.MODE}.json`
+)
 
 const config = (await response.json()) as DAppsConfig
 
