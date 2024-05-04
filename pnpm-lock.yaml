@@ -11,6 +11,9 @@ dependencies:
   '@element-plus/icons-vue':
     specifier: ^2.3.1
     version: 2.3.1(vue@3.4.19)
+  '@vue-js-cron/element-plus':
+    specifier: ^3.0.2
+    version: 3.0.2(vue@3.4.19)
   '@vueuse/core':
     specifier: ^10.8.0
     version: 10.8.0(vue@3.4.19)
@@ -1560,6 +1563,23 @@ packages:
     dependencies:
       '@volar/language-core': 1.11.1
       path-browserify: 1.0.1
+
+  /@vue-js-cron/core@5.0.2:
+    resolution: {integrity: sha512-crllSiP9u/uoUI5duTjxPeufcjL7oHzwByC+X3CmoQ2t5MNuNwYHYT0mQI8rMljT1pWRj1GrK1rta5FfwPGsvg==}
+    dependencies:
+      mustache: 4.2.0
+    dev: false
+
+  /@vue-js-cron/element-plus@3.0.2(vue@3.4.19):
+    resolution: {integrity: sha512-P/Ofw6NPUUuuZcHnOTUJmB/l7oWgl0DyoQ63V6adSbKwfTRXVKMQL7kc0oVsG1kwV+f21qXBzVJq5+poSpgI9w==}
+    dependencies:
+      '@element-plus/icons-vue': 2.3.1(vue@3.4.19)
+      '@vue-js-cron/core': 5.0.2
+      element-plus: 2.5.6(vue@3.4.19)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+    dev: false
 
   /@vue/compiler-core@3.4.19:
     resolution: {integrity: sha512-gj81785z0JNzRcU0Mq98E56e4ltO1yf8k5PQ+tV/7YHnbZkrM0fyFyuttnN8ngJZjbpofWE/m4qjKBiLl8Ju4w==}
@@ -3977,6 +3997,11 @@ packages:
 
   /muggle-string@0.3.1:
     resolution: {integrity: sha512-ckmWDJjphvd/FvZawgygcUeQCxzvohjFO5RxTjj4eq8kw359gFF3E1brjfI+viLMxss5JrHTDRHZvu2/tuy0Qg==}
+
+  /mustache@4.2.0:
+    resolution: {integrity: sha512-71ippSywq5Yb7/tVYyGbkBggbU8H3u5Rz56fH60jGFgr8uHwxs+aSKeqmluIVzM0m0kB7xQjKS6qPfd0b2ZoqQ==}
+    hasBin: true
+    dev: false
 
   /nanoid@3.3.7:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}

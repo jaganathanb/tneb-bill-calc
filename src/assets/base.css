@@ -12,3 +12,30 @@ html, body {
     flex-wrap: wrap;
     height: 100%;
 }
+
+.vcron-el-spacer {
+    display: inline-block;
+    padding: 3px;
+  }
+
+  .vcron-el-row {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  
+  .vcron-el-col {
+    font-family: var(--el-font-family);
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 100%;
+    min-width: 0;
+    white-space: nowrap;
+    box-sizing: border-box;
+    user-select: none;
+    text-align: center;
+  }
+  
+  .vcron-el-selected {
+    color: var(--el-color-primary);
+    font-weight: 700;
+  }

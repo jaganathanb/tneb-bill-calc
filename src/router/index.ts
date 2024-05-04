@@ -1,4 +1,4 @@
-import { Grid, Tickets } from '@element-plus/icons-vue'
+import { Grid, Setting, Tickets } from '@element-plus/icons-vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { storeToRefs } from 'pinia'
 
@@ -27,15 +27,6 @@ export const router = createRouter({
             icon: Grid
           }
         },
-        // {
-        //   path: 'bills',
-        //   name: 'bills',
-        //   component: () => import('../views/bill/bills.vue'),
-        //   meta: {
-        //     label: 'Bills',
-        //     icon: Tickets
-        //   }
-        // },
         {
           path: 'gsts',
           name: 'gsts',
@@ -43,6 +34,15 @@ export const router = createRouter({
           meta: {
             label: 'GSTs',
             icon: Tickets
+          }
+        },
+        {
+          path: 'settings',
+          name: 'settings',
+          component: () => import('../views/settings/layout.vue'),
+          meta: {
+            label: 'Settings',
+            icon: Setting
           }
         }
       ],

@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { type Component, type PropType, ref } from 'vue'
+
 import { DocumentChecked, Memo, Phone, Select } from '@element-plus/icons-vue'
 
 import type { OptionType } from 'element-plus/es/components/select-v2/src/select.types'
-import { ref, type Component, type PropType } from 'vue'
 
 type GSTRStatus = {
   gstr1Status: string | undefined

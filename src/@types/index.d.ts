@@ -267,3 +267,10 @@ interface DAppsConfig {
 interface Window {
   __dapps: DAppsConfig
 }
+
+interface DAppsSettings {
+  crontab: string
+  gstUsername: string
+  gstPassword: string
+  gstBaseUrl: string
+}

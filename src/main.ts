@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 
 import { createPinia } from 'pinia'
 import ElementPlus from 'element-plus'
+import CronJob from '@vue-js-cron/element-plus'
 
 import { router } from '@/router'
 import 'element-plus/dist/index.css'
@@ -16,6 +17,7 @@ import App from './app.vue'
 const app = createApp(App)
 
 app.use(ElementPlus)
+app.use(CronJob)
 app.use(createPinia())
 app.use(router)
 
