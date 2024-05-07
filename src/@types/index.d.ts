@@ -274,3 +274,12 @@ interface DAppsSettings {
   gstPassword: string
   gstBaseUrl: string
 }
+
+type DAppsNotificationType = 'success' | 'error' | 'warning' | 'info'
+
+interface DAppsNotification {
+  message: string
+  messageType: DAppsNotificationType
+  code: string
+  title: string
+}

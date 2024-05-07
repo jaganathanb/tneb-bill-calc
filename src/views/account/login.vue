@@ -55,9 +55,7 @@ const submitForm = async (formElement: FormInstance | undefined) => {
       ) {
         alertStore.setMessage({
           message: `You (${loginForm.value.username}) are not registered with us yet. Please join us by signing up.`,
-          showClose: true,
-          type: 'error',
-          duration: 0
+          type: 'error'
         })
       } else {
         alertStore.setMessage({

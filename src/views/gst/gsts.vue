@@ -1,19 +1,18 @@
 <script lang="ts" setup>
 import { Plus, Refresh } from '@element-plus/icons-vue'
-import { useEventSource } from '@vueuse/core'
 import dayjs from 'dayjs'
 import { ElButton } from 'element-plus'
 import { storeToRefs } from 'pinia'
 
+import BasePagination from '@/components/table/base-pagination.vue'
+import { PAGE_LIMIT } from '@/constants'
 import { useGstsStore } from '@/stores'
 import { useDDialog } from '@/stores/dialog.store'
 import { useFeedbackStore } from '@/stores/feedback.store'
-import { PAGE_LIMIT } from '@/constants'
-import BasePagination from '@/components/table/base-pagination.vue'
 
 import GstRowActions from './gst-row-actions.vue'
-import GstStatus from './gst-status.vue'
 import GstStatistics from './gst-statistics.vue'
+import GstStatus from './gst-status.vue'
 
 import { UploadGst } from '.'
 
@@ -22,27 +21,9 @@ import type { AxiosError } from 'axios'
 const gstStore = useGstsStore()
 const feedback = useFeedbackStore()
 const dialog = useDDialog()
-const { data } = useEventSource(
-  `${window.__dapps.apiUrl}/stream/?token=${atob(
-    localStorage.getItem(`${localStorage.getItem('userId')}_token`) ?? ''
-  )}`,
-  [],
-  {
-    withCredentials: false,
-    autoReconnect: {
-      retries: 3,
-      delay: 1000,
-      onFailed() {
-        feedback.setNotification({
-          message: 'Failed to connect EventSource after 3 retries',
-          type: 'error'
-        })
-      }
-    }
-  }
-)
 
 const { gsts, loading, statistics } = storeToRefs(gstStore)
+const { notification } = storeToRefs(feedback)
 const { inProgress } = storeToRefs(dialog)
 
 const search = ref('')
@@ -54,24 +35,19 @@ const pageSize = ref<number>(
 )
 const currentPage = ref(1)
 
-watch([data], () => {
-  const codes = data.value?.split('|') ?? []
-  codes.splice(-1)
+watch(notification, (data) => {
+  const message = JSON.parse(data ?? '{}')
 
-  for (const code of codes) {
-    switch (code) {
-      case 'REFRESH_GSTS_TABLE': {
-        refreshPage()
-        break
-      }
-      default: {
-        feedback.setNotification({
-          message: code,
-          type: 'success',
-          title: 'Update'
-        })
-      }
-    }
+  if (message.message && message.code !== 'NOTIFICATION') {
+    feedback.setNotification({
+      message: message.message,
+      type: message.type ?? 'info',
+      title: message.Title ?? 'Info'
+    })
+  }
+
+  if (message.code && message.code === 'REFRESH_GSTS_TABLE') {
+    refreshPage()
   }
 })
 

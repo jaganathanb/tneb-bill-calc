@@ -85,7 +85,13 @@ export default defineConfig(({ command, mode }) => {
           manualChunks: {
             'vue-chunks': ['vue', 'vue-router', 'pinia'],
             'element-plus': ['element-plus'],
-            vendor: ['lodash', 'axios', 'dayjs', 'chart.js']
+            vendor: [
+              'lodash',
+              'axios',
+              'dayjs',
+              'chart.js',
+              '@vue-js-cron/element-plus'
+            ]
           }
         }
       },
