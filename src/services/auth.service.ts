@@ -7,6 +7,7 @@ export interface AuthService {
   signOut: (id: string) => Promise<HttpResponse<boolean>>
   register: (data: RegistrationForm) => Promise<HttpResponse<User>>
   refresh: (id: string) => Promise<HttpResponse<AuthResult>>
+  getProfile: (userId: string) => Promise<HttpResponse<User>>
 }
 
 export default (function () {
@@ -28,7 +29,17 @@ export default (function () {
     return httpClient.get(`/auth/${id}/refresh`)
   }
 
-  const instance: AuthService = { signIn, signOut, register, refresh }
+  const getProfile = (userId: string) => {
+    return httpClient.get(`/auth/${userId}/profile`)
+  }
+
+  const instance: AuthService = {
+    signIn,
+    signOut,
+    register,
+    refresh,
+    getProfile
+  }
 
   return () => {
     return instance

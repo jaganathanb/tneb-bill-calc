@@ -20,7 +20,7 @@ export const useUsersStore = defineStore('users', () => {
   const deleteById = async (id: string) => {
     const u = await userService.deleteById(id)
 
-    users.value = users.value.filter((user) => user.userId === id)
+    users.value = users.value.filter((user) => user.userName === id)
 
     return u.data
   }
@@ -29,7 +29,7 @@ export const useUsersStore = defineStore('users', () => {
     const u = await userService.updateById(data)
 
     const index = users.value.findIndex(
-      (user) => data.get('userId') === user.userId
+      (user) => data.get('userName') === user.userName
     )
     users.value[index] = u.data
 

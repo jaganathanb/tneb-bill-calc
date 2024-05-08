@@ -8,8 +8,12 @@ export default (function () {
   instance.interceptors.request.use((config) => {
     config.baseURL = window.__dapps.apiUrl
     config.headers.Authorization = `Bearer ${atob(
-      localStorage.getItem(`${localStorage.getItem('userId')}_token`) ?? ''
+      localStorage.getItem(`${localStorage.getItem('userName')}_token`) ?? ''
     )}`
+
+    const user = JSON.parse(localStorage.getItem('user') ?? '{}') as User
+
+    config.headers.set('dapps-user-id', user.id)
 
     return config
   })
@@ -20,7 +24,7 @@ export default (function () {
     },
     (error: AxiosError<HttpResponseData<string>>) => {
       if (error.response?.data?.error === 'token invalid') {
-        localStorage.removeItem(`${localStorage.getItem('userId')}_token`)
+        localStorage.removeItem(`${localStorage.getItem('userName')}_token`)
 
         location.reload()
       }

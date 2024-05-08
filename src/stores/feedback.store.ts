@@ -1,5 +1,6 @@
 import { getCurrentInstance } from 'vue'
 
+import { useEventSource } from '@vueuse/core'
 import {
   ElMessage,
   ElMessageBox,
@@ -10,11 +11,12 @@ import {
   type NotificationParams
 } from 'element-plus'
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { useEventSource } from '@vueuse/core'
+import { orderBy } from 'lodash'
+import dayjs from 'dayjs'
 
 import { feedbackService } from '@/services'
 
-import { useAuthStore } from './auth.store'
+const notifications = ref<DAppsNotification[]>([])
 
 const setMessage = (feedback: Partial<MessageOptions>) => {
   const context = getCurrentInstance()
@@ -41,11 +43,10 @@ const getConfirmation = (options: Partial<ElMessageBoxOptions>) => {
 }
 
 export const useFeedbackStore = defineStore('feedback', () => {
-  const authStore = useAuthStore()
   const fbService = feedbackService()
   const { data } = useEventSource(
     `${window.__dapps.apiUrl}/stream/?token=${atob(
-      localStorage.getItem(`${localStorage.getItem('userId')}_token`) ?? ''
+      localStorage.getItem(`${localStorage.getItem('userName')}_token`) ?? ''
     )}`,
     [],
     {
@@ -63,17 +64,35 @@ export const useFeedbackStore = defineStore('feedback', () => {
     }
   )
 
-  const getAllNotifications = async (userId?: string) => {
-    return fbService.getAll(userId ?? authStore.currentUser?.userId ?? '')
+  const updateNotification = (message: DAppsNotification) => {
+    return fbService.update(message)
+  }
+
+  const deleteNotification = (message: DAppsNotification) => {
+    return fbService.deleteNotification(message)
+  }
+
+  const getAllNotifications = async () => {
+    const result = await fbService.getAll()
+    if (result.status === 200) {
+      notifications.value = orderBy(
+        result.data.result,
+        (n) => dayjs(n.createdAt),
+        'desc'
+      )
+    }
   }
 
   return {
     notification: data,
+    notifications,
     alert,
     setMessage,
     setNotification,
     getConfirmation,
-    getAllNotifications
+    getAllNotifications,
+    updateNotification,
+    deleteNotification
   }
 })
 

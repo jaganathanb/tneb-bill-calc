@@ -4,7 +4,7 @@ import { useDark, useToggle } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 
 import { useAuthStore } from '@/stores'
-import { NotificationBell } from '@/components/notifications'
+import { Notification } from '@/components/notifications'
 
 import SvgImg from './svg-img.vue'
 
@@ -39,7 +39,7 @@ const signOut = async () => {
         @change="toggleDark()"
       />
       <el-divider :direction="'vertical'" />
-      <NotificationBell />
+      <Notification />
       <el-divider :direction="'vertical'" />
       <el-popover placement="bottom" :width="300" trigger="click">
         <template #reference>

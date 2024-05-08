@@ -104,7 +104,7 @@ interface ReceiptQuery {
 type SearchParameters = Parameters_ & ReceiptQuery
 
 type User = {
-  userId: string
+  id: string
   firstName: string
   lastName: string
   userName: string
@@ -280,6 +280,8 @@ type DAppsNotificationType = 'success' | 'error' | 'warning' | 'info'
 interface DAppsNotification {
   message: string
   messageType: DAppsNotificationType
-  code: string
+  code?: string
   title: string
+  isRead: boolean
+  createdAt: string
 }

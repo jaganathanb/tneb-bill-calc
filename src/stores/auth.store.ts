@@ -21,22 +21,28 @@ export interface LoginForm {
 export const useAuthStore = defineStore('authStore', () => {
   const service = authService()
   const currentUser: Ref<User | undefined> = ref({
-    userId: localStorage.getItem('userId')
+    userName: localStorage.getItem('userName')
   } as User)
   const isAuthenticated = ref(
-    localStorage.getItem(`${localStorage.getItem('userId')}_token`) !== null
+    localStorage.getItem(`${localStorage.getItem('userName')}_token`) !== null
   )
 
   const signIn = async ({ username: email, password }: LoginForm) => {
     const response = await service.signIn({ username: email, password })
 
     if (response.status === 201) {
-      localStorage.setItem(`userId`, email)
+      localStorage.setItem(`userName`, email)
       localStorage.setItem(
         `${email}_token`,
         btoa(response.data.result.accessToken)
       )
-      currentUser.value = { userId: email } as User
+
+      const userResponse = await service.getProfile(email)
+      if (userResponse.status === 200) {
+        currentUser.value = userResponse.data.result
+        localStorage.setItem('user', JSON.stringify(currentUser.value ?? {}))
+      }
+
       isAuthenticated.value = response.data.result.accessToken !== undefined
     } else {
       throw new Error('Check form values')
@@ -44,10 +50,10 @@ export const useAuthStore = defineStore('authStore', () => {
   }
 
   const signOut = async () => {
-    await service.signOut(currentUser.value?.userId as string)
+    await service.signOut(currentUser.value?.userName as string)
 
-    localStorage.removeItem(`${currentUser.value?.userId as string}_token`)
-    localStorage.removeItem('userId')
+    localStorage.removeItem(`${currentUser.value?.userName as string}_token`)
+    localStorage.removeItem('userName')
 
     currentUser.value = undefined
     isAuthenticated.value = false

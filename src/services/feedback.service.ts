@@ -3,20 +3,24 @@ import { useHttpClient } from '@/hooks'
 import type { AxiosResponse } from 'axios'
 
 export interface FeedbackService {
-  getAll: (
-    userId: string
-  ) => Promise<AxiosResponse<HttpResponseData<DAppsNotification[]>, any>>
+  getAll: () => Promise<
+    AxiosResponse<HttpResponseData<DAppsNotification[]>, any>
+  >
   update: (
     data: DAppsNotification
   ) => Promise<AxiosResponse<HttpResponseData<DAppsNotification>, any>>
+
+  deleteNotification: (
+    data: DAppsNotification
+  ) => Promise<AxiosResponse<HttpResponseData<boolean>, any>>
 }
 
 export default (function () {
   const httpClient = useHttpClient()
 
-  const getAll = (userId: string) => {
+  const getAll = () => {
     return httpClient.get<HttpResponseData<DAppsNotification[]>>(
-      `/notifications?userId=${userId}`
+      `/notifications`
     )
   }
 
@@ -24,7 +28,11 @@ export default (function () {
     return httpClient.put(`/notifications`, data)
   }
 
-  const instance: FeedbackService = { getAll, update }
+  const deleteNotification = (data: DAppsNotification) => {
+    return httpClient.delete(`/notifications`, { data })
+  }
+
+  const instance: FeedbackService = { getAll, update, deleteNotification }
 
   return () => {
     return instance
