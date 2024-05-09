@@ -20,9 +20,9 @@ export interface LoginForm {
 
 export const useAuthStore = defineStore('authStore', () => {
   const service = authService()
-  const currentUser: Ref<User | undefined> = ref({
-    userName: localStorage.getItem('userName')
-  } as User)
+  const currentUser: Ref<User | undefined> = ref(
+    JSON.parse(localStorage.getItem('user') ?? 'null') as User
+  )
   const isAuthenticated = ref(
     localStorage.getItem(`${localStorage.getItem('userName')}_token`) !== null
   )
@@ -40,7 +40,7 @@ export const useAuthStore = defineStore('authStore', () => {
       const userResponse = await service.getProfile(email)
       if (userResponse.status === 200) {
         currentUser.value = userResponse.data.result
-        localStorage.setItem('user', JSON.stringify(currentUser.value ?? {}))
+        localStorage.setItem('user', JSON.stringify(userResponse.data.result))
       }
 
       isAuthenticated.value = response.data.result.accessToken !== undefined

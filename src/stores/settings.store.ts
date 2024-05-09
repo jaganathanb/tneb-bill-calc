@@ -13,7 +13,16 @@ export const useSettingsStore = defineStore('settings', () => {
   }
 
   const update = async (data: DAppsSettings) => {
-    const u = await settingService.update(data)
+    const payload = {
+      crontab: data.crontab,
+      gstBaseUrl: data.gstBaseUrl,
+      gstPassword: data.gstPassword,
+      gstUsername: data.gstUsername,
+      id: data.id,
+      modifiedBy: data.modifiedBy
+    } as DAppsSettings
+
+    const u = await settingService.update(payload)
     progress.value = false
 
     settings.value = u.data.result

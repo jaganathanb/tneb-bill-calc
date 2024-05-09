@@ -104,7 +104,7 @@ interface ReceiptQuery {
 type SearchParameters = Parameters_ & ReceiptQuery
 
 type User = {
-  id: string
+  id: number
   firstName: string
   lastName: string
   userName: string
@@ -268,7 +268,7 @@ interface Window {
   __dapps: DAppsConfig
 }
 
-interface DAppsSettings {
+interface DAppsSettings extends BasePayload {
   crontab: string
   gstUsername: string
   gstPassword: string
@@ -277,11 +277,18 @@ interface DAppsSettings {
 
 type DAppsNotificationType = 'success' | 'error' | 'warning' | 'info'
 
-interface DAppsNotification {
+interface DAppsNotification extends BasePayload {
   message: string
   messageType: DAppsNotificationType
   code?: string
   title: string
   isRead: boolean
   createdAt: string
+}
+
+interface BasePayload {
+  createdBy: number
+  modifiedBy: number
+  deletedBy: number
+  id: number
 }

@@ -46,7 +46,6 @@ onMounted(async () => {
             :key="i"
             :class="msg.isRead ? 'read' : 'unread'"
           >
-            <el-divider :direction="'horizontal'" />
             <NotificationItem :message="msg" />
           </div>
         </el-container>

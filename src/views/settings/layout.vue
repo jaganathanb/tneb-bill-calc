@@ -4,15 +4,17 @@ import { CronElementPlus } from '@vue-js-cron/element-plus'
 import { storeToRefs } from 'pinia'
 
 import { useSettingsStore } from '@/stores/settings.store'
-import { useFeedbackStore } from '@/stores'
+import { useAuthStore, useFeedbackStore } from '@/stores'
 
 import type { FormInstance } from 'element-plus'
 
 const settingsStore = useSettingsStore()
 const feedback = useFeedbackStore()
+const authStore = useAuthStore()
 const settingsFormReference = ref<FormInstance>()
 
 const { settings, progress } = storeToRefs(settingsStore)
+const { currentUser } = storeToRefs(authStore)
 
 const onUpdateSettings = (reference: FormInstance | undefined) => {
   if (!reference) {
@@ -22,6 +24,7 @@ const onUpdateSettings = (reference: FormInstance | undefined) => {
   reference.validate(async (valid) => {
     if (valid) {
       progress.value = true
+      settings.value.modifiedBy = currentUser.value?.id as number
       const value = await settingsStore.update(unref(settings))
 
       if (value) {

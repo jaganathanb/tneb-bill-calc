@@ -35,32 +35,13 @@ const updateDeleteStatus = async (message: DAppsNotification) => {
 </script>
 
 <template>
-  <div
-    v-loading="processing"
-    class="activity-item"
-    @click="updateReadStatus(message)"
-  >
-    <div class="flex flex-content-center flex-wrap mr-3">
-      <el-icon color="green" size="20"><SuccessFilled /></el-icon>
-    </div>
-    <div class="message">
-      <el-text :line-clamp="5">{{ message.message }}</el-text>
-    </div>
-    <div>
-      <el-button
-        type="danger"
-        circle
-        text
-        @click.stop="updateDeleteStatus(message)"
-        >x</el-button
-      >
-    </div>
-  </div>
-  <div class="flex justify-end">
-    <el-text :size="'small'">
-      {{
-        dayjs.duration(dayjs(message.createdAt).diff(dayjs())).humanize(true)
-      }}
-    </el-text>
+  <div class="p-2" @click="updateReadStatus(message)">
+    <el-alert
+      :title="message.title"
+      :type="message.messageType"
+      :description="message.message"
+      show-icon
+      @close="updateDeleteStatus(message)"
+    />
   </div>
 </template>
