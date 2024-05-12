@@ -13,9 +13,7 @@ watch(notification, async (data) => {
   const message = JSON.parse(data ?? '{}') as DAppsNotification
 
   if (message.message && message.code === 'NOTIFICATION') {
-    setTimeout(async () => {
-      await feedback.getAllNotifications()
-    }, 2000)
+    await feedback.getAllNotifications()
   }
 })
 

@@ -84,6 +84,12 @@ router.beforeEach(async (to, _from, next) => {
       })
     }
   } else {
-    next()
+    if (to.path === '/auth/login' && isAuthenticated) {
+      next({
+        path: to.query.redirect?.toString()
+      })
+    } else {
+      next()
+    }
   }
 })

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Select, User } from '@element-plus/icons-vue'
+import { Calendar, Select, User } from '@element-plus/icons-vue'
 import { CronElementPlus } from '@vue-js-cron/element-plus'
 import { storeToRefs } from 'pinia'
 
@@ -86,7 +86,7 @@ onMounted(async () => {
     </el-collapse-item>
     <el-collapse-item>
       <template #title>
-        <el-icon class="mr-2"><User /></el-icon>
+        <el-icon class="mr-2"><Calendar /></el-icon>
         <el-text> Schedule GST Status Job </el-text>
       </template>
       <el-row>
