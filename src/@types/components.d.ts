@@ -70,6 +70,7 @@ declare module 'vue' {
     ReturnStatusCellDropdown: typeof import('./../views/gst/return-status-cell-dropdown.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SettingsLayout: typeof import('./../views/settings/settings-layout.vue')['default']
     SideBar: typeof import('./../components/side-bar/side-bar.vue')['default']
     SideBarItem: typeof import('./../components/side-bar/side-bar-item.vue')['default']
     SvgImg: typeof import('./../components/svg-img.vue')['default']

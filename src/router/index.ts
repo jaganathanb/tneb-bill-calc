@@ -39,7 +39,7 @@ export const router = createRouter({
         {
           path: 'settings',
           name: 'settings',
-          component: () => import('../views/settings/layout.vue'),
+          component: () => import('../views/settings/settings-layout.vue'),
           meta: {
             label: 'Settings',
             icon: Setting
