@@ -1,4 +1,4 @@
-import { useHttpClient } from '@/hooks'
+import { useHttpClient } from '@/hooks/use-http-client'
 
 import type { AxiosResponse } from 'axios'
 

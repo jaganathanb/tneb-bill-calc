@@ -1,24 +1,37 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 
-import { useFeedbackStore } from '@/stores'
+import { useNotificationStore } from '@/stores/notification.store'
 
 import NotificationBell from './notification-bell.vue'
 import NotificationItem from './notification-item.vue'
 
-const feedback = useFeedbackStore()
-const { notification, notifications } = storeToRefs(feedback)
+const notiStore = useNotificationStore()
+const { notification, notifications } = storeToRefs(notiStore)
 
 watch(notification, async (data) => {
   const message = JSON.parse(data ?? '{}') as DAppsNotification
 
   if (message.message && message.code === 'NOTIFICATION') {
-    await feedback.getAllNotifications()
+    await notiStore.getAllNotifications()
   }
 })
 
+const updateReadStatus = async (message: DAppsNotification) => {
+  if (!message.isRead) {
+    message.isRead = true
+    await notiStore.updateNotification(message)
+  }
+}
+
+const updateDeleteStatus = async (message: DAppsNotification) => {
+  await notiStore.deleteNotification(message)
+
+  await notiStore.getAllNotifications()
+}
+
 onMounted(async () => {
-  await feedback.getAllNotifications()
+  await notiStore.getAllNotifications()
 })
 </script>
 
@@ -36,15 +49,19 @@ onMounted(async () => {
         </header>
         <el-container
           v-if="notifications.length > 0"
-          class="notification-container"
+          class="notification-container gap-2"
           direction="vertical"
         >
           <div
             v-for="(msg, i) in notifications"
             :key="i"
             :class="msg.isRead ? 'read' : 'unread'"
+            @click="() => updateReadStatus(msg)"
           >
-            <NotificationItem :message="msg" />
+            <NotificationItem
+              :message="msg"
+              @remove="() => updateDeleteStatus(msg)"
+            />
           </div>
         </el-container>
         <el-container v-else class="flex-justify-center">
@@ -68,8 +85,10 @@ onMounted(async () => {
   overflow: auto;
 
   .unread {
-    background: lightgoldenrodyellow;
-    cursor: pointer;
+    > div[class*='el-alert--'] {
+      background: #d1d1d1;
+      cursor: pointer;
+    }
   }
 
   .read {

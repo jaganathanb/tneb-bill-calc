@@ -5,7 +5,7 @@ import { storeToRefs } from 'pinia'
 import { uniqBy } from 'lodash'
 
 import { useDDialog } from '@/stores/dialog.store'
-import { useFeedbackStore } from '@/stores'
+import { useFeedbackStore } from '@/stores/feedback.store'
 
 import type { FormInstance, UploadProps, UploadUserFile } from 'element-plus'
 

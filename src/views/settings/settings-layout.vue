@@ -4,7 +4,8 @@ import { CronElementPlus } from '@vue-js-cron/element-plus'
 import { storeToRefs } from 'pinia'
 
 import { useSettingsStore } from '@/stores/settings.store'
-import { useAuthStore, useFeedbackStore } from '@/stores'
+import { useFeedbackStore } from '@/stores/feedback.store'
+import { useAuthStore } from '@/stores/auth.store'
 
 import type { FormInstance } from 'element-plus'
 
@@ -104,3 +105,5 @@ onMounted(async () => {
   margin-bottom: 8px;
 }
 </style>
+import { useAuthStore } from '@/stores/auth.store' import { useFeedbackStore }
+from '@/stores/feedback.store'

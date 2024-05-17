@@ -6,9 +6,10 @@ import { storeToRefs } from 'pinia'
 
 import BasePagination from '@/components/table/base-pagination.vue'
 import { PAGE_LIMIT } from '@/constants'
-import { useGstsStore } from '@/stores'
+import { useGstsStore } from '@/stores/gsts.store'
 import { useDDialog } from '@/stores/dialog.store'
 import { useFeedbackStore } from '@/stores/feedback.store'
+import { useNotificationStore } from '@/stores/notification.store'
 
 import GstRowActions from './gst-row-actions.vue'
 import GstStatistics from './gst-statistics.vue'
@@ -20,10 +21,11 @@ import type { AxiosError } from 'axios'
 
 const gstStore = useGstsStore()
 const feedback = useFeedbackStore()
+const notiStore = useNotificationStore()
 const dialog = useDDialog()
 
 const { gsts, loading, statistics } = storeToRefs(gstStore)
-const { notification } = storeToRefs(feedback)
+const { notification } = storeToRefs(notiStore)
 const { inProgress } = storeToRefs(dialog)
 
 const search = ref('')

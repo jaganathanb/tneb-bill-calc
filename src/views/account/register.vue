@@ -2,8 +2,9 @@
 import { ref } from 'vue'
 
 import { router } from '@/router'
-import { type RegistrationForm, useAuthStore, useFeedbackStore } from '@/stores'
 import SvgImg from '@/components/svg-img.vue'
+import { type RegistrationForm, useAuthStore } from '@/stores/auth.store'
+import { useFeedbackStore } from '@/stores/feedback.store'
 
 import type { FormInstance, FormRules } from 'element-plus'
 

@@ -1,6 +1,6 @@
-import { useHttpClient } from '@/hooks'
+import { useHttpClient } from '@/hooks/use-http-client'
 
-import type { LoginForm, RegistrationForm } from '@/stores'
+import type { LoginForm, RegistrationForm } from '@/stores/auth.store'
 
 export interface AuthService {
   signIn: (data: LoginForm) => Promise<HttpResponse<AuthResult>>

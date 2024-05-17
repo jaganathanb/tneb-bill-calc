@@ -2,7 +2,7 @@ import { Grid, Setting, Tickets } from '@element-plus/icons-vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { storeToRefs } from 'pinia'
 
-import { useAuthStore } from '@/stores'
+import { useAuthStore } from '@/stores/auth.store'
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -84,7 +84,7 @@ router.beforeEach(async (to, _from, next) => {
       })
     }
   } else {
-    if (to.path === '/auth/login' && isAuthenticated) {
+    if (to.path === '/auth/login' && isAuthenticated.value) {
       next({
         path: to.query.redirect?.toString()
       })

@@ -3,7 +3,7 @@ import { Moon, Sunny, User } from '@element-plus/icons-vue'
 import { useDark, useToggle } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 
-import { useAuthStore } from '@/stores'
+import { useAuthStore } from '@/stores/auth.store'
 import { Notification } from '@/components/notifications'
 
 import SvgImg from './svg-img.vue'

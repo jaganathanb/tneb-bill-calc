@@ -1,12 +1,17 @@
 <script setup lang="ts">
+import {
+  CircleCloseFilled,
+  InfoFilled,
+  SuccessFilled,
+  WarningFilled
+} from '@element-plus/icons-vue'
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
-import { useFeedbackStore } from '@/stores'
-
 dayjs.extend(duration)
 dayjs.extend(relativeTime)
+
 defineProps({
   message: {
     type: Object as PropType<DAppsNotification>,
@@ -14,34 +19,49 @@ defineProps({
   }
 })
 
-const feedback = useFeedbackStore()
-const processing = ref(false)
+defineEmits(['remove'])
 
-const updateReadStatus = async (message: DAppsNotification) => {
-  if (!message.isRead) {
-    message.isRead = true
-    await feedback.updateNotification(message)
+const alertType = {
+  info: {
+    class: 'el-alert--info',
+    icon: InfoFilled
+  },
+  success: {
+    class: 'el-alert--success',
+    icon: SuccessFilled
+  },
+  warning: {
+    class: 'el-alert--warning',
+    icon: WarningFilled
+  },
+  error: {
+    class: 'el-alert--error',
+    icon: CircleCloseFilled
   }
-}
-
-const updateDeleteStatus = async (message: DAppsNotification) => {
-  processing.value = true
-  await feedback.deleteNotification(message)
-
-  await feedback.getAllNotifications()
-  processing.value = false
 }
 </script>
 
 <template>
-  <el-alert
-    class="p-2"
-    :title="message.title"
-    :type="message.messageType"
-    :description="message.message"
-    show-icon
-    closable
-    @click="updateReadStatus(message)"
-    @close="updateDeleteStatus(message)"
-  />
+  <div
+    class="el-alert is-light p-2"
+    :class="alertType[message.messageType].class"
+    role="alert"
+  >
+    <el-icon :size="24"
+      ><component :is="alertType[message.messageType].icon"
+    /></el-icon>
+    <div class="el-alert__content">
+      <p class="el-alert__description">{{ message.message }}</p>
+      <div class="el-alert__close-btn is-customed" @click="$emit('remove')">
+        x
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-end">
+    <em style="font-size: 0.87em">
+      {{
+        dayjs.duration(dayjs(message.createdAt).diff(dayjs())).humanize(true)
+      }}
+    </em>
+  </div>
 </template>

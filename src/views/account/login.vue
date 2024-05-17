@@ -3,8 +3,9 @@ import { StarFilled } from '@element-plus/icons-vue'
 import { useRoute } from 'vue-router'
 
 import { router } from '@/router'
-import { useAuthStore, useFeedbackStore } from '@/stores'
 import SvgImg from '@/components/svg-img.vue'
+import { useAuthStore } from '@/stores/auth.store'
+import { useFeedbackStore } from '@/stores/feedback.store'
 
 import type { FormInstance, FormRules } from 'element-plus'
 import type { AxiosError } from 'axios'

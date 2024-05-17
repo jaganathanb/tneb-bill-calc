@@ -1,8 +1,8 @@
-import { useHttpClient } from '@/hooks'
+import { useHttpClient } from '@/hooks/use-http-client'
 
 import type { AxiosResponse } from 'axios'
 
-export interface FeedbackService {
+export interface NotificationService {
   getAll: () => Promise<
     AxiosResponse<HttpResponseData<DAppsNotification[]>, any>
   >
@@ -32,7 +32,7 @@ export default (function () {
     return httpClient.delete(`/notifications`, { data })
   }
 
-  const instance: FeedbackService = { getAll, update, deleteNotification }
+  const instance: NotificationService = { getAll, update, deleteNotification }
 
   return () => {
     return instance
