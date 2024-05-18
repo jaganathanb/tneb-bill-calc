@@ -58,10 +58,16 @@ const alertType = {
     </div>
   </div>
   <div class="flex justify-end">
-    <em style="font-size: 0.87em">
+    <el-text size="small" style="font-size: 0.8em; font-style: italic">
       {{
         dayjs.duration(dayjs(message.createdAt).diff(dayjs())).humanize(true)
       }}
-    </em>
+    </el-text>
   </div>
 </template>
+
+<style lang="scss">
+.el-alert .el-alert__close-btn.is-customed {
+  right: 6px;
+}
+</style>

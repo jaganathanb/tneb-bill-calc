@@ -265,7 +265,7 @@ onMounted(async () => {
           <GstStatus
             v-if="row.gstr1"
             :gst="row"
-            :type="'GSTR1'"
+            :type="'gstr1'"
             @status-change="
               (st: string) =>
                 updateStatus(row.gstin, 'GSTR1', st as GstReturnStatus)
@@ -289,7 +289,7 @@ onMounted(async () => {
           <GstStatus
             v-if="row.gstr3b"
             :gst="row"
-            :type="'GSTR3B'"
+            :type="'gstr3b'"
             @status-change="
               (st: string) =>
                 updateStatus(row.gstin, 'GSTR3B', st as GstReturnStatus)
@@ -313,7 +313,7 @@ onMounted(async () => {
           <GstStatus
             v-if="row.gstr9"
             :gst="row"
-            :type="'GSTR9'"
+            :type="'gstr9'"
             @status-change="
               (st: string) =>
                 updateStatus(row.gstin, 'GSTR9', st as GstReturnStatus)
@@ -337,7 +337,7 @@ onMounted(async () => {
           <GstStatus
             v-if="row.gstr2"
             :gst="row"
-            :type="'GSTR2'"
+            :type="'gstr2'"
             @status-change="
               (st: string) =>
                 updateStatus(row.gstin, 'GSTR2', st as GstReturnStatus)

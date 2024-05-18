@@ -75,7 +75,10 @@ const gst3bStatusOptions = [
   }
 ] as StatusDropdownItem[]
 
-let statusOptions = gstr1StatusOptions
+let statusOptions =
+  properties.returnStatus.returnType === 'GSTR1'
+    ? gstr1StatusOptions
+    : gst3bStatusOptions
 
 let statusOption =
   statusOptions.find((s) => s.value === properties.returnStatus.status) ??
