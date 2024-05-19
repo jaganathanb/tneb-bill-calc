@@ -57,9 +57,7 @@ onMounted(async () => {
 
   <el-row class="m-b" style="justify-content: space-between"
     ><el-col class="flex-grow" :span="4">
-      <el-button :icon="Plus" type="primary" @click="dialogVisible = true"
-        >Add card</el-button
-      >
+      <el-button :icon="Plus" type="primary">Add card</el-button>
     </el-col>
     <el-col :span="8" class="justify-end">
       <el-input

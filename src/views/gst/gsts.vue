@@ -234,6 +234,7 @@ onMounted(async () => {
     class="w-full"
     :border="true"
     :row-class-name="lockRow"
+    style="height: calc(100% - 135px)"
   >
     <el-table-column prop="gstin" label="GSTIN" min-width="150" fixed>
       <template #header>

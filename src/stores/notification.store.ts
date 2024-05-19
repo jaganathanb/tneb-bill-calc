@@ -44,10 +44,10 @@ export const useNotificationStore = defineStore('notification', () => {
   const getAllNotifications = async () => {
     const result = await nService.getAll()
     if (result.status === 200) {
-      notifications.value = orderBy(
-        result.data.result,
-        (n) => dayjs(n.createdAt),
-        'desc'
+      notifications.value.splice(
+        0,
+        notifications.value.length,
+        ...orderBy(result.data.result, (n) => dayjs(n.createdAt), 'desc')
       )
     }
   }

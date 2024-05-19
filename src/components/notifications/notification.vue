@@ -17,19 +17,6 @@ watch(notification, async (data) => {
   }
 })
 
-const updateReadStatus = async (message: DAppsNotification) => {
-  if (!message.isRead) {
-    message.isRead = true
-    await notiStore.updateNotification(message)
-  }
-}
-
-const updateDeleteStatus = async (message: DAppsNotification) => {
-  await notiStore.deleteNotification(message)
-
-  await notiStore.getAllNotifications()
-}
-
 onMounted(async () => {
   await notiStore.getAllNotifications()
 })
@@ -56,12 +43,8 @@ onMounted(async () => {
             v-for="(msg, i) in notifications"
             :key="i"
             :class="msg.isRead ? 'read' : 'unread'"
-            @click="() => updateReadStatus(msg)"
           >
-            <NotificationItem
-              :message="msg"
-              @remove="() => updateDeleteStatus(msg)"
-            />
+            <NotificationItem :message="msg" />
           </div>
         </el-container>
         <el-container v-else class="flex-justify-center">

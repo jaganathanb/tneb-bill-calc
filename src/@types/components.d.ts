@@ -10,7 +10,7 @@ declare module 'vue' {
     BaseDatepicker: typeof import('./../components/table/base-datepicker.vue')['default']
     BasePagination: typeof import('./../components/table/base-pagination.vue')['default']
     DateColumn: typeof import('./../components/table/date-column.vue')['default']
-    ElAlert: typeof import('element-plus/es')['ElAlert']
+    ElAffix: typeof import('element-plus/es')['ElAffix']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElBadge: typeof import('element-plus/es')['ElBadge']
     ElButton: typeof import('element-plus/es')['ElButton']

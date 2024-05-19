@@ -16,7 +16,7 @@ const properties = withDefaults(
     total: 0,
     page: 1,
     limit: PAGE_LIMIT,
-    layout: 'total,sizes,prev,next',
+    layout: 'total, sizes, prev, pager, next',
     autoScroll: true
   }
 )
