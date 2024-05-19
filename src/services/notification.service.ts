@@ -1,5 +1,4 @@
 import { useHttpClient } from '@/hooks/use-http-client'
-import { sleep } from '@/utils'
 
 import type { AxiosResponse } from 'axios'
 
@@ -26,14 +25,10 @@ export default (function () {
   }
 
   const update = async (data: DAppsNotification) => {
-    await sleep(3000)
-
     return httpClient.put(`/notifications`, data)
   }
 
   const deleteNotification = async (data: DAppsNotification) => {
-    await sleep(3000)
-
     return httpClient.delete(`/notifications`, { data })
   }
 
