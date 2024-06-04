@@ -1,39 +1,34 @@
 <script lang="ts" setup>
+import { AgGridVue } from '@ag-grid-community/vue3'
 import { Plus, Refresh } from '@element-plus/icons-vue'
-import dayjs from 'dayjs'
 import { ElButton } from 'element-plus'
 import { storeToRefs } from 'pinia'
-import { settings } from 'nprogress'
-import { AgGridVue } from '@ag-grid-community/vue3'
+import { useDark } from '@vueuse/core'
 
-import BasePagination from '@/components/table/base-pagination.vue'
+import StatusRenderer from '@/components/table/status-renderer.vue'
 import { PAGE_LIMIT } from '@/constants'
-import { useGstsStore } from '@/stores/gsts.store'
 import { useDDialog } from '@/stores/dialog.store'
 import { useFeedbackStore } from '@/stores/feedback.store'
+import { useGstsStore } from '@/stores/gsts.store'
 import { useNotificationStore } from '@/stores/notification.store'
-import { StatusEditor } from '@/components/table'
-import StatusRenderer from '@/components/table/status-renderer.vue'
 
-import GstRowActions from './gst-row-actions.vue'
 import GstStatistics from './gst-statistics.vue'
-import GstStatus from './gst-status.vue'
 
 import { UploadGst } from '.'
 
-import type { AxiosError } from 'axios'
 import type {
-  ColDef,
   ColGroupDef,
   DetailGridInfo,
   GridApi,
   GridOptions
 } from '@ag-grid-community/core'
+import type { AxiosError } from 'axios'
 
 const gstStore = useGstsStore()
 const feedback = useFeedbackStore()
 const notiStore = useNotificationStore()
 const dialog = useDDialog()
+const isDark = useDark()
 
 const { gsts, loading, statistics } = storeToRefs(gstStore)
 const { notification } = storeToRefs(notiStore)
@@ -216,7 +211,9 @@ onMounted(async () => {
   await gstStore.getGstStatistics()
 })
 
-const themeClass = 'ag-theme-quartz-dark'
+const themeClass = computed(() =>
+  isDark.value ? 'ag-theme-quartz-dark' : 'ag-theme-quartz'
+)
 
 const columnDefs = [
   { field: 'gstin', headerName: 'Gstin', filter: true },

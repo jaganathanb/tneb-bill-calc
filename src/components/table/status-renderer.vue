@@ -2,11 +2,9 @@
 import { DocumentChecked, Memo, Phone, Select } from '@element-plus/icons-vue'
 
 import PendingReturnWarning from '@/views/gst/pending-return-warning.vue'
-import ReturnStatusCellDropdown from '@/views/gst/return-status-cell-dropdown.vue'
 import ReturnStatusCell from '@/views/gst/return-status-cell.vue'
 
 import type { ICellEditorParams } from '@ag-grid-community/core'
-import type { OptionType } from 'element-plus/es/components/select-v2/src/select.types'
 import type { PropType } from 'vue'
 
 interface StatusDropdownItem {
