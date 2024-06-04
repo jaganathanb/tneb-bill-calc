@@ -119,7 +119,7 @@ onBeforeMount(() => {
     placement="right-start"
     @command="statusChanged"
   >
-    <span class="el-dropdown-link flex">
+    <!-- <span class="el-dropdown-link flex">
       <ReturnStatusCell :return-status="statusOption" />
     </span>
     <template #dropdown>
@@ -133,6 +133,6 @@ onBeforeMount(() => {
           <ReturnStatusCell :return-status="opt" />
         </el-dropdown-item>
       </el-dropdown-menu>
-    </template>
+    </template> -->
   </el-dropdown>
 </template>

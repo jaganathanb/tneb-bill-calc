@@ -9,7 +9,7 @@ defineProps({
     required: true
   },
   type: {
-    type: String as PropType<GSTReturnTypeLowed>,
+    type: String as PropType<GSTReturnTypeLowered>,
     required: true
   }
 })

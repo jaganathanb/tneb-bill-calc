@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { OptionType } from 'element-plus/es/components/select-v2/src/select.types'
 import type { Component, PropType, VNode } from 'vue'
 
-type StatusDropdownItem = OptionType & {
+type StatusDropdownItem = {
   icon: VNode | Component
   color: string
+  label: string
 }
 
-const properties = defineProps({
+defineProps({
   returnStatus: {
     type: Object as PropType<StatusDropdownItem>,
     required: true
@@ -16,11 +16,9 @@ const properties = defineProps({
 </script>
 
 <template>
-  <el-icon
-    size="18"
-    :color="properties.returnStatus.color"
-    style="margin-right: 8px"
-  >
-    <component :is="properties.returnStatus.icon" /> </el-icon
-  ><el-text>{{ properties.returnStatus.label }}</el-text>
+  <div class="flex flex-items-center">
+    <el-icon size="18" :color="returnStatus.color" style="margin-right: 8px">
+      <component :is="returnStatus.icon" /> </el-icon
+    ><span>{{ returnStatus.label }}</span>
+  </div>
 </template>

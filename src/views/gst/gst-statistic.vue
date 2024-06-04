@@ -16,7 +16,7 @@ defineProps({
     :value-style="{
       display: 'flex',
       justifyContent: 'center',
-      color: highlight ? (statistic > 0 ? 'green' : 'red') : 'inherit'
+      color: highlight ? (statistic > 0 ? 'red' : 'green') : 'inherit'
     }"
   >
     <template #title>
@@ -24,3 +24,9 @@ defineProps({
     </template>
   </el-statistic>
 </template>
+
+<style lang="scss">
+.el-statistic__content {
+  display: flex;
+}
+</style>

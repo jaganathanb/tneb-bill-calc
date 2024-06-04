@@ -5,6 +5,18 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@ag-grid-community/client-side-row-model':
+    specifier: ^31.3.2
+    version: 31.3.2
+  '@ag-grid-community/core':
+    specifier: ^31.3.2
+    version: 31.3.2
+  '@ag-grid-community/styles':
+    specifier: ^31.3.2
+    version: 31.3.2
+  '@ag-grid-community/vue3':
+    specifier: ^31.3.2
+    version: 31.3.2(typescript@5.2.2)
   '@amap/amap-jsapi-loader':
     specifier: ^1.0.1
     version: 1.0.1
@@ -208,6 +220,32 @@ packages:
   /@aashutoshrathi/word-wrap@1.2.6:
     resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==}
     engines: {node: '>=0.10.0'}
+
+  /@ag-grid-community/client-side-row-model@31.3.2:
+    resolution: {integrity: sha512-XFzq4BvPPEjf5HtC1VpruBESqvsJYfIcY1EC5CaY1hqV1NRp1JVImFrMdoxUuw9NsoucGneDT/DOj42WHweFIg==}
+    dependencies:
+      '@ag-grid-community/core': 31.3.2
+      tslib: 2.6.2
+    dev: false
+
+  /@ag-grid-community/core@31.3.2:
+    resolution: {integrity: sha512-iab+xIPCvjzGkIBgo12IQNa9/ZGI4BmjsQz65+aipNXISbtGketkN5iO4OFQgafgf0f9JZVFOZ3EzCnMiVWLiQ==}
+    dependencies:
+      tslib: 2.6.2
+    dev: false
+
+  /@ag-grid-community/styles@31.3.2:
+    resolution: {integrity: sha512-FP1FxUGKHCUdu081eptYg1g5FdDHjluTt2w6Jm5/KmC2XISUzdhhxJATsNM4Nu0h6fwxhQICsJl0xsTvXG/rxw==}
+    dev: false
+
+  /@ag-grid-community/vue3@31.3.2(typescript@5.2.2):
+    resolution: {integrity: sha512-QaAwfO8+n2C3MQYcmkmB4771h6NPcKIlwDWt+Y7Rx4k+HWk3ti6qimBeSkbzKIdLBEW2ym4zqQW1PPsB4m62Rw==}
+    dependencies:
+      '@ag-grid-community/core': 31.3.2
+      vue: 3.4.19(typescript@5.2.2)
+    transitivePeerDependencies:
+      - typescript
+    dev: false
 
   /@amap/amap-jsapi-loader@1.0.1:
     resolution: {integrity: sha512-nPyLKt7Ow/ThHLkSvn2etQlUzqxmTVgK7bIgwdBRTg2HK5668oN7xVxkaiRe3YZEzGzfV2XgH5Jmu2T73ljejw==}
@@ -4998,7 +5036,6 @@ packages:
 
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
-    dev: true
 
   /type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}

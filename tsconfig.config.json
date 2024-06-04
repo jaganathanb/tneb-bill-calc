@@ -18,7 +18,7 @@
     "preserveConstEnums": true,
     "outDir": "./out",
     "resolveJsonModule": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "baseUrl": ".",

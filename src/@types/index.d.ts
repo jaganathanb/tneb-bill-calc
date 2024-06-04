@@ -66,7 +66,7 @@ interface DCard {
 
 type ModeOfFiling = 'ONLINE' | 'OFFLINE'
 type GSTReturnType = 'GSTR1' | 'GSTR3B' | 'GSTR9' | 'GSTR2'
-type GSTReturnTypeLowed = 'gstr1' | 'gstr3b' | 'gstr9' | 'gstr2'
+type GSTReturnTypeLowered = 'gstr1' | 'gstr3b' | 'gstr9' | 'gstr2'
 
 type GstReturn1Status =
   | 'CallForInvoice'
@@ -179,7 +179,7 @@ interface GstMap extends Omit<Gst, 'gstStatuses'> {
   gstr3b: GstStatus
   gstr2: GstStatus
   gstr9: GstStatus
-  [key: GSTReturnTypeLowed]: GstStatus
+  [key: GSTReturnTypeLowered]: GstStatus
 }
 
 interface Gst {

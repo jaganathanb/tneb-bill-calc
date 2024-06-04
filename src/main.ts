@@ -1,18 +1,25 @@
 import { createApp } from 'vue'
 
-import { createPinia } from 'pinia'
-import ElementPlus from 'element-plus'
+import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model'
+import { ModuleRegistry } from '@ag-grid-community/core'
 import CronJob from '@vue-js-cron/element-plus'
+import ElementPlus from 'element-plus'
+import { createPinia } from 'pinia'
 
 import { router } from '@/router'
 import 'element-plus/dist/index.css'
 
 //import theme
-import './theme/index.scss'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import 'uno.css'
+import './theme/index.scss'
+
+import '@ag-grid-community/styles/ag-grid.css'
+import '@ag-grid-community/styles/ag-theme-quartz.css'
 
 import App from './app.vue'
+
+ModuleRegistry.registerModules([ClientSideRowModelModule])
 
 const app = createApp(App)
 

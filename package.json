@@ -20,6 +20,10 @@
     ]
   },
   "dependencies": {
+    "@ag-grid-community/client-side-row-model": "^31.3.2",
+    "@ag-grid-community/core": "^31.3.2",
+    "@ag-grid-community/styles": "^31.3.2",
+    "@ag-grid-community/vue3": "^31.3.2",
     "@amap/amap-jsapi-loader": "^1.0.1",
     "@element-plus/icons-vue": "^2.3.1",
     "@vue-js-cron/element-plus": "^3.0.2",
