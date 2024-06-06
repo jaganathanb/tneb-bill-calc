@@ -1,27 +1,30 @@
 <script lang="ts" setup>
 import { AgGridVue } from '@ag-grid-community/vue3'
 import { Plus, Refresh } from '@element-plus/icons-vue'
-import { ElButton } from 'element-plus'
-import { storeToRefs } from 'pinia'
 import { useDark } from '@vueuse/core'
+import { ElButton, dayjs } from 'element-plus'
+import { storeToRefs } from 'pinia'
+import {
+  type ColDef,
+  type ColGroupDef,
+  type DetailGridInfo,
+  type GetRowIdParams,
+  type GridApi,
+  type GridOptions
+} from '@ag-grid-community/core'
 
 import StatusRenderer from '@/components/table/status-renderer.vue'
-import { PAGE_LIMIT } from '@/constants'
 import { useDDialog } from '@/stores/dialog.store'
 import { useFeedbackStore } from '@/stores/feedback.store'
 import { useGstsStore } from '@/stores/gsts.store'
 import { useNotificationStore } from '@/stores/notification.store'
+import StatusEditor from '@/components/table/status-editor.vue'
 
 import GstStatistics from './gst-statistics.vue'
+import GstRowActions from './gst-row-actions.vue'
 
 import { UploadGst } from '.'
 
-import type {
-  ColGroupDef,
-  DetailGridInfo,
-  GridApi,
-  GridOptions
-} from '@ag-grid-community/core'
 import type { AxiosError } from 'axios'
 
 const gstStore = useGstsStore()
@@ -33,15 +36,6 @@ const isDark = useDark()
 const { gsts, loading, statistics } = storeToRefs(gstStore)
 const { notification } = storeToRefs(notiStore)
 const { inProgress } = storeToRefs(dialog)
-
-const search = ref('')
-const pageSize = ref<number>(
-  Number.parseInt(
-    (localStorage.getItem('page-size') as string) ?? PAGE_LIMIT.toString(),
-    10
-  )
-)
-const currentPage = ref(1)
 
 watch(notification, (data) => {
   const message = JSON.parse(data ?? '{}')
@@ -119,8 +113,13 @@ const onAction = async (data: { action: string; data: GstMap }) => {
       break
     }
     case 'lock': {
-      data.data.locked = true
-      await gstStore.updateLockById(data.data.gstin, true)
+      const locked = await gstStore.updateLockById(data.data.gstin, true)
+      if (locked) {
+        data.data.locked = true
+        const rowNode = gridApi.getRowNode(data.data.gstin)!
+        rowNode.setData(data.data)
+      }
+
       break
     }
     case 'refresh-returns': {
@@ -139,16 +138,8 @@ const onAction = async (data: { action: string; data: GstMap }) => {
 
 const refreshPage = async () => {
   await gstStore.getAll({
-    pageNumber: currentPage.value,
-    pageSize: pageSize.value,
-    filter: {
-      Gstin: {
-        filterType: 'text',
-        type: 'contains',
-        to: '',
-        from: search.value
-      }
-    } as Filter
+    pageNumber: gridApi.paginationGetCurrentPage() + 1,
+    pageSize: gridApi.paginationGetPageSize()
   } as PagingRequest)
 
   await gstStore.getGstStatistics()
@@ -162,50 +153,18 @@ const updateStatus = async (
   await gstStore.updateReturnStatusById(gstin, type, status)
 }
 
-const lockRow = ({ row }: { row: GST }) => {
-  if (row.locked) {
-    return 'error-row'
-  }
-
-  return ''
-}
-
 const unlockRow = async (data: GstMap) => {
-  await gstStore.updateLockById(data.gstin, false)
-}
-
-const onSearch = (event_: KeyboardEvent | Event) => {
-  if (event_ instanceof KeyboardEvent && event_.key === 'Enter') {
-    gstStore.getAll({
-      pageNumber: currentPage.value,
-      pageSize: pageSize.value,
-      filter: {
-        Gstin: {
-          filterType: 'text',
-          type: 'contains',
-          to: '',
-          from: search.value
-        }
-      } as Filter
-    } as PagingRequest)
+  const locked = await gstStore.updateLockById(data.gstin, false)
+  if (locked) {
+    data.locked = false
+    const rowNode = gridApi.getRowNode(data.gstin)!
+    rowNode.setData(data)
   }
-}
-
-const paginateTable = async (page: PageConfig) => {
-  loading.value = true
-
-  localStorage.setItem('page-size', page.size.toString())
-
-  await gstStore.getAll({
-    pageNumber: page.page,
-    pageSize: page.size
-  } as PagingRequest)
 }
 
 onMounted(async () => {
   await gstStore.getAll({
-    pageNumber: currentPage.value,
-    pageSize: pageSize.value
+    pageNumber: 1
   } as PagingRequest)
 
   await gstStore.getGstStatistics()
@@ -218,22 +177,42 @@ const themeClass = computed(() =>
 const columnDefs = [
   { field: 'gstin', headerName: 'Gstin', filter: true },
   { field: 'mobileNumber', headerName: 'Mobile number', filter: true },
-  { field: 'name', headerName: 'Customer name', filter: true },
-  { field: 'tradeName', headerName: 'Trade name', filter: true },
+  { field: 'name', headerName: 'Customer name', filter: true, pinned: true },
+  {
+    field: 'tradeName',
+    headerName: 'Trade name',
+    filter: true,
+    pinned: true
+  },
   {
     headerName: 'GSTR-1',
     children: [
       {
         field: 'gstr1.returnPeriod',
         filter: true,
-        headerName: 'Tax period'
+        headerName: 'Tax period',
+        valueFormatter: (parameters) =>
+          parameters.data?.gstr1
+            ? dayjs(parameters.data?.gstr1?.returnPeriod, 'MMYYYY').format(
+                'MMM YYYY'
+              )
+            : 'N/A'
       },
       {
         field: 'gstr1.status',
         filter: true,
-        editable: false,
+        editable: true,
         cellRenderer: StatusRenderer,
         cellRendererParams: { type: 'gstr1' },
+        cellEditor: StatusEditor,
+        cellEditorParams: {
+          type: 'gstr1',
+          statusChanged: (
+            gstin: string,
+            type: GSTReturnType,
+            status: GstReturnStatus
+          ) => updateStatus(gstin, type, status)
+        },
         headerName: 'Status'
       }
     ]
@@ -244,14 +223,31 @@ const columnDefs = [
       {
         field: 'gstr3b.returnPeriod',
         filter: true,
-        headerName: 'Tax period'
+        headerName: 'Tax period',
+        valueFormatter: (parameters) =>
+          parameters.data?.gstr1
+            ? dayjs(parameters.data?.gstr1?.returnPeriod, 'MMYYYY').format(
+                'MMM YYYY'
+              )
+            : 'N/A'
       },
       {
         field: 'gstr3b.status',
         filter: true,
-        editable: false,
+        editable: true,
         cellRenderer: StatusRenderer,
-        cellRendererParams: { type: 'gstr3b' },
+        cellRendererParams: {
+          type: 'gstr3b'
+        },
+        cellEditor: StatusEditor,
+        cellEditorParams: {
+          type: 'gstr3b',
+          statusChanged: (
+            gstin: string,
+            type: GSTReturnType,
+            status: GstReturnStatus
+          ) => updateStatus(gstin, type, status)
+        },
         headerName: 'Status'
       }
     ]
@@ -262,14 +258,31 @@ const columnDefs = [
       {
         field: 'gstr2.returnPeriod',
         filter: true,
-        headerName: 'Tax period'
+        headerName: 'Tax period',
+        valueFormatter: (parameters) =>
+          parameters.data?.gstr1
+            ? dayjs(parameters.data?.gstr1?.returnPeriod, 'MMYYYY').format(
+                'MMM YYYY'
+              )
+            : 'N/A'
       },
       {
         field: 'gstr2.status',
         filter: true,
-        editable: false,
+        editable: true,
         cellRenderer: StatusRenderer,
-        cellRendererParams: { type: 'gstr2' },
+        cellRendererParams: {
+          type: 'gstr2'
+        },
+        cellEditor: StatusEditor,
+        cellEditorParams: {
+          type: 'gstr2',
+          statusChanged: (
+            gstin: string,
+            type: GSTReturnType,
+            status: GstReturnStatus
+          ) => updateStatus(gstin, type, status)
+        },
         headerName: 'Status'
       }
     ]
@@ -280,32 +293,61 @@ const columnDefs = [
       {
         field: 'gstr9.returnPeriod',
         filter: true,
-        headerName: 'Tax period'
+        headerName: 'Tax period',
+        valueFormatter: (parameters) =>
+          parameters.data?.gstr1
+            ? dayjs(parameters.data?.gstr1?.returnPeriod, 'MMYYYY').format(
+                'MMM YYYY'
+              )
+            : 'N/A'
       },
       {
         field: 'gstr9.status',
         filter: true,
-        editable: false,
+        editable: true,
         cellRenderer: StatusRenderer,
-        cellRendererParams: { type: 'gstr9' },
+        cellRendererParams: {
+          type: 'gstr9'
+        },
+        cellEditor: StatusEditor,
+        cellEditorParams: {
+          type: 'gstr9',
+          statusChanged: (
+            gstin: string,
+            type: GSTReturnType,
+            status: GstReturnStatus
+          ) => updateStatus(gstin, type, status)
+        },
         headerName: 'Status'
       }
     ]
+  },
+  {
+    headerName: 'Actions',
+    cellRenderer: GstRowActions,
+    cellRendererParams: {
+      onAction: (action: string, data: GstMap) => onAction({ action, data }),
+      onUnlockAction: (data: GstMap) => unlockRow(data)
+    },
+    cellStyle: () => ({ display: 'flex', 'justify-content': 'center' })
   }
-] as ColGroupDef<GstMap>[]
+] as (ColDef<GstMap> | ColGroupDef<GstMap>)[]
 
 let gridApi: GridApi<GstMap>
 
-const defaultColDefinition = {
-  flex: 1,
-  minWidth: 100
-}
+const defaultColDefinition = {}
 
 const options = {
   columnDefs,
   rowData: undefined,
   defaultColDef: defaultColDefinition,
   pagination: true,
+  paginationPageSize: 20,
+  columnHoverHighlight: true,
+  rowClassRules: {
+    'locked-row': (parameters) => parameters.data?.locked
+  },
+  getRowId: (parameters: GetRowIdParams<GstMap>) => parameters.data.gstin,
   onColumnResized: () => saveColumnState(),
   onSortChanged: () => saveColumnState(),
   onColumnMoved: () => saveColumnState()
@@ -363,19 +405,11 @@ watch(gsts, () => {
 </template>
 
 <style lang="scss">
-.el-table .error-row {
-  --el-table-tr-bg-color: var(--el-color-error-light-3);
+.locked-row {
+  background-color: var(--el-color-error-light-3);
 
-  > :not(.el-table-fixed-column--right) {
+  > :not(.ag-column-last) {
     pointer-events: none;
-  }
-}
-
-.el-col {
-  margin-right: 8px;
-
-  &:last-of-type {
-    margin-right: 0;
   }
 }
 </style>

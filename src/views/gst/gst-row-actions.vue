@@ -9,20 +9,23 @@ import {
   Unlock
 } from '@element-plus/icons-vue'
 
+import type { ICellRendererParams } from '@ag-grid-community/core'
+
 const properties = defineProps({
-  gst: {
-    type: Object as PropType<GstMap>,
-    required: true
+  params: {
+    type: Object as PropType<
+      ICellRendererParams<GstMap, GstMap, any> & {
+        type: GSTReturnTypeLowered
+        onAction: (action: string, data: GstMap) => void
+        onUnlockAction: (data: GstMap) => void
+      }
+    >
   }
 })
 
-const emits = defineEmits<{
-  actionClick: [data: { action: string; data: GstMap }]
-  unlockClick: [data: GstMap]
-}>()
+const gst = properties.params?.data as GstMap
 
 const canShowRefreshReturns = () => {
-  const gst = properties.gst
   return (
     !(gst.gstr1 || gst.gstr2 || gst.gstr9 || gst.gstr3b) ||
     gst.gstr1.status === 'InvoiceEntry' ||
@@ -35,7 +38,7 @@ const canShowRefreshReturns = () => {
     <el-dropdown
       v-if="!gst.locked"
       trigger="click"
-      @command="(data) => emits('actionClick', data)"
+      @command="({ action, data }) => params?.onAction(action, data)"
     >
       <el-button :icon="More" link />
       <template #dropdown>
@@ -69,7 +72,7 @@ const canShowRefreshReturns = () => {
       v-else
       :icon="Unlock"
       link
-      @click="() => emits('unlockClick', gst)"
+      @click="() => params?.onUnlockAction(params?.data as GstMap)"
     />
   </el-tooltip>
 </template>

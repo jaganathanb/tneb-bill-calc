@@ -6,6 +6,7 @@ import ReturnStatusCell from '@/views/gst/return-status-cell.vue'
 
 import type { ICellEditorParams } from '@ag-grid-community/core'
 import type { PropType } from 'vue'
+import type { DropdownInstance } from 'element-plus'
 
 interface StatusDropdownItem {
   icon: VNode | Component
@@ -85,7 +86,7 @@ const statusOption =
 </script>
 
 <template>
-  <el-container class="flex-items-center grow-2">
+  <el-container class="flex-items-center">
     <ReturnStatusCell :return-status="statusOption" />
     <PendingReturnWarning
       :gst-status="params?.data[params.type] ?? ({} as GstStatus)"
