@@ -184,6 +184,8 @@ interface GstMap extends Omit<Gst, 'gstStatuses'> {
 
 interface Gst {
   gstStatuses: GstStatus[]
+  sno: string
+  fno: string
   gstin: string
   lastUpdateDate: string
   locked: boolean

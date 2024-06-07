@@ -6,7 +6,6 @@ import ReturnStatusCell from '@/views/gst/return-status-cell.vue'
 
 import type { ICellEditorParams } from '@ag-grid-community/core'
 import type { PropType } from 'vue'
-import type { DropdownInstance } from 'element-plus'
 
 interface StatusDropdownItem {
   icon: VNode | Component

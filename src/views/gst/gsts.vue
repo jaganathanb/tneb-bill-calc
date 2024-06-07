@@ -33,7 +33,7 @@ const notiStore = useNotificationStore()
 const dialog = useDDialog()
 const isDark = useDark()
 
-const { gsts, loading, statistics } = storeToRefs(gstStore)
+const { gsts, statistics } = storeToRefs(gstStore)
 const { notification } = storeToRefs(notiStore)
 const { inProgress } = storeToRefs(dialog)
 
@@ -177,6 +177,8 @@ const themeClass = computed(() =>
 const columnDefs = [
   { field: 'gstin', headerName: 'Gstin', filter: true },
   { field: 'mobileNumber', headerName: 'Mobile number', filter: true },
+  { field: 'sno', headerName: 'S. No', filter: true },
+  { field: 'fno', headerName: 'F. No', filter: true },
   { field: 'name', headerName: 'Customer name', filter: true, pinned: true },
   {
     field: 'tradeName',

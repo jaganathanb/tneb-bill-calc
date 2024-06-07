@@ -13,6 +13,8 @@ const dialog = useDDialog()
 const feedback = useFeedbackStore()
 
 const gstColumns = [
+  { label: 'S.No', value: 'sno' },
+  { label: 'F.No', value: 'fno' },
   { label: 'Gstin', value: 'gstin' },
   { label: 'Mobile number', value: 'mobileNumber' },
   { label: 'Trade name', value: 'tradeName' },
@@ -80,6 +82,14 @@ const submitGsts = async (formElement: FormInstance | undefined) => {
           gsts.map(
             (g) =>
               ({
+                sno: g[
+                  columnMapForm.columns.find((c) => c.gst === 'sno')
+                    ?.xl as string
+                ],
+                fno: g[
+                  columnMapForm.columns.find((c) => c.gst === 'fno')
+                    ?.xl as string
+                ],
                 gstin:
                   g[
                     columnMapForm.columns.find((c) => c.gst === 'gstin')

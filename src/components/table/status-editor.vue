@@ -104,6 +104,7 @@ const onItemChange = (value: string) => {
   properties.params?.stopEditing()
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getValue = () => {
   return statusOption.value
 }
