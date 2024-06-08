@@ -104,12 +104,13 @@ const onItemChange = (value: string) => {
   properties.params?.stopEditing()
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getValue = () => {
   return statusOption.value
 }
 
 onMounted(async () => {
+  getValue() // getValue needs to be called here to avoid treeshake
+
   await nextTick(() => {
     statusOption =
       statusOptions.find((s) => s.value === properties.params?.value) ??
