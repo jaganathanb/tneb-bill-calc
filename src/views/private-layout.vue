@@ -19,7 +19,7 @@ import TopBar from '@/components/top-bar.vue'
   </el-container>
 </template>
 
-<style lang="scss">
+<style lang="css">
 aside.el-aside.side-bar {
   width: auto;
 }
