@@ -19,12 +19,12 @@ import TopBar from '@/components/top-bar.vue'
   </el-container>
 </template>
 
-<style lang="css">
-.side-bar {
+<style lang="scss">
+aside.el-aside.side-bar {
   width: auto;
 }
 
-.side-bar:not(> ul.el-menu--collapse) {
+aside.el-aside.side-bar:not(> ul.el-menu--collapse) {
   width: 300px;
 }
 </style>
