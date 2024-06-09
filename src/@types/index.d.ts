@@ -196,6 +196,8 @@ interface Gst {
   tradeName: string
   type: string
   email: string
+  username: string
+  password: string
 }
 
 interface GstStatus {

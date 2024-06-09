@@ -18,7 +18,9 @@ const gstColumns = [
   { label: 'Gstin', value: 'gstin' },
   { label: 'Mobile number', value: 'mobileNumber' },
   { label: 'Trade name', value: 'tradeName' },
-  { label: 'Email', value: 'email' }
+  { label: 'Email', value: 'email' },
+  { label: 'Username', value: 'username' },
+  { label: 'Password', value: 'password' }
 ]
 
 const fileList = ref<UploadUserFile[]>()
@@ -112,6 +114,16 @@ const submitGsts = async (formElement: FormInstance | undefined) => {
                 email:
                   g[
                     columnMapForm.columns.find((c) => c.gst === 'email')
+                      ?.xl as string
+                  ],
+                username:
+                  g[
+                    columnMapForm.columns.find((c) => c.gst === 'username')
+                      ?.xl as string
+                  ],
+                password:
+                  g[
+                    columnMapForm.columns.find((c) => c.gst === 'password')
                       ?.xl as string
                   ]
               }) as Gst

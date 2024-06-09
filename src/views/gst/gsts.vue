@@ -324,6 +324,8 @@ const columnDefs = [
       }
     ]
   },
+  { field: 'username', headerName: 'Username', filter: true },
+  { field: 'password', headerName: 'Password' },
   {
     headerName: 'Actions',
     cellRenderer: GstRowActions,
