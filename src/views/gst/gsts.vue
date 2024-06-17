@@ -416,4 +416,8 @@ watch(gsts, () => {
     pointer-events: none;
   }
 }
+
+.ag-cell-value.ag-cell {
+  user-select: all;
+}
 </style>
